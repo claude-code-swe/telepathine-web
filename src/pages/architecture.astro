@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Architecture"
+  description="Telepathine.ai uses a clean three-tier architecture: your agents at the edge, the API with intelligence layer, and your isolated tenant data at the foundation."
+>
+  <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="mx-auto max-w-4xl text-center">
+      <h1>Architecture</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg" style="color: var(--text-muted);">A clean three-tier architecture: your agents at the edge, the Telepathine.ai API in the middle, your isolated data at the foundation.</p>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <div class="surface-panel p-6 sm:p-8">
+        <pre class="overflow-x-auto text-sm leading-relaxed" style="color: var(--text-copy);"><code>{`┌─────────────────────────────────────────────┐
+│           YOUR AGENTS                        │
+│  Claude Code · Cursor · Gemini · Windsurf    │
+│  Copilot · Custom · Any LLM                  │
+└──────────────┬──────────────────────────────┘
+               │ SDKs · MCP · HTTP API
+               ▼
+┌─────────────────────────────────────────────┐
+│         TELEPATHINE.AI API                   │
+│  ┌─────────────┐ ┌──────────────────────┐    │
+│  │ REST API    │ │ MCP Server (16 tools)│    │
+│  ├─────────────┤ ├──────────────────────┤    │
+│  │ TypeScript  │ │ Python SDK          │    │
+│  │ SDK         │ │                      │    │
+│  └─────────────┘ └──────────────────────┘    │
+│                                              │
+│  ┌──────────────────────────────────────┐    │
+│  │ Intelligence Layer                   │    │
+│  │ · Hybrid Search (FTS + Semantic)    │    │
+│  │ · Context Injection (Progressive)   │    │
+│  │ · Morpheus Summarization Pipeline   │    │
+│  │ · Session Memory & Continuity       │    │
+│  │ · Signal Bus (Agent→Agent)          │    │
+│  └──────────────────────────────────────┘    │
+│                                              │
+│  ┌──────────────────────────────────────┐    │
+│  │ Connectors                           │    │
+│  │ · Agent Platform Adapters            │    │
+│  │ · Hook Lifecycle Pipeline           │    │
+│  │ · Auto-Discovery & Install          │    │
+│  └──────────────────────────────────────┘    │
+└─────────────────────────────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────────────┐
+│     Your Data · Your Tenant · Isolated       │
+│     Multi-tenant · RLS · Encrypted Keys      │
+└─────────────────────────────────────────────┘`}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2>How it fits together</h2>
+      <div class="mt-8 space-y-8">
+        <div>
+          <h3 class="heading-accent">Client Layer</h3>
+          <p class="mt-2" style="color: var(--text-muted);">Your agents — Claude Code, Cursor, Gemini CLI, Windsurf, Copilot, or any LLM — interact with Telepathine.ai through adapters. Each adapter translates the agent's native hook system into API calls. No code changes to your agent required.</p>
+        </div>
+        <div>
+          <h3 class="heading-accent">API Layer</h3>
+          <p class="mt-2" style="color: var(--text-muted);">The API exposes three integration paths: the REST API for direct HTTP access, the MCP server for Model Context Protocol clients (16 tools), and SDKs for TypeScript and Python. All paths lead to the same Intelligence Layer.</p>
+        </div>
+        <div>
+          <h3 class="heading-accent">Intelligence Layer</h3>
+          <p class="mt-2" style="color: var(--text-muted);">Hybrid search combines keyword and semantic matching. Context injection delivers formatted, compressed context. The Morpheus pipeline processes raw observations into structured knowledge. Sessions track lifecycle. The Signal Bus enables agent-to-agent communication.</p>
+        </div>
+        <div>
+          <h3 class="heading-accent">Data Layer</h3>
+          <p class="mt-2" style="color: var(--text-muted);">Your data stays isolated in your tenant. Row-level security ensures every query is scoped to your account. API keys are hashed, AI provider keys are encrypted at rest, and project visibility controls let you share or isolate data as needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2>Integration Paths</h2>
+      <div class="mt-8 grid gap-6 sm:grid-cols-3">
+        <div class="surface-card p-6">
+          <h3 class="font-semibold" style="color: var(--text);">REST API</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">Direct HTTP access to all endpoints. Authenticated with Bearer API key.</p>
+          <pre class="mt-3 overflow-x-auto rounded-lg p-3 text-xs" style="background: var(--bg-code); border: 1px solid var(--line); color: var(--text-copy);"><code>{`curl -X POST \\
+  https://api.telepathine.ai/v1/sessions \\
+  -H "Authorization: Bearer $KEY" \\
+  -d '{"project":"app"}'`}</code></pre>
+        </div>
+        <div class="surface-card p-6">
+          <h3 class="font-semibold" style="color: var(--text);">MCP Server</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">16 tools via the Model Context Protocol. Works with any MCP-compatible client.</p>
+          <pre class="mt-3 overflow-x-auto rounded-lg p-3 text-xs" style="background: var(--bg-code); border: 1px solid var(--line); color: var(--text-copy);"><code>{`// .mcp.json
+{
+  "mcpServers": {
+    "telepathine": {
+      "command": "npx",
+      "args": ["@ai-memory/mcp-server"]
+    }
+  }
+}`}</code></pre>
+        </div>
+        <div class="surface-card p-6">
+          <h3 class="font-semibold" style="color: var(--text);">SDKs</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">TypeScript and Python SDKs with full type coverage, retry logic, and timeout handling.</p>
+          <pre class="mt-3 overflow-x-auto rounded-lg p-3 text-xs" style="background: var(--bg-code); border: 1px solid var(--line); color: var(--text-copy);"><code>{`import { AgentMemoryClient }
+  from '@ai-memory/sdk';
+
+const mem = new AgentMemoryClient({
+  apiKey: process.env.TELEPATHINE_API_KEY
+});`}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

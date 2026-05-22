@@ -1,0 +1,15 @@
+---
+export interface Props {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+const { icon, title, description } = Astro.props;
+---
+
+<div class="surface-card p-6">
+  <div class="feature-icon mb-3 h-10 w-10 text-lg">{icon}</div>
+  <h3 class="text-lg font-semibold" style="color: var(--text);">{title}</h3>
+  <p class="mt-2 text-sm" style="color: var(--text-copy);">{description}</p>
+</div>

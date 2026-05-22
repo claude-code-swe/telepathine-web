@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<BaseLayout
+  title="SDKs — TypeScript & Python"
+  description="Full-featured SDKs for Telepathine.ai. TypeScript and Python clients with typed interfaces, automatic retries, timeout handling, and all API surfaces."
+>
+  <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <a href="/api" class="text-sm transition" style="color: var(--text-muted);">← API Overview</a>
+      <h1 class="mt-4">SDKs</h1>
+      <p class="mt-4 text-lg" style="color: var(--text-muted);">Full-featured SDKs for TypeScript and Python. Typed interfaces, automatic retries, timeout handling, and all API surfaces covered.</p>
+    </div>
+  </section>
+
+  <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl space-y-16">
+      <div>
+        <h2 class="flex items-center gap-3"><span style="color: var(--color-blue);">TS</span> TypeScript SDK</h2>
+        <CodeBlock lang="bash" title="Install" code={`npm install @ai-memory/sdk-ts`} />
+        <div class="mt-4">
+          <CodeBlock lang="typescript" title="Usage" code={`import { AgentMemoryClient } from '@ai-memory/sdk-ts';
+
+const client = new AgentMemoryClient({
+  apiKey: process.env.TELEPATHINE_API_KEY!,
+  workerUrl: 'https://api.telepathine.ai',
+});
+
+const session = await client.createSession({ project: 'my-app', userPrompt: 'Refactor auth' });
+await client.appendObservation(session.id, { type: 'decision', text: 'Migrating from JWT to session tokens', title: 'Auth migration' });
+const results = await client.search({ q: 'authentication', mode: 'hybrid', project: 'my-app' });
+const context = await client.injectContext({ projects: 'my-app', limit: 15 });
+await client.completeSession(session.id, { summarize: true });`} />
+        </div>
+        <div class="mt-6 surface-card p-5">
+          <h3 class="font-semibold" style="color: var(--text);">Key Features</h3>
+          <ul class="mt-3 space-y-1 text-sm" style="color: var(--text-muted);">
+            <li>✅ Full type coverage for all API surfaces</li>
+            <li>✅ Automatic retries with jittered backoff (default 2 retries)</li>
+            <li>✅ Configurable timeout with AbortController (default 30s)</li>
+            <li>✅ Separate data-plane and control-plane clients</li>
+            <li>✅ Bearer API key auth + JWT token auth for dashboard</li>
+            <li>✅ Injectable fetch implementation for testing</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="flex items-center gap-3"><span style="color: var(--color-amber-bright);">PY</span> Python SDK</h2>
+        <CodeBlock lang="bash" title="Install" code={`pip install agent-memory-sdk`} />
+        <div class="mt-4">
+          <CodeBlock lang="python" title="Usage" code={`from agent_memory import AgentMemoryClient
+
+client = AgentMemoryClient(
+    api_key=os.environ["TELEPATHINE_API_KEY"],
+    worker_url="https://api.telepathine.ai",
+)
+
+session = client.create_session(project="my-app", user_prompt="Refactor auth")
+client.append_observation(session_id=session["id"], observation={
+    "type": "decision", "text": "Migrating from JWT", "title": "Auth migration",
+})
+results = client.search(q="authentication", mode="hybrid", project="my-app")
+context = client.inject_context(projects="my-app", limit=15)
+client.complete_session(session["id"], summarize=True)`} />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

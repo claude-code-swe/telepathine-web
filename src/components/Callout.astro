@@ -1,0 +1,32 @@
+---
+export interface Props {
+  type?: 'info' | 'warning' | 'danger';
+  title?: string;
+}
+
+const { type = 'info', title } = Astro.props;
+
+const calloutClass: Record<string, string> = {
+  info: 'callout-info',
+  warning: 'callout-warning',
+  danger: 'callout-danger',
+};
+
+const icons: Record<string, string> = {
+  info: 'ℹ️',
+  warning: '⚠️',
+  danger: '🚫',
+};
+---
+
+<div class={`rounded-lg border p-4 ${calloutClass[type]}`}>
+  {title && (
+    <div class="mb-1 flex items-center gap-2 text-sm font-semibold" style="color: var(--text);">
+      <span>{icons[type]}</span>
+      <span>{title}</span>
+    </div>
+  )}
+  <div class="text-sm" style="color: var(--text-copy);">
+    <slot />
+  </div>
+</div>

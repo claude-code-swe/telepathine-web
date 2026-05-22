@@ -1,0 +1,37 @@
+---
+import type { Connector } from '../data/connectors';
+
+export interface Props {
+  connector: Connector;
+}
+
+const { connector } = Astro.props;
+
+const statusClasses: Record<string, string> = {
+  stable: 'badge-stable',
+  beta: 'badge-beta',
+  alpha: 'badge-alpha',
+  coming_soon: 'badge-coming-soon',
+};
+---
+
+<a href={`/connectors/${connector.slug}`} class="group block surface-card p-5">
+  <div class="flex items-start justify-between">
+    <div class="flex items-center gap-3">
+      <div class="flex h-10 w-10 items-center justify-center rounded-lg text-lg font-bold" style={`background-color: ${connector.logoColor}15; color: ${connector.logoColor};`}>
+        {connector.name.charAt(0)}
+      </div>
+      <div>
+        <h3 class="font-semibold transition" style="color: var(--text);">{connector.name}</h3>
+        <span class={`inline-block mt-1 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider ${statusClasses[connector.status]}`}>
+          {connector.status}
+        </span>
+      </div>
+    </div>
+  </div>
+  <p class="mt-3 text-sm line-clamp-2" style="color: var(--text-copy);">{connector.description}</p>
+  <div class="mt-3 flex items-center gap-2">
+    <span class="tag-mono">{connector.protocol}</span>
+    <span class="text-[11px]" style="color: var(--text-muted); opacity: 0.6;">{connector.events.length} event{connector.events.length !== 1 ? 's' : ''}</span>
+  </div>
+</a>

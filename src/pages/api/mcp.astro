@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+const tools = [
+  { name: 'search', description: 'Semantic search across observations. Supports hybrid, FTS, and vector modes.' },
+  { name: 'timeline', description: 'Chronological observation feed filtered by project and time range.' },
+  { name: 'get_decisions', description: 'Retrieve all decision-type observations for a project.' },
+  { name: 'get_changes', description: 'Retrieve all change-type observations with file modifications.' },
+  { name: 'record_observation', description: 'Store a new observation with type, text, title, and structured fields.' },
+  { name: 'get_observation', description: 'Fetch a single observation by its ID.' },
+  { name: 'list_observations', description: 'List observations with filters for project, type, and session.' },
+  { name: 'get_observations', description: 'Batch-fetch multiple observations by their IDs.' },
+  { name: 'create_session', description: 'Initialize a new memory session for a project.' },
+  { name: 'get_session', description: 'Retrieve session details by ID.' },
+  { name: 'complete_session', description: 'Mark a session as completed and optionally trigger summarization.' },
+  { name: 'get_context', description: 'Get injected context for the current project. Formatted for agent prompts.' },
+  { name: 'list_projects', description: 'List all projects for the authenticated tenant.' },
+  { name: 'get_workspaces', description: 'List workspace contexts within a project.' },
+  { name: 'get_project_config', description: 'Read project-level configuration including visibility and sharing.' },
+  { name: 'set_project_config', description: 'Write project-level configuration.' },
+];
+---
+
+<BaseLayout
+  title="MCP Server — 16 Tools"
+  description="Telepathine.ai MCP Server provides 16 tools via the Model Context Protocol. Search, record observations, manage sessions, inject context, and more."
+>
+  <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <a href="/api" class="text-sm transition" style="color: var(--text-muted);">← API Overview</a>
+      <h1 class="mt-4">MCP Server</h1>
+      <p class="mt-4 text-lg" style="color: var(--text-muted);">Access Telepathine.ai through the Model Context Protocol. 16 tools available to any MCP-compatible client.</p>
+    </div>
+  </section>
+
+  <section class="content-layer px-4 pb-8 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2>Quick Start</h2>
+      <div class="mt-4 space-y-4">
+        <CodeBlock lang="bash" title="Install" code={`npx @ai-memory/mcp-server`} />
+        <CodeBlock lang="json" title="MCP Config (.mcp.json)" code={`{\n  "mcpServers": {\n    "agent-memory": {\n      "command": "npx",\n      "args": ["@ai-memory/mcp-server"]\n    }\n  }\n}`} />
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layer px-4 pb-8 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2>Configuration</h2>
+      <p class="mt-4" style="color: var(--text-muted);">Set via environment variables or <code class="rounded px-1 py-0.5 text-sm" style="background: var(--bg-code); color: var(--accent);">~/.agent-memory/env</code>:</p>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--line);">
+              <th class="pb-2 pr-4 text-left text-xs" style="color: var(--text-muted);">Variable</th>
+              <th class="pb-2 pr-4 text-left text-xs" style="color: var(--text-muted);">Default</th>
+              <th class="pb-2 text-left text-xs" style="color: var(--text-muted);">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.7;">
+              <td class="py-2 pr-4 font-mono text-xs" style="color: var(--accent);">TELEPATHINE_API_KEY</td>
+              <td class="py-2 pr-4 text-xs" style="color: var(--text-muted);">none</td>
+              <td class="py-2 text-xs" style="color: var(--text-muted);">API key for authentication</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.7;">
+              <td class="py-2 pr-4 font-mono text-xs" style="color: var(--accent);">TELEPATHINE_PROJECT</td>
+              <td class="py-2 pr-4 text-xs" style="color: var(--text-muted);">auto-detected</td>
+              <td class="py-2 text-xs" style="color: var(--text-muted);">Project slug for scoping</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2>Tools ({tools.length})</h2>
+      <div class="mt-6 space-y-3">
+        {tools.map(tool => (
+          <div class="surface-panel p-4">
+            <code class="rounded-md px-2 py-0.5 text-sm font-mono" style="background: var(--accent-surface-subtle); color: var(--accent);">{tool.name}</code>
+            <p class="mt-2 text-sm" style="color: var(--text-muted);">{tool.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

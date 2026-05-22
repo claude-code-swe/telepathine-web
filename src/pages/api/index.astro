@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { apiEndpoints } from '../../data/api-endpoints';
+---
+
+<BaseLayout
+  title="API Overview"
+  description="Access Telepathine.ai through REST API, MCP Server, or SDKs. All authenticated with your API key. Full coverage of sessions, observations, search, and context."
+>
+  <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="mx-auto max-w-4xl text-center">
+      <h1>API Reference</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg" style="color: var(--text-muted);">Access Telepathine.ai through three integration paths: REST API, MCP Server, or SDKs. All authenticated with your API key.</p>
+    </div>
+  </section>
+
+  <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <div class="grid gap-6 sm:grid-cols-3">
+        <a href="/api/rest" class="group surface-card p-6">
+          <div class="text-2xl">🌐</div>
+          <h3 class="mt-3 text-lg font-semibold transition" style="color: var(--text);">REST API</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">Direct HTTP access to all {apiEndpoints.length} endpoints.</p>
+          <span class="mt-3 inline-block text-sm" style="color: var(--accent);">View endpoints →</span>
+        </a>
+        <a href="/api/mcp" class="group surface-card p-6">
+          <div class="text-2xl">🔌</div>
+          <h3 class="mt-3 text-lg font-semibold transition" style="color: var(--text);">MCP Server</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">16 tools via the Model Context Protocol.</p>
+          <span class="mt-3 inline-block text-sm" style="color: var(--accent);">View tools →</span>
+        </a>
+        <a href="/api/sdks" class="group surface-card p-6">
+          <div class="text-2xl">📦</div>
+          <h3 class="mt-3 text-lg font-semibold transition" style="color: var(--text);">SDKs</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">TypeScript and Python SDKs with full type coverage.</p>
+          <span class="mt-3 inline-block text-sm" style="color: var(--accent);">View SDKs →</span>
+        </a>
+      </div>
+
+      <div class="mt-12">
+        <h2>Authentication</h2>
+        <p class="mt-4" style="color: var(--text-muted);">All API requests require a Bearer API key in the Authorization header.</p>
+        <div class="mt-4 surface-panel p-6">
+          <pre class="overflow-x-auto text-sm" style="color: var(--text-copy);"><code>{`# All requests use Bearer auth
+curl -H "Authorization: Bearer your_api_key_here" \\
+  https://api.telepathine.ai/v1/sessions
+
+# Rate limit headers on every response
+# X-Ratelimit-Limit: 100
+# X-Ratelimit-Remaining: 95
+# X-Ratelimit-Reset: 1716300000`}</code></pre>
+        </div>
+      </div>
+
+      <div class="mt-12">
+        <h2>Quick Reference</h2>
+        <div class="mt-4 space-y-2">
+          {apiEndpoints.map(ep => (
+            <a href="/api/rest" class="flex items-center gap-3 rounded-lg border px-4 py-2.5 text-sm transition" style="background: var(--bg-card); border-color: var(--line); color: var(--text);">
+              <span class={`font-mono text-xs font-bold ${
+                ep.method === 'GET' ? 'method-get' :
+                ep.method === 'POST' ? 'method-post' :
+                ep.method === 'PUT' ? 'method-put' : 'method-delete'
+              }`}>{ep.method}</span>
+              <code style="color: var(--text-copy);">{ep.path}</code>
+              <span class="ml-auto hidden sm:block" style="color: var(--text-muted); opacity: 0.5;">{ep.description.slice(0, 50)}{ep.description.length > 50 ? '...' : ''}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

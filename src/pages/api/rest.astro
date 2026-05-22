@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ApiEndpoint from '../../components/ApiEndpoint.astro';
+import { getEndpointsByCategory } from '../../data/api-endpoints';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+const categories = [
+  { key: 'sessions' as const, label: 'Sessions' },
+  { key: 'observations' as const, label: 'Observations' },
+  { key: 'search' as const, label: 'Search' },
+  { key: 'context' as const, label: 'Context' },
+  { key: 'projects' as const, label: 'Projects' },
+  { key: 'events' as const, label: 'Events' },
+  { key: 'system' as const, label: 'System' },
+];
+---
+
+<BaseLayout
+  title="REST API Reference"
+  description="Complete REST API reference for Telepathine.ai. 20 endpoints covering sessions, observations, hybrid search, context injection, projects, events, and more."
+>
+  <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <a href="/api" class="text-sm transition" style="color: var(--text-muted);">← API Overview</a>
+      <h1 class="mt-4">REST API Reference</h1>
+      <p class="mt-4 text-lg" style="color: var(--text-muted);">
+        Complete reference for all public endpoints. Base URL: <code class="rounded px-1.5 py-0.5 text-sm" style="background: var(--bg-code); color: var(--accent);">https://api.telepathine.ai</code>
+      </p>
+    </div>
+  </section>
+
+  <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-5xl space-y-12">
+      {categories.map(cat => {
+        const eps = getEndpointsByCategory(cat.key);
+        if (eps.length === 0) return null;
+        return (
+          <div>
+            <h2 style="border-bottom: 1px solid var(--line); padding-bottom: 0.75rem;">{cat.label}</h2>
+            <div class="mt-6 space-y-4">
+              {eps.map(ep => (<ApiEndpoint endpoint={ep} />))}
+            </div>
+          </div>
+        );
+      })}
+
+      <div>
+        <h2 style="border-bottom: 1px solid var(--line); padding-bottom: 0.75rem;">SDK Examples</h2>
+        <div class="mt-6 grid gap-6 lg:grid-cols-2">
+          <div>
+            <h3 class="mb-3 font-semibold" style="color: var(--text);">TypeScript SDK</h3>
+            <CodeBlock lang="typescript" title="TypeScript" code={`import { AgentMemoryClient } from '@ai-memory/sdk';
+
+const mem = new AgentMemoryClient({
+  apiKey: process.env.TELEPATHINE_API_KEY!,
+  workerUrl: 'https://api.telepathine.ai',
+});
+
+const session = await mem.createSession({ project: 'my-project' });
+await mem.appendObservation(session.id, {
+  type: 'decision', text: 'Use PostgreSQL', title: 'Database choice',
+});
+const results = await mem.search({ q: 'database', mode: 'hybrid' });
+const ctx = await mem.getContext('my-project');`} />
+          </div>
+          <div>
+            <h3 class="mb-3 font-semibold" style="color: var(--text);">Python SDK</h3>
+            <CodeBlock lang="python" title="Python" code={`from agent_memory import AgentMemoryClient
+
+mem = AgentMemoryClient(
+    api_key=os.environ["TELEPATHINE_API_KEY"],
+    worker_url="https://api.telepathine.ai",
+)
+
+session = mem.create_session(project="my-project")
+mem.append_observation(
+    session_id=session["id"],
+    observation={"type": "decision", "text": "Use PostgreSQL", "title": "Database choice"},
+)
+results = mem.search(q="database", mode="hybrid")
+ctx = mem.get_context("my-project")`} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

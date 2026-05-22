@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import LogoWall from '../components/LogoWall.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Telepathine.ai',
+  applicationCategory: 'DeveloperApplication',
+  operatingSystem: 'Any',
+  description: 'The portable memory layer for AI agents. Works with every coding agent.',
+  url: 'https://telepathine.ai',
+  offers: [
+    { '@type': 'Offer', price: '0', priceCurrency: 'USD', name: 'Spark' },
+    { '@type': 'Offer', price: '29', priceCurrency: 'USD', name: 'Ignite' },
+    { '@type': 'Offer', price: '99', priceCurrency: 'USD', name: 'Blaze' },
+  ],
+  featureList: ['Persistent Memory', 'Hybrid Search', 'Context Injection', 'Morpheus Pipeline', 'Signal Bus', 'Connectors for every major agent'],
+};
+---
+
+<BaseLayout
+  title="Telepathine.ai — The Portable Memory Layer for AI Agents"
+  description="The portable memory layer for AI agents. One memory, every engine. Any agent. Project-scoped, engine-agnostic, MCP-native."
+  jsonLd={jsonLd}
+>
+  <Hero
+    title="Your memory should outlive your agent"
+    subtitle="The portable memory layer for AI agents. One memory, every engine. Any agent."
+  />
+
+  <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="mb-8 text-center text-sm uppercase tracking-widest" style="color: var(--text-muted);">Works with</p>
+      <LogoWall />
+    </div>
+  </section>
+
+  <section class="content-layer section-divider section-accent-top px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-center">Capture. Search. Relay.</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-center text-lg" style="color: var(--text-muted);">
+        Three capabilities that transform your AI agents from stateless tools into persistent, intelligent collaborators.
+      </p>
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        <FeatureCard icon="🧠" title="Persistent Memory" description="Your agents remember decisions, changes, and learnings across sessions and projects. Never re-explain context again." />
+        <FeatureCard icon="🔍" title="Hybrid Search" description="Combine full-text and semantic vector search. Find what you need by keyword or by meaning, scoped to your project." />
+        <FeatureCard icon="📡" title="Signal Bus" description="Agents broadcast on channels via the Signal Bus. Coordinate swarms, share findings, stay in sync." />
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider section-alt px-4 py-20 sm:px-6 lg:px-8"> lg:grid-cols-2 lg:items-center">
+        <div>
+          <h2>How it works</h2>
+          <div class="mt-8 space-y-6">
+            <div class="flex gap-4">
+              <div class="step-circle">1</div>
+              <div>
+                <h3 class="font-semibold" style="color: var(--text);">Install a connector</h3>
+                <p class="mt-1 text-sm" style="color: var(--text-muted);">One command installs the adapter for your agent platform. Auto-detects your environment.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="step-circle">2</div>
+              <div>
+                <h3 class="font-semibold" style="color: var(--text);">Set your API key</h3>
+                <p class="mt-1 text-sm" style="color: var(--text-muted);">Get an API key from Telepathine.ai. Set it in your environment. That's the only config needed.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="step-circle">3</div>
+              <div>
+                <h3 class="font-semibold" style="color: var(--text);">Your agent remembers</h3>
+                <p class="mt-1 text-sm" style="color: var(--text-muted);">Every session creates observations. Every new session injects relevant context. Your agent builds institutional knowledge.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="surface-panel p-6">
+          <pre class="overflow-x-auto text-sm" style="color: var(--text-copy);"><code>{`# Session 1 — your agent works
+→ POST /v1/sessions { project: "auth-service" }
+→ POST /v1/sessions/:id/observations
+    { type: "decision", title: "Use JWT + refresh tokens" }
+→ POST /v1/sessions/:id/complete
+
+# Session 2 — next day, new context
+→ GET /v1/context/inject?projects=auth-service
+
+# Agent sees:
+# [auth-service] recent context
+# • Decision: Use JWT + refresh tokens
+# • Changed: src/auth/middleware.ts
+# • Session summary: Implemented JWT auth...`}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider section-accent-top px-4 py-20 sm:px-6 lg:px-8">
+      <h2>Start building in 5 minutes</h2>
+      <p class="mt-4" style="color: var(--text-muted);">No infrastructure to manage. No database to configure. Just an API key and your favorite agent.</p>
+      <div class="mt-8 flex items-center justify-center gap-4">
+        <a href="/docs/quickstart" class="btn-accent" style="padding: 0.625rem 1.5rem;">Quick Start Guide →</a>
+        <a href="/api" class="btn-ghost">API Reference</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

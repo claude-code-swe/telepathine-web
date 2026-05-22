@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# AI crawlers welcome — we serve llms.txt and llms-full.txt
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+Sitemap: https://telepathine.ai/sitemap-index.xml

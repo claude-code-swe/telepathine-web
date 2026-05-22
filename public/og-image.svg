@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0C0F13" />
+      <stop offset="100%" style="stop-color:#111419" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0AE5A0" />
+      <stop offset="100%" style="stop-color:#8B5CF6" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Accent bar -->
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accent)" />
+
+  <!-- Hex logo mark -->
+  <g transform="translate(100, 120) scale(0.9)">
+    <path d="M32 4L58 18V46L32 60L6 46V18L32 4Z" stroke="#0AE5A0" stroke-width="2" fill="none"/>
+    <path d="M32 18L44 24.5V37.5L32 44L20 37.5V24.5L32 18Z" fill="#0AE5A0" opacity="0.3"/>
+    <path d="M32 22L40 26.5V35.5L32 40L24 35.5V26.5L32 22Z" fill="#0AE5A0"/>
+    <circle cx="32" cy="29" r="2.5" fill="#0C0F13"/>
+  </g>
+
+  <!-- Product name -->
+  <text x="180" y="210" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="bold" fill="#E8E0D4">Telepathine.ai</text>
+
+  <!-- Tagline -->
+  <text x="100" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="32" fill="#9CA3AF">Your memory should outlive your agent.</text>
+
+  <!-- Subtitle -->
+  <text x="100" y="350" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#6B7280">The portable memory layer for AI agents. One memory, every engine. Any agent.</text>
+
+  <!-- Platform logos row (text placeholders) -->
+  <text x="100" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#4B5563">Claude Code</text>
+  <text x="260" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#4B5563">Cursor</text>
+  <text x="370" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#4B5563">Gemini</text>
+  <text x="480" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#4B5563">Windsurf</text>
+  <text x="600" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#4B5563">Copilot</text>
+  <text x="720" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#4B5563">Pi</text>
+  <text x="790" y="470" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#4B5563">Hermes</text>
+
+  <!-- Separator dots between platform names -->
+  <circle cx="248" cy="467" r="2" fill="#374151" />
+  <circle cx="358" cy="467" r="2" fill="#374151" />
+  <circle cx="468" cy="467" r="2" fill="#374151" />
+  <circle cx="588" cy="467" r="2" fill="#374151" />
+  <circle cx="708" cy="467" r="2" fill="#374151" />
+  <circle cx="778" cy="467" r="2" fill="#374151" />
+
+  <!-- CTA -->
+  <rect x="100" y="510" width="180" height="44" rx="8" fill="#0AE5A0" />
+  <text x="190" y="538" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">Start Free →</text>
+
+  <!-- URL -->
+  <text x="100" y="600" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#374151">telepathine.ai</text>
+</svg>

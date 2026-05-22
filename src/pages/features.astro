@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+---
+
+<BaseLayout
+  title="Features"
+  description="The complete intelligence layer for AI agents: persistent observations, hybrid search, progressive context injection, Morpheus pipeline, session lifecycle, and agent-to-agent communication."
+>
+  <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="mx-auto max-w-4xl text-center">
+      <h1>The complete intelligence layer for AI agents</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg" style="color: var(--text-muted);">From raw observations to structured context injection, hybrid search, and agent-to-agent communication — everything your agents need to remember.</p>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider section-alt px-4 py-16 sm:px-6 lg:px-8">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <FeatureCard icon="🧠" title="Persistent Observations" description="Record decisions, changes, learnings, and tool interactions as structured observations. Each observation gets a type, title, narrative, extracted facts, and key concepts — automatically enriched by the Morpheus pipeline." />
+        <FeatureCard icon="🔍" title="Hybrid Search" description="Combine full-text search (FTS) and semantic vector similarity in a single query. The hybrid engine merges results from both indexes, weighted 60/40 for optimal relevance. Supports fts-only, vector-only, or hybrid modes." />
+        <FeatureCard icon="💉" title="Context Injection" description="Progressive disclosure: compressed, formatted context injected into your agent's prompt at session start. Header → timeline → summary → footer. Your agent sees what it needs, not a data dump." />
+        <FeatureCard icon="🤖" title="Morpheus Pipeline" description="LLM-powered observation processing: normalize, deduplicate, supersede, apply decay, consolidate, generate retrospectives. Raw tool output becomes structured, searchable knowledge." />
+        <FeatureCard icon="📋" title="Session Lifecycle" description="Start a session → record observations → summarize → complete. Sessions track your agent's work across a single interaction. Summaries persist for future context injection." />
+        <FeatureCard icon="📡" title="Signal Bus" description="Agent-to-agent communication via structured message broadcasting. Register agents on channels, broadcast messages, relay across channel mesh. Memory Bridge auto-persists messages as observations." />
+        <FeatureCard icon="🔒" title="Multi-Tenant Isolation" description="Each tenant's data is fully isolated with row-level security. API keys are scoped to read/write/admin. Project visibility controls (private, tenant, shared) give fine-grained access." />
+        <FeatureCard icon="🔑" title="Bring Your Own Key" description="Configure your own LLM and embedding providers per tenant. Use OpenAI, Anthropic, or any compatible endpoint. Your AI keys are encrypted at rest and never shared." />
+        <FeatureCard icon="🔌" title="Connectors for Every Agent" description="Pre-built adapters for every major coding agent: Claude Code, Cursor, Gemini, Windsurf, Copilot, Pi, Hermes, and more. MCP server gives access to any MCP-compatible client." />
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider section-accent-top px-4 py-16 sm:px-6 lg:px-8">
+      <h2>Observation Intelligence Pipeline</h2>
+      <p class="mt-4" style="color: var(--text-muted);">Raw tool output goes in. Structured, searchable knowledge comes out.</p>
+      <div class="mt-8 surface-panel p-6">
+        <pre class="overflow-x-auto text-sm" style="color: var(--text-copy);"><code>{`Raw Tool Output
+       ↓
+  ┌─────────────┐
+  │ Normalize    │  Clean, standardize dates
+  ├─────────────┤
+  │ Dedup        │  Remove duplicate observations
+  ├─────────────┤
+  │ Supersede    │  Mark stale observations
+  ├─────────────┤
+  │ Decay        │  Reduce relevance over time
+  ├─────────────┤
+  │ Consolidate  │  Merge related observations
+  ├─────────────┤
+  │ Retrospective│  Generate session summaries
+  ├─────────────┤
+  │ Prune        │  Remove noise
+  └─────────────┘
+       ↓
+  Structured Observation
+  { type, title, narrative, facts, concepts, filesTouched }`}</code></pre>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

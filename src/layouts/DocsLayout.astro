@@ -1,0 +1,46 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  jsonLd?: object;
+}
+
+const { title, description, ogImage, jsonLd } = Astro.props;
+
+const docsNav = [
+  { label: 'Quick Start', href: '/docs/quickstart' },
+  { label: 'Context Injection', href: '/docs/context-injection' },
+  { label: 'Hybrid Search', href: '/docs/search' },
+  { label: 'Sessions', href: '/docs/sessions' },
+  { label: 'Morpheus Pipeline', href: '/docs/morpheus' },
+  { label: 'Signal Bus', href: '/docs/telepathine' },
+  { label: 'Project Isolation', href: '/docs/project-isolation' },
+  { label: 'Bring Your Own Key', href: '/docs/byok' },
+];
+---
+
+<BaseLayout title={title} description={description} ogImage={ogImage} jsonLd={jsonLd}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex gap-8 py-8">
+      <aside class="hidden w-56 shrink-0 lg:block">
+        <nav class="sticky top-20 space-y-1">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">Guides</p>
+          {docsNav.map(item => (
+            <a href={item.href} class="sidebar-link">{item.label}</a>
+          ))}
+          <div class="my-4" style="border-top: 1px solid var(--line);"></div>
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">API</p>
+          <a href="/api/rest" class="sidebar-link">REST API</a>
+          <a href="/api/mcp" class="sidebar-link">MCP Server</a>
+          <a href="/api/sdks" class="sidebar-link">SDKs</a>
+        </nav>
+      </aside>
+      <article class="min-w-0 flex-1 max-w-3xl">
+        <slot />
+      </article>
+    </div>
+  </div>
+</BaseLayout>

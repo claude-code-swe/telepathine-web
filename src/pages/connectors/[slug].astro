@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { connectors } from '../../data/connectors';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+export function getStaticPaths() {
+  return connectors.map(conn => ({
+    params: { slug: conn.slug },
+    props: { connector: conn },
+  }));
+}
+
+const { connector } = Astro.props;
+
+const statusClasses: Record<string, string> = {
+  stable: 'badge-stable',
+  beta: 'badge-beta',
+  alpha: 'badge-alpha',
+};
+---
+
+<BaseLayout
+  title={`${connector.name} Connector`}
+  description={`${connector.description} Install: ${connector.installCmd}. Status: ${connector.status}. Protocol: ${connector.protocol}.`}
+>
+  <section class="content-layer px-4 pb-16 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <a href="/connectors" class="text-sm transition" style="color: var(--text-muted);">← All Connectors</a>
+      <div class="mt-4 flex items-center gap-4">
+        <div class="flex h-14 w-14 items-center justify-center rounded-xl text-2xl font-bold" style={`background-color: ${connector.logoColor}15; color: ${connector.logoColor};`}>
+          {connector.name.charAt(0)}
+        </div>
+        <div>
+          <h1 class="text-3xl">{connector.name}</h1>
+          <div class="mt-1 flex items-center gap-3">
+            <span class={`rounded-full px-2.5 py-0.5 text-xs font-medium uppercase tracking-wider ${statusClasses[connector.status]}`}>{connector.status}</span>
+            <span class="tag-mono">{connector.protocol}</span>
+          </div>
+        </div>
+      </div>
+      <p class="mt-6 text-lg" style="color: var(--text-muted);">{connector.description}</p>
+
+      <div class="mt-10">
+        <h2 class="text-xl font-bold">Installation</h2>
+        <div class="mt-4">
+          <CodeBlock code={connector.installCmd} lang="bash" title="Install" />
+        </div>
+      </div>
+
+      {connector.events.length > 0 && (
+        <div class="mt-10">
+          <h2 class="text-xl font-bold">Supported Events</h2>
+          <div class="mt-4 flex flex-wrap gap-2">
+            {connector.events.map(e => (<span class="tag-mono">{e}</span>))}
+          </div>
+        </div>
+      )}
+
+      <div class="mt-10">
+        <h2 class="text-xl font-bold">Configuration</h2>
+        <div class="mt-4">
+          <CodeBlock
+            code={`# Set in ~/.telepathine/env\nTELEPATHINE_API_KEY=your_api_key_here\nTELEPATHINE_PROJECT=auto-detected`}
+            lang="bash"
+            title="Environment"
+          />
+        </div>
+      </div>
+
+      <div class="mt-10">
+        <h2 class="text-xl font-bold">Quick Test</h2>
+        <div class="mt-4">
+          <CodeBlock
+            code={`curl -s https://api.telepathine.ai/v1/health \\\n  -H "Authorization: Bearer $TELEPATHINE_API_KEY"`}
+            lang="bash"
+            title="Health check"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

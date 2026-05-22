@@ -1,0 +1,55 @@
+# Telepathine.ai
+
+> The portable memory layer for AI agents. One memory, every engine. Any agent.
+
+## What it does
+
+Telepathine.ai gives AI coding agents persistent memory across sessions. Agents capture observations (decisions, changes, learnings), search them with hybrid full-text + semantic search, and inject relevant context into future sessions — automatically.
+
+## Key capabilities
+
+- **Persistent Observations**: Structured memory with type, title, narrative, facts, concepts
+- **Hybrid Search**: Full-text + semantic vector similarity in one query
+- **Context Injection**: Progressive disclosure — formatted, compressed context at session start
+- **Morpheus Pipeline**: Normalize, deduplicate, supersede, decay, consolidate, summarize
+- **Session Lifecycle**: Start → observe → summarize → complete
+- **Signal Bus**: Agent-to-agent communication via structured message broadcasting
+- **MCP Server**: 16 tools via Model Context Protocol (JSON-RPC 2.0)
+- **Multi-tenant Isolation**: Row-level security, project-scoped, API key isolation
+
+## Integration paths
+
+- REST API: `https://api.telepathine.ai`
+- MCP Server: `npx -y @ai-memory/mcp-server`
+- TypeScript SDK: `@ai-memory/sdk`
+- Python SDK: `agent-memory`
+
+## Connectors
+
+Claude Code, Cursor, Gemini CLI, Windsurf, Copilot, Pi, Hermes, Aider, and more. All connectors share the same project-scoped memory.
+
+## Pricing
+
+- Spark: Free — 10K observations/mo
+- Ignite: $29/mo — 100K observations, Signal Bus, team sharing
+- Blaze: $99/mo — 1M observations, priority support, audit logs
+- Enterprise: Custom — unlimited, SSO/SAML, on-prem
+
+## Self-hostable
+
+Apache 2.0 license. Run on your own infrastructure.
+
+## Key pages
+
+- /features — Complete feature overview
+- /security — Isolation, BYOK, compliance roadmap
+- /architecture — Three-tier architecture diagram
+- /pricing — Transparent 4-tier pricing
+- /api — REST API, MCP, SDKs
+- /docs — Quickstart, guides, reference
+- /connectors — Platform adapters
+- /what-is-ai-agent-memory — Concept guide
+- /mcp-memory-server — MCP integration guide
+- /model-agnostic-memory — Vendor-neutral memory
+- /agent-communication-bus — Signal Bus guide
+- /claude-memory-alternative — Comparison guide

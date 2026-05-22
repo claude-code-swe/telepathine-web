@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Model-Agnostic Memory for AI Agents',
+  description: 'Model-agnostic memory works with any LLM, any agent framework, any embedding provider. Why vendor-neutral memory matters and how Telepathine.ai delivers it.',
+  url: 'https://telepathine.ai/model-agnostic-memory',
+  author: {
+    '@type': 'Organization',
+    name: 'ArtemisAI',
+  },
+};
+---
+
+<BaseLayout
+  title="Model-Agnostic Memory for AI Agents"
+  description="Model-agnostic memory works with any LLM, any agent framework, any embedding provider. Why vendor-neutral memory matters and how to get it."
+  jsonLd={jsonLd}
+  canonicalUrl="https://telepathine.ai/model-agnostic-memory"
+>
+  <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="mx-auto max-w-3xl">
+      <p class="text-sm uppercase tracking-widest" style="color: var(--text-muted);">Guide</p>
+      <h1 class="mt-2">Model-Agnostic Memory</h1>
+      <p class="mt-6 text-lg" style="color: var(--text-muted);">Your agent memory shouldn't care which LLM you use. Model-agnostic memory works with any provider, any framework, any embedding model — so your context survives engine switches.</p>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl space-y-8">
+      <div>
+        <h2>The lock-in problem</h2>
+        <p class="mt-3" style="color: var(--text-muted);">Claude's memory only works with Claude. ChatGPT's memory only works with ChatGPT. When you switch agents, your memory doesn't follow — you start from zero.</p>
+        <p class="mt-3" style="color: var(--text-muted);">This isn't an accident. Every major AI vendor wants to own your memory because it creates lock-in. The more context you've built up, the harder it is to leave. Your accumulated institutional knowledge becomes a switching cost.</p>
+        <p class="mt-3" style="color: var(--text-muted);">But real development teams use multiple agents. Claude for architecture. Cursor for implementation. Gemini for research. Copilot for boilerplate. Your memory should travel with your project, not your subscription.</p>
+      </div>
+
+      <div>
+        <h2>What model-agnostic means</h2>
+        <div class="mt-4 space-y-4">
+          <div class="surface-card p-4">
+            <h3 class="font-semibold text-sm" style="color: var(--accent);">LLM-agnostic</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">The memory system doesn't depend on a specific language model. Use OpenAI for embeddings today, switch to a local model tomorrow — your observations stay intact. BYOK on every tier means you control which model processes your data.</p>
+          </div>
+          <div class="surface-card p-4">
+            <h3 class="font-semibold text-sm" style="color: var(--accent);">Framework-agnostic</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">Works with LangChain, CrewAI, AutoGen, or bare HTTP calls. No SDK lock-in. The REST API, MCP server, and official SDKs all access the same intelligence layer — pick your integration path.</p>
+          </div>
+          <div class="surface-card p-4">
+            <h3 class="font-semibold text-sm" style="color: var(--accent);">Agent-agnostic</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">Claude Code, Cursor, Gemini CLI, Windsurf, Copilot, Pi, or any MCP-compatible client. Pre-built connectors for every major agent platform. Your project memory is the same regardless of which agent you're using.</p>
+          </div>
+          <div class="surface-card p-4">
+            <h3 class="font-semibold text-sm" style="color: var(--accent);">Embedding-agnostic</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">Vector embeddings power semantic search, but the memory system shouldn't be tied to one embedding model. Configure your own embedding provider, or use the default. Swap models without losing observations.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2>Why it matters for teams</h2>
+        <p class="mt-3" style="color: var(--text-muted);">When every developer on your team uses a different agent, vendor-locked memory creates silos. Developer A's Claude sessions can't inform Developer B's Cursor sessions. Institutional knowledge fragments.</p>
+        <p class="mt-3" style="color: var(--text-muted);">Model-agnostic memory solves this. All agents write to the same project-scoped memory. All agents read from the same context injection. Your team builds a shared knowledge base regardless of individual tool preferences.</p>
+      </div>
+
+      <div>
+        <h2>How Telepathine.ai does it</h2>
+        <p class="mt-3" style="color: var(--text-muted);">Telepathine.ai is built model-agnostic from the ground up:</p>
+        <ul class="mt-3 space-y-2 text-sm" style="color: var(--text-muted);">
+          <li>• <strong style="color: var(--text);">Project-scoped, not user-scoped.</strong> Memory belongs to the project, not the agent or the user. Any agent working on the same project sees the same context.</li>
+          <li>• <strong style="color: var(--text);">MCP-native protocol.</strong> The Model Context Protocol is vendor-neutral by design. Any MCP client connects.</li>
+          <li>• <strong style="color: var(--text);">BYOK everywhere.</strong> Your LLM keys, your embedding keys. We never choose your model for you.</li>
+          <li>• <strong style="color: var(--text);">Open source.</strong> Apache 2.0 license. Self-host, modify, extend. No black box.</li>
+        </ul>
+      </div>
+
+      <div class="surface-panel p-6 text-center">
+        <h3>Stop re-explaining yourself to every AI</h3>
+        <p class="mt-2 text-sm" style="color: var(--text-muted);">One memory. Every engine. Any agent.</p>
+        <div class="mt-4 flex items-center justify-center gap-4">
+          <a href="/docs/quickstart" class="btn-accent">Get Started Free →</a>
+          <a href="/connectors" class="btn-ghost">See Connectors</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

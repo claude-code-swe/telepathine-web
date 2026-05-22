@@ -1,0 +1,36 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { getCollection } from 'astro:content';
+
+const docs = await getCollection('docs');
+const docsBySlug = Object.fromEntries(docs.map(d => [d.slug, d]));
+// Preserve the intended card order
+const cardOrder = [
+  'quickstart',
+  'context-injection',
+  'search',
+  'sessions',
+  'morpheus',
+  'telepathine',
+  'project-isolation',
+  'byok',
+];
+const orderedDocs = cardOrder.map(slug => docsBySlug[slug]).filter(Boolean);
+---
+
+<DocsLayout
+  title="Documentation"
+  description="Learn how to integrate Telepathine.ai into your AI agents. Guides for quick start, context injection, hybrid search, sessions, and more."
+>
+  <h1 class="text-3xl font-bold">Documentation</h1>
+  <p class="mt-4 text-lg" style="color: var(--text-muted);">Learn how to integrate Telepathine.ai into your AI agents.</p>
+
+  <div class="mt-10 grid gap-4 sm:grid-cols-2">
+    {orderedDocs.map(doc => (
+      <a href={`/docs/${doc.slug}`} class="group surface-card p-5">
+        <h3 class="font-semibold" style="color: var(--text);">{doc.data.title}</h3>
+        <p class="mt-1 text-sm" style="color: var(--text-muted);">{doc.data.description}</p>
+      </a>
+    ))}
+  </div>
+</DocsLayout>

@@ -1,0 +1,24 @@
+---
+const platforms = [
+  { name: 'Claude', color: '#D97706' },
+  { name: 'Cursor', color: '#3B82F6' },
+  { name: 'Gemini', color: '#4285F4' },
+  { name: 'Windsurf', color: '#06B6D4' },
+  { name: 'Copilot', color: '#6B7280' },
+  { name: 'Hermes', color: '#F59E0B' },
+  { name: 'Pi', color: '#8B5CF6' },
+  { name: 'Codex', color: '#10A37F' },
+  { name: 'Zed', color: '#D4D4D4' },
+  { name: 'Kiro', color: '#FF9900' },
+];
+---
+
+<div class="flex flex-wrap items-center justify-center gap-4" style="opacity: 0.8;">
+  {platforms.map(p => (
+    <div class="logo-pill" style={`border-color: ${p.color}25;`}>
+      <span class="mr-1.5 inline-block h-2 w-2 rounded-full" style={`background-color: ${p.color};`}></span>
+      {p.name}
+    </div>
+  ))}
+  <span class="text-sm" style="color: var(--text-muted); opacity: 0.5;">+ 7 more</span>
+</div>

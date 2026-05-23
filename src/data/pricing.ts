@@ -15,6 +15,7 @@ export interface PlanTier {
 	tagline: string;
 	cta: string;
 	highlighted: boolean;
+	target: string;
 }
 
 export const plans: PlanTier[] = [
@@ -23,10 +24,11 @@ export const plans: PlanTier[] = [
 		name: "Spark",
 		price: "$0",
 		priceAnnual: "$0",
-		description: "Ship something before paying. Full features, limited volume.",
+		description: "Ship something before paying. 10K observations, real features.",
 		tagline: "Free forever for solo devs.",
 		cta: "Get Started",
 		highlighted: false,
+		target: "Solo devs, prototyping",
 	},
 	{
 		id: "ignite",
@@ -34,10 +36,11 @@ export const plans: PlanTier[] = [
 		price: "$29",
 		priceAnnual: "$24",
 		description:
-			"Professional memory for professional agents. No feature paywalls.",
-		tagline: "Full features at $29. No graph paywall.",
-		cta: "Start Ignite Trial",
+			"Professional memory for production agents. Full features, no paywalls.",
+		tagline: "No graph paywall. Everything at $29.",
+		cta: "Start Ignite",
 		highlighted: true,
+		target: "Devs shipping to prod",
 	},
 	{
 		id: "blaze",
@@ -46,8 +49,9 @@ export const plans: PlanTier[] = [
 		priceAnnual: "$82",
 		description: "For teams running production agent swarms.",
 		tagline: "Scale your agent fleet with confidence.",
-		cta: "Start Blaze Trial",
+		cta: "Start Blaze",
 		highlighted: false,
+		target: "Teams & organizations",
 	},
 	{
 		id: "enterprise",
@@ -59,6 +63,7 @@ export const plans: PlanTier[] = [
 		tagline: "Dedicated support, custom SLA, on-prem option.",
 		cta: "Contact Sales",
 		highlighted: false,
+		target: "Compliance-heavy orgs",
 	},
 ];
 
@@ -79,16 +84,30 @@ export const features: PlanFeature[] = [
 	},
 	{
 		name: "Projects",
-		spark: "5",
-		ignite: "50",
-		blaze: "200",
+		spark: "1",
+		ignite: "5",
+		blaze: "Unlimited",
 		enterprise: "Unlimited",
 	},
 	{
-		name: "Search queries / month",
-		spark: "1,000",
-		ignite: "25,000",
-		blaze: "100,000",
+		name: "Bus messages / month",
+		spark: "5,000",
+		ignite: "100,000",
+		blaze: "1,000,000",
+		enterprise: "Unlimited",
+	},
+	{
+		name: "Connectors",
+		spark: "5 core",
+		ignite: "All 17",
+		blaze: "All 17",
+		enterprise: "All 17 + custom",
+	},
+	{
+		name: "Morpheus summaries / month",
+		spark: "100",
+		ignite: "2,000",
+		blaze: "20,000",
 		enterprise: "Unlimited",
 	},
 	{
@@ -99,18 +118,11 @@ export const features: PlanFeature[] = [
 		enterprise: "Hybrid + rerank + custom",
 	},
 	{
-		name: "Platform connectors",
-		spark: "All",
-		ignite: "All",
-		blaze: "All",
-		enterprise: "All + custom",
-	},
-	{
 		name: "MCP tools",
-		spark: "All 16",
-		ignite: "All 16",
-		blaze: "All 16",
-		enterprise: "All 16",
+		spark: "All 13",
+		ignite: "All 13",
+		blaze: "All 13",
+		enterprise: "All 13",
 	},
 	{
 		name: "BYOK (bring your own AI keys)",
@@ -122,43 +134,22 @@ export const features: PlanFeature[] = [
 	{
 		name: "Self-hostable (Apache 2.0)",
 		spark: true,
-		ignite: true,
-		blaze: true,
-		enterprise: true,
+		ignite: false,
+		blaze: false,
+		enterprise: false,
 	},
 	{
-		name: "Signal Bus (agent comms)",
-		spark: false,
-		ignite: true,
-		blaze: true,
-		enterprise: true,
-	},
-	{
-		name: "Bus messages / month",
-		spark: "—",
-		ignite: "10,000",
-		blaze: "100,000",
-		enterprise: "Unlimited",
-	},
-	{
-		name: "Morpheus summaries / month",
-		spark: "100",
-		ignite: "5,000",
-		blaze: "50,000",
-		enterprise: "Unlimited",
-	},
-	{
-		name: "Team sharing",
-		spark: false,
-		ignite: true,
-		blaze: true,
-		enterprise: true,
+		name: "Deployment",
+		spark: "Self-hosted",
+		ignite: "Cloud",
+		blaze: "Cloud",
+		enterprise: "BYOC / on-prem",
 	},
 	{
 		name: "Team seats",
 		spark: "1",
-		ignite: "5",
-		blaze: "25",
+		ignite: "1",
+		blaze: "10 included",
 		enterprise: "Unlimited",
 	},
 	{
@@ -190,13 +181,6 @@ export const features: PlanFeature[] = [
 		enterprise: true,
 	},
 	{
-		name: "Custom SLA",
-		spark: false,
-		ignite: false,
-		blaze: false,
-		enterprise: true,
-	},
-	{
 		name: "SSO / SAML",
 		spark: false,
 		ignite: false,
@@ -204,10 +188,28 @@ export const features: PlanFeature[] = [
 		enterprise: true,
 	},
 	{
-		name: "On-prem / BYOC",
+		name: "Custom SLA",
 		spark: false,
 		ignite: false,
 		blaze: false,
 		enterprise: true,
+	},
+];
+
+export const overagePricing = [
+	{
+		metric: "Observations",
+		ignite: "$0.10 / 1K",
+		blaze: "$0.05 / 1K",
+	},
+	{
+		metric: "Context injections",
+		ignite: "$0.002 each",
+		blaze: "$0.001 each",
+	},
+	{
+		metric: "Bus messages",
+		ignite: "$0.001 each",
+		blaze: "$0.0005 each",
 	},
 ];

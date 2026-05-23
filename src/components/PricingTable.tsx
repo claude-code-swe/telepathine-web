@@ -95,6 +95,11 @@ export default function PricingTable() {
 						>
 							{plan.tagline}
 						</p>
+						{"target" in plan && plan.target && (
+							<p className="mt-1 text-xs" style={{ color: "var(--text-muted)", opacity: 0.6 }}>
+								{plan.target}
+							</p>
+						)}
 						<a
 							href="/pricing"
 							className="mt-4 block rounded-lg py-2 text-center text-sm font-medium transition"

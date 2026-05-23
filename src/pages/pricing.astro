@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PricingTable from '../components/PricingTable.tsx';
+import { overagePricing } from '../data/pricing';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -12,51 +13,177 @@ const jsonLd = {
   priceCurrency: 'USD',
   offerCount: 4,
   offers: [
-    { '@type': 'Offer', name: 'Spark', price: '0', priceCurrency: 'USD', description: '10,000 observations/mo, 5 projects' },
-    { '@type': 'Offer', name: 'Ignite', price: '29', priceCurrency: 'USD', description: '100,000 observations/mo, 50 projects, Signal Bus, team sharing' },
-    { '@type': 'Offer', name: 'Blaze', price: '99', priceCurrency: 'USD', description: '1M observations/mo, 200 projects, priority support, audit logs' },
-    { '@type': 'Offer', name: 'Enterprise', price: 'Custom', priceCurrency: 'USD', description: 'Unlimited, custom SLA, SSO/SAML' },
+    { '@type': 'Offer', name: 'Spark', price: '0', priceCurrency: 'USD', description: '10,000 observations/mo, 1 project, self-hostable' },
+    { '@type': 'Offer', name: 'Ignite', price: '29', priceCurrency: 'USD', description: '100,000 observations/mo, 5 projects, Signal Bus, BYOK' },
+    { '@type': 'Offer', name: 'Blaze', price: '99', priceCurrency: 'USD', description: '1M observations/mo, unlimited projects, 10 seats, SLA 99.9%' },
+    { '@type': 'Offer', name: 'Enterprise', price: 'Custom', priceCurrency: 'USD', description: 'Unlimited, custom SLA, on-prem, SSO/SAML' },
   ],
 };
 ---
 
 <BaseLayout
-  title="Pricing"
-  description="Simple, transparent pricing for Telepathine.ai. Start free with 10,000 observations/mo. Ignite at $29/mo with 100,000 observations. Blaze at $99/mo for production swarms."
+  title="Pricing — Telepathine.ai"
+  description="Simple, transparent pricing for AI agent memory. Start free with 10K observations. Ignite at $29/mo with full features. Blaze at $99/mo for production swarms."
   jsonLd={jsonLd}
 >
+  <!-- ====== HEADER ====== -->
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
-    <div class="mx-auto max-w-5xl text-center">
-      <h1>Simple, transparent pricing</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg" style="color: var(--text-muted);">Start free. Upgrade when you need more. All connectors, MCP tools, and BYOK included on every plan.</p>
+    <div class="mx-auto max-w-5xl">
+      <h1>Simple, usage-based pricing</h1>
+      <p class="mt-4 max-w-xl text-lg" style="color: var(--text-muted);">Start free. Scale when ready. No feature paywalls, no graph surcharges, no surprises.</p>
     </div>
   </section>
 
+  <!-- ====== PRICING TABLE ====== -->
   <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-5xl">
       <PricingTable client:load />
     </div>
   </section>
 
-  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-3xl text-center">
+  <!-- ====== CALLOUT: NO GRAPH PAYWALL ====== -->
+  <section class="content-layer px-4 py-12 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line);">
+    <div class="mx-auto max-w-5xl">
+      <div class="grid gap-8 md:grid-cols-3">
+        <div class="rounded-lg border p-6" style="background: var(--bg-card); border-color: var(--accent-outline-soft);">
+          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--accent);">No graph paywall</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">Competitors charge $249/mo for knowledge graph features. Ignite includes everything at $29 — memory, search, bus, Morpheus pipeline. No feature tiers within tiers.</p>
+        </div>
+        <div class="rounded-lg border p-6" style="background: var(--bg-card); border-color: var(--accent-secondary-surface-soft, #5A8A5E12);">
+          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--accent-secondary);">BYOK free on all tiers</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">Bring your own OpenAI, Anthropic, or compatible keys on every plan — including the free tier. Reduces our infrastructure cost and builds trust. Your keys, your models.</p>
+        </div>
+        <div class="rounded-lg border p-6" style="background: var(--bg-card); border-color: var(--line-strong);">
+          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--text);">Self-hosted always free</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">The entire platform is Apache 2.0. Run it on your own infrastructure, behind your own firewall, with your own database. Spark is the self-hosted tier — free forever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== LAUNCH PROMOTION ====== -->
+  <section class="content-layer px-4 py-12 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line-subtle);">
+    <div class="mx-auto max-w-5xl">
+      <div class="rounded-lg border p-8" style="background: var(--accent-surface-subtle); border-color: var(--accent-outline-soft);">
+        <div class="flex items-start gap-4">
+          <span class="font-mono text-xs font-semibold uppercase tracking-widest" style="color: var(--accent);">Early Adopter</span>
+        </div>
+        <h2 class="mt-4" style="font-size: 1.5rem; line-height: 1.3;">50% off Ignite and Blaze for the first 6 months</h2>
+        <p class="mt-3 text-sm" style="color: var(--text-muted);">Ignite drops to $14.50/mo. Blaze drops to $49.50/mo. Full features, half the price. Available for the first 6 months after launch.</p>
+        <div class="mt-6 grid gap-4 text-sm sm:grid-cols-3" style="color: var(--text-muted);">
+          <div>
+            <span class="font-semibold" style="color: var(--text);">Startup program</span><br />
+            Free Blaze for 3 months. Companies under $5M funding.
+          </div>
+          <div>
+            <span class="font-semibold" style="color: var(--text);">Academic program</span><br />
+            Free Ignite for verified researchers.
+          </div>
+          <div>
+            <span class="font-semibold" style="color: var(--text);">OSS contributors</span><br />
+            Free Blaze for top 50 GitHub contributors.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== OVERAGE PRICING ====== -->
+  <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line);">
+    <div class="mx-auto max-w-5xl">
+      <h2>Overage pricing</h2>
+      <p class="mt-4 max-w-xl" style="color: var(--text-muted);">Scale, not penalty. If you exceed your plan limits, you pay a per-unit rate — no throttling, no service interruption, no shock bills.</p>
+      <div class="mt-8 overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--line);">
+              <th class="pb-3 pr-4 text-left text-xs" style="color: var(--text-muted);">Metric</th>
+              <th class="pb-3 px-4 text-center text-xs" style="color: var(--text-muted);">Ignite</th>
+              <th class="pb-3 pl-4 text-center text-xs" style="color: var(--text-muted);">Blaze</th>
+            </tr>
+          </thead>
+          <tbody>
+            {overagePricing.map((row) => (
+              <tr style="border-bottom: 1px solid var(--line-subtle);">
+                <td class="py-3 pr-4" style="color: var(--text-copy);">{row.metric}</td>
+                <td class="py-3 px-4 text-center font-mono" style="color: var(--text-muted);">{row.ignite}</td>
+                <td class="py-3 pl-4 text-center font-mono" style="color: var(--text-muted);">{row.blaze}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== UPGRADE TRIGGERS ====== -->
+  <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line-subtle);">
+    <div class="mx-auto max-w-5xl">
+      <h2>When to upgrade</h2>
+      <p class="mt-4 max-w-xl" style="color: var(--text-muted);">Natural signals, not forced upsells. Here's what to watch for.</p>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="surface-card p-5">
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Storage</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">You've used 8K of 10K observations.</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Upgrade to Ignite for 100K.</p>
+        </div>
+        <div class="surface-card p-5">
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Projects</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">Need a second project?</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Ignite gives you 5. Blaze gives you unlimited.</p>
+        </div>
+        <div class="surface-card p-5">
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Team</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">Adding a teammate?</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Blaze includes 10 seats.</p>
+        </div>
+        <div class="surface-card p-5">
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Compliance</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">Your customer needs SOC 2?</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Blaze includes audit logs. Enterprise adds the SOC 2 report.</p>
+        </div>
+        <div class="surface-card p-5">
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Bus volume</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">Running agent swarms?</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">You'll need more bus messages. Blaze gives you 1M/mo.</p>
+        </div>
+        <div class="surface-card p-5">
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Retention</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">Need memory beyond 30 days?</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Ignite retains 1 year. Blaze retains 2 years.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FAQ ====== -->
+  <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line);">
+    <div class="mx-auto max-w-3xl">
       <h2>FAQ</h2>
-      <div class="mt-8 space-y-6 text-left">
+      <div class="mt-8 space-y-6">
         <div>
           <h3 class="font-semibold" style="color: var(--text);">What counts as an observation?</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">An observation is any recorded memory — a decision, change, learning, or tool interaction. Structured and raw observations both count.</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">An observation is any recorded memory — a decision, change, learning, or tool interaction captured by your agent. Both structured and raw observations count toward your monthly total.</p>
         </div>
         <div>
           <h3 class="font-semibold" style="color: var(--text);">Can I bring my own AI keys?</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Yes! On all plans, you can configure your own OpenAI or compatible LLM/embedding provider. Your keys are encrypted at rest.</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Yes. On every tier — including the free tier — you can configure your own OpenAI, Anthropic, or compatible LLM/embedding provider. Your keys are encrypted at rest and never shared between tenants.</p>
         </div>
         <div>
           <h3 class="font-semibold" style="color: var(--text);">What happens when I hit my limit?</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">You'll get a 429 response with rate-limit headers. Your data stays accessible — only new writes are paused until the next cycle.</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">On Ignite and Blaze, overage is billed at the rates above — no throttling, no service interruption. On Spark, you'll get a 429 response with rate-limit headers. Your data stays accessible; only new writes are paused until the next cycle.</p>
         </div>
         <div>
           <h3 class="font-semibold" style="color: var(--text);">Is my data isolated from other tenants?</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Absolutely. Row-level security ensures every query is scoped to your tenant. Project-level visibility controls for further isolation.</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Row-Level Security with FORCE policies ensures every query is scoped to your tenant. Project-level visibility controls add further isolation. We learned this the hard way — and published the postmortem on our <a href="/security" class="content-link">security page</a>.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold" style="color: var(--text);">Why is self-hosted only on Spark?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">The entire platform is Apache 2.0 — you can always self-host. Spark is the self-hosted tier (free forever, run it yourself). Ignite and Blaze are managed cloud tiers. Enterprise adds BYOC and on-prem options.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold" style="color: var(--text);">Do I lose data if I downgrade?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">No. Your data is never deleted due to plan changes. If you exceed the lower plan's retention window, older observations become archived (still exportable, not queryable) until you upgrade again or export them.</p>
         </div>
       </div>
     </div>

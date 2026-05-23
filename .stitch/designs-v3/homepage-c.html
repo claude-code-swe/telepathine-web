@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Telepathine.ai | Developer API</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Geist:wght@400;600&amp;family=Noto+Serif:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#c5e7ff",
+                    "secondary-container": "#24522c",
+                    "on-surface-variant": "#d6c3b2",
+                    "bark-black": "#110F0D",
+                    "inverse-primary": "#875200",
+                    "outline-variant": "#514437",
+                    "surface-variant": "#3b332d",
+                    "on-primary-fixed-variant": "#663d00",
+                    "on-tertiary-container": "#003b52",
+                    "error-container": "#93000a",
+                    "primary-fixed-dim": "#ffb865",
+                    "on-secondary-fixed": "#002108",
+                    "primary-container": "#d4913d",
+                    "background": "#18120d",
+                    "surface-container-high": "#2f2922",
+                    "surface": "#18120d",
+                    "on-tertiary-fixed": "#001e2d",
+                    "outline": "#9f8e7e",
+                    "moss-card": "#1A1613",
+                    "on-background": "#ede0d6",
+                    "surface-container": "#251e18",
+                    "secondary-fixed": "#bbf0bc",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary": "#073915",
+                    "cedar-hover": "#221E18",
+                    "on-surface": "#ede0d6",
+                    "secondary": "#a0d3a1",
+                    "inverse-on-surface": "#362f28",
+                    "on-error": "#690005",
+                    "on-secondary-container": "#92c594",
+                    "warm-panel": "#1E1A16",
+                    "forest-soil": "#161311",
+                    "on-primary-container": "#4f2f00",
+                    "tertiary": "#7ed0ff",
+                    "surface-tint": "#ffb865",
+                    "surface-container-highest": "#3b332d",
+                    "muted-bark": "#A8A090",
+                    "surface-dim": "#18120d",
+                    "on-primary-fixed": "#2b1700",
+                    "surface-container-lowest": "#120d08",
+                    "on-tertiary": "#00344a",
+                    "primary": "#ffb865",
+                    "error": "#ffb4ab",
+                    "warm-parchment": "#E8DCC8",
+                    "tertiary-fixed-dim": "#7ed0ff",
+                    "tertiary-container": "#54a8d5",
+                    "copy-parchment": "#E0D4BE",
+                    "on-secondary-fixed-variant": "#22502a",
+                    "moss-light": "#7AAB7E",
+                    "inverse-surface": "#ede0d6",
+                    "secondary-fixed-dim": "#a0d3a1",
+                    "on-tertiary-fixed-variant": "#004c6a",
+                    "surface-container-low": "#211a14",
+                    "surface-bright": "#3f3831",
+                    "primary-fixed": "#ffddba",
+                    "on-primary": "#482a00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "2rem",
+                    "gap-section": "6rem",
+                    "container-max": "1280px",
+                    "gap-component": "2rem",
+                    "gutter": "1.5rem",
+                    "margin-desktop": "4rem"
+            },
+            "fontFamily": {
+                    "body-lg": ["Geist Sans", "sans-serif"],
+                    "code-snippet": ["JetBrains Mono", "monospace"],
+                    "headline-h2": ["Noto Serif", "serif"],
+                    "headline-h3": ["Geist Sans", "sans-serif"],
+                    "headline-h1": ["Noto Serif", "serif"],
+                    "body-md": ["Geist Sans", "sans-serif"],
+                    "label-mono": ["JetBrains Mono", "monospace"]
+            },
+            "fontSize": {
+                    "body-lg": ["1.125rem", {"lineHeight": "1.7", "fontWeight": "400"}],
+                    "code-snippet": ["0.875rem", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-h2": ["2.5rem", {"lineHeight": "1.2", "fontWeight": "400"}],
+                    "headline-h3": ["1.25rem", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "headline-h1": ["3.5rem", {"lineHeight": "1.1", "fontWeight": "400"}],
+                    "body-md": ["1rem", {"lineHeight": "1.7", "fontWeight": "400"}],
+                    "label-mono": ["0.875rem", {"lineHeight": "1.5", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #110F0D;
+            color: #E8DCC8;
+            background-image: 
+                radial-gradient(circle at 2px 2px, rgba(212, 145, 61, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .glass {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .hex-pattern {
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+            opacity: 0.15;
+        }
+        .code-keyword { color: #ffb865; }
+        .code-string { color: #a0d3a1; }
+        .code-var { color: #E8DCC8; }
+        .code-comment { color: #514437; }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-warm-panel/80 backdrop-blur-md border-b border-outline-variant">
+<nav class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto">
+<div class="font-headline-h3 text-headline-h3 font-bold text-on-surface">Telepathine.ai</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Features</a>
+<a class="text-muted-bark hover:text-warm-parchment transition-colors font-body-md text-body-md" href="#">API</a>
+<a class="text-muted-bark hover:text-warm-parchment transition-colors font-body-md text-body-md" href="#">Docs</a>
+<a class="text-muted-bark hover:text-warm-parchment transition-colors font-body-md text-body-md" href="#">Pricing</a>
+<a class="text-muted-bark hover:text-warm-parchment transition-colors font-body-md text-body-md" href="#">Security</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2 bg-primary text-on-primary font-bold rounded active:scale-95 transition-transform hover:bg-primary-container">Start Free</button>
+</div>
+</nav>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative pt-40 pb-24 px-margin-desktop max-w-container-max mx-auto overflow-hidden">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Left: Content -->
+<div class="lg:col-span-7 space-y-8">
+<h1 class="font-headline-h1 text-headline-h1 text-warm-parchment max-w-2xl">
+                        When agents share memory, <br/>they share mind.
+                    </h1>
+<p class="font-body-lg text-body-lg text-muted-bark max-w-xl">
+                        Telepathine is the cross-agent coordination layer. Deploy shared memory graphs, real-time signal routing, and hybrid retrieval for swarms of autonomous agents.
+                    </p>
+<!-- Terminal Prompt -->
+<div class="bg-bark-black border border-outline-variant rounded-xl p-4 font-label-mono text-label-mono flex items-center gap-3 max-w-md group cursor-text">
+<span class="text-primary">$</span>
+<code class="text-copy-parchment">npm install @telepathine/sdk</code>
+<button class="ml-auto text-muted-bark hover:text-primary transition-colors" title="Copy to clipboard">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+</div>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="px-8 py-4 bg-primary text-on-primary font-bold rounded-lg active:scale-95 transition-all shadow-lg shadow-primary/10">Start Free</button>
+<button class="px-8 py-4 border border-primary text-primary font-bold rounded-lg hover:bg-primary/5 transition-all">Read Docs</button>
+</div>
+</div>
+<!-- Right: SDK Visualization -->
+<div class="lg:col-span-5 relative">
+<div class="absolute inset-0 bg-primary/10 blur-[100px] -z-10 rounded-full"></div>
+<div class="bg-bark-black border border-outline-variant rounded-xl overflow-hidden shadow-2xl">
+<div class="bg-surface-variant/50 px-4 py-2 border-b border-outline-variant flex items-center justify-between">
+<div class="flex gap-1.5">
+<div class="w-2.5 h-2.5 rounded-full bg-error/30"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-primary/30"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-secondary/30"></div>
+</div>
+<span class="font-label-mono text-xs text-muted-bark uppercase">telepathine.ts</span>
+</div>
+<div class="p-6 font-code-snippet text-code-snippet overflow-x-auto">
+<pre><code><span class="code-keyword">import</span> { Telepathine } <span class="code-keyword">from</span> <span class="code-string">"@telepathine/sdk"</span>;
+
+<span class="code-keyword">const</span> core = <span class="code-keyword">new</span> Telepathine({
+  apiKey: process.env.TLP_KEY,
+  namespace: <span class="code-string">"research-swarm"</span>
+});
+
+<span class="code-comment">// Initialize shared memory bridge</span>
+<span class="code-keyword">await</span> core.memory.sync({
+  persistence: <span class="code-string">"graph"</span>,
+  depth: <span class="code-keyword">2</span>
+});
+
+<span class="code-comment">// Broadcast coordination signal</span>
+core.relay.broadcast(<span class="code-string">"TASK_COMPLETE"</span>, {
+  agentId: <span class="code-string">"worker-01"</span>,
+  payload: { path: <span class="code-string">"s3://results/04"</span> }
+});</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Logos Section -->
+<section class="py-12 px-margin-desktop border-y border-outline-variant/30 bg-forest-soil/50">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row items-center gap-8 justify-between opacity-60">
+<span class="font-label-mono text-xs uppercase tracking-widest text-muted-bark">Integrated with the frontier</span>
+<div class="flex flex-wrap justify-center gap-12 grayscale brightness-200 contrast-125">
+<span class="font-bold text-xl flex items-center gap-2">CLAUDE</span>
+<span class="font-bold text-xl flex items-center gap-2">GPT-4o</span>
+<span class="font-bold text-xl flex items-center gap-2">LLAMA 3</span>
+<span class="font-bold text-xl flex items-center gap-2">MISTRAL</span>
+</div>
+</div>
+</section>
+<!-- Feature 1: Signal Bus -->
+<section class="py-gap-section px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+<div>
+<span class="font-label-mono text-primary text-label-mono mb-4 block uppercase tracking-tighter">Coordination Layer</span>
+<h2 class="font-headline-h2 text-headline-h2 text-warm-parchment mb-6">The Signal Bus</h2>
+<p class="font-body-lg text-body-lg text-muted-bark mb-8">
+                        Traditional LLM applications are isolated. Telepathine's Signal Bus allows agents to publish and subscribe to state changes with sub-50ms latency, enabling high-frequency swarm behaviors.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary mt-1">check_circle</span>
+<span>Event-driven architecture for autonomous scaling.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary mt-1">check_circle</span>
+<span>Automatic collision detection in multi-agent writes.</span>
+</li>
+</ul>
+</div>
+<div class="bg-bark-black border border-outline-variant rounded-xl p-8 shadow-inner relative group">
+<div class="absolute top-4 right-4 text-primary opacity-20 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">hub</span>
+</div>
+<div class="font-code-snippet text-code-snippet">
+<div class="mb-4 text-muted-bark border-b border-outline-variant pb-2">Example: Coordination Hook</div>
+<pre><code><span class="code-var">telepathine</span>.<span class="code-keyword">relay</span>({
+  topic: <span class="code-string">"search-results"</span>,
+  schema: <span class="code-var">ResultSchema</span>,
+  onArrival: (data) =&gt; {
+    <span class="code-keyword">dispatch</span>(<span class="code-var">data</span>);
+  }
+});</code></pre>
+</div>
+</div>
+</div>
+</section>
+<!-- Feature 2: Persistent Memory (Alternating) -->
+<section class="py-gap-section px-margin-desktop bg-warm-panel/30">
+<div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+<div class="order-2 md:order-1 relative">
+<img class="rounded-xl border border-outline-variant shadow-2xl grayscale hover:grayscale-0 transition-all duration-700" data-alt="A highly detailed technical wireframe diagram of a neural network memory graph. The image features glowing hexagonal nodes connected by golden light filaments against a deep black cosmic background. The style is minimalist and architectural, reflecting high-performance computing and complex data structures in a warm dark-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz-SyOL_T3kvZDqoeCH-Wsdsu_eOfM8IPZYt6v54GtC8Rf3Xrg_Njj7DNUCgQAG85fcgf_hhTKwK-nafeEf1Cb6NOZDw6hABWlCDqNFGpHvy_t_UmzEEez9ARNEjBnmju6qmY_HiI52Q7Tbef7VQnQq1yIqMNclTzj2ImEvSPNWbuy4Da2_IWJsJPo215WDiiwGPRj93EJomvrfIer-jauBMkp7jfwsYwrqeBQjsNlZGoxMf94zmOnFy0S9mvGBuJuJhbQ7_HomJU"/>
+<div class="absolute inset-0 bg-primary/5 pointer-events-none rounded-xl"></div>
+</div>
+<div class="order-1 md:order-2">
+<span class="font-label-mono text-primary text-label-mono mb-4 block uppercase tracking-tighter">State Persistence</span>
+<h2 class="font-headline-h2 text-headline-h2 text-warm-parchment mb-6">Persistent Memory</h2>
+<p class="font-body-lg text-body-lg text-muted-bark mb-8">
+                        Agents forget. Telepathine remembers. Our shared memory graph allows agents to inherit the context of their predecessors, creating a continuous thread of "consciousness" across sessions and models.
+                    </p>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 border border-outline-variant rounded bg-forest-soil">
+<div class="text-primary font-bold text-xl mb-1">Graph-DB</div>
+<div class="text-xs text-muted-bark uppercase">Semantic links</div>
+</div>
+<div class="p-4 border border-outline-variant rounded bg-forest-soil">
+<div class="text-primary font-bold text-xl mb-1">Vector</div>
+<div class="text-xs text-muted-bark uppercase">Embeddings</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Feature 3: Hybrid Search -->
+<section class="py-gap-section px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+<div>
+<span class="font-label-mono text-primary text-label-mono mb-4 block uppercase tracking-tighter">Information Retrieval</span>
+<h2 class="font-headline-h2 text-headline-h2 text-warm-parchment mb-6">Hybrid Search</h2>
+<p class="font-body-lg text-body-lg text-muted-bark mb-8">
+                        Combine the speed of keyword matching with the nuance of vector embeddings. Telepathine automatically reranks results to provide the most relevant context window for your agentic prompts.
+                    </p>
+<button class="flex items-center gap-2 text-primary font-bold group">
+                        Explore Search API 
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+<div class="bg-bark-black border border-outline-variant rounded-xl overflow-hidden shadow-2xl">
+<table class="w-full text-left font-label-mono text-xs">
+<thead>
+<tr class="bg-surface-variant/30 text-muted-bark">
+<th class="p-4 border-b border-outline-variant">Document ID</th>
+<th class="p-4 border-b border-outline-variant">Semantic Score</th>
+<th class="p-4 border-b border-outline-variant">Status</th>
+</tr>
+</thead>
+<tbody class="text-copy-parchment">
+<tr class="border-b border-outline-variant/50 hover:bg-cedar-hover transition-colors">
+<td class="p-4">doc_89x_mems</td>
+<td class="p-4 text-secondary">0.9982</td>
+<td class="p-4"><span class="w-2 h-2 rounded-full bg-secondary inline-block mr-2"></span>Indexed</td>
+</tr>
+<tr class="border-b border-outline-variant/50 hover:bg-cedar-hover transition-colors">
+<td class="p-4">kb_entry_442</td>
+<td class="p-4 text-secondary">0.9421</td>
+<td class="p-4"><span class="w-2 h-2 rounded-full bg-secondary inline-block mr-2"></span>Indexed</td>
+</tr>
+<tr class="hover:bg-cedar-hover transition-colors">
+<td class="p-4">agent_log_6b</td>
+<td class="p-4 text-primary">0.8810</td>
+<td class="p-4 text-muted-bark">Processing</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="py-gap-section px-margin-desktop bg-forest-soil relative overflow-hidden" id="pricing">
+<div class="absolute inset-0 hex-pattern bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] pointer-events-none"></div>
+<div class="max-w-container-max mx-auto text-center mb-16 relative z-10">
+<h2 class="font-headline-h2 text-headline-h2 text-warm-parchment mb-4">Scale with your swarm</h2>
+<p class="font-body-lg text-body-lg text-muted-bark">Simple, developer-first pricing for agents of all sizes.</p>
+</div>
+<div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+<!-- Spark -->
+<div class="bg-moss-card border border-outline-variant rounded-xl p-8 flex flex-col hover:border-muted-bark transition-colors">
+<div class="font-label-mono text-xs uppercase text-muted-bark mb-2">Spark</div>
+<div class="text-4xl font-headline-h2 mb-6">Free</div>
+<ul class="space-y-4 mb-8 text-sm flex-grow">
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-secondary text-sm">check</span> 3 Active Agents</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-secondary text-sm">check</span> 50k Signal Credits</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-secondary text-sm">check</span> Standard Memory</li>
+</ul>
+<button class="w-full py-3 border border-outline-variant rounded font-bold hover:bg-warm-panel transition-all">Get Started</button>
+</div>
+<!-- Ignite -->
+<div class="bg-moss-card border-2 border-primary rounded-xl p-8 flex flex-col relative shadow-2xl shadow-primary/5">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-on-primary px-3 py-1 rounded text-[10px] font-bold tracking-widest uppercase">Popular</div>
+<div class="font-label-mono text-xs uppercase text-primary mb-2">Ignite</div>
+<div class="text-4xl font-headline-h2 mb-6">$29<span class="text-lg text-muted-bark">/mo</span></div>
+<ul class="space-y-4 mb-8 text-sm flex-grow">
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-secondary text-sm">check</span> 20 Active Agents</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-secondary text-sm">check</span> 1M Signal Credits</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-secondary text-sm">check</span> Persistent Memory Graph</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-secondary text-sm">check</span> Custom Relays</li>
+</ul>
+<button class="w-full py-3 bg-primary text-on-primary rounded font-bold hover:brightness-110 active:scale-95 transition-all">Start Free Trial</button>
+</div>
+<!-- Blaze -->
+<div class="bg-moss-card border border-outline-variant rounded-xl p-8 flex flex-col hover:border-muted-bark transition-colors">
+<div class="font-label-mono text-xs uppercase text-muted-bark mb-2">Blaze</div>
+<div class="text-4xl font-headline-h2 mb-6">$99<span class="text-lg text-muted-bark">/mo</span></div>
+<ul class="space-y-4 mb-8 text-sm flex-grow">
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-secondary text-sm">check</span> Unlimited Agents</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-secondary text-sm">check</span> 10M Signal Credits</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-secondary text-sm">check</span> Dedicated Context Bridge</li>
+<li class="flex gap-2 items-center"><span class="material-symbols-outlined text-secondary text-sm">check</span> 24/7 Priority Support</li>
+</ul>
+<button class="w-full py-3 border border-outline-variant rounded font-bold hover:bg-warm-panel transition-all">Contact Sales</button>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-gap-section px-margin-desktop text-center">
+<div class="max-w-3xl mx-auto space-y-8">
+<h2 class="font-headline-h1 text-headline-h1 text-warm-parchment">Ready to synchronize?</h2>
+<p class="font-body-lg text-body-lg text-muted-bark">Join 5,000+ developers building agentic swarms that never forget.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<input class="px-6 py-4 rounded-lg bg-bark-black border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all w-full sm:w-80 font-label-mono" placeholder="dev@company.com" type="email"/>
+<button class="px-8 py-4 bg-primary text-on-primary font-bold rounded-lg whitespace-nowrap">Join Beta</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-forest-soil border-t border-outline-variant w-full py-12">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-component">
+<div class="font-headline-h3 text-headline-h3 text-on-surface">Telepathine.ai</div>
+<div class="flex gap-8 font-label-mono text-label-mono">
+<a class="text-muted-bark hover:text-warm-parchment transition-colors" href="#">Privacy Policy</a>
+<a class="text-muted-bark hover:text-warm-parchment transition-colors" href="#">Terms of Service</a>
+<a class="text-muted-bark hover:text-warm-parchment transition-colors" href="#">Security Disclosure</a>
+<a class="text-muted-bark hover:text-warm-parchment transition-colors" href="#">Status</a>
+</div>
+<div class="font-label-mono text-label-mono text-muted-bark">
+                © 2024 Telepathine.ai. All rights reserved.
+            </div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for terminal button
+        document.querySelector('[title="Copy to clipboard"]').addEventListener('click', function() {
+            const icon = this.querySelector('.material-symbols-outlined');
+            const originalText = icon.textContent;
+            icon.textContent = 'done';
+            icon.classList.add('text-secondary');
+            
+            setTimeout(() => {
+                icon.textContent = originalText;
+                icon.classList.remove('text-secondary');
+            }, 2000);
+        });
+    </script>
+</body></html>

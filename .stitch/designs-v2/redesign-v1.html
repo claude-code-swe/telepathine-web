@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Telepathine.ai | The Mind-to-Mind Layer for AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-highest": "#373432",
+                    "surface-container-high": "#2c2927",
+                    "copy-parchment": "#E0D4BE",
+                    "moss-light": "#7AAB7E",
+                    "secondary-container": "#24522c",
+                    "surface-variant": "#373432",
+                    "surface-container-lowest": "#100e0c",
+                    "error": "#ffb4ab",
+                    "primary": "#ffb865",
+                    "on-secondary-container": "#92c594",
+                    "outline": "#9f8e7e",
+                    "on-error-container": "#ffdad6",
+                    "outline-variant": "#514437",
+                    "secondary": "#a0d3a1",
+                    "muted-bark": "#A8A090",
+                    "surface": "#151311",
+                    "on-surface": "#e8e1dd",
+                    "bark-black": "#110F0D",
+                    "warm-parchment": "#E8DCC8",
+                    "warm-panel": "#1E1A16",
+                    "amber-resin": "#D4913D",
+                    "cedar-hover": "#221E18",
+                    "forest-soil": "#161311",
+                    "vine-green": "#5A8A5E",
+                    "moss-card": "#1A1613"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "1.5rem",
+                    "container-max": "1280px",
+                    "section-gap": "6rem",
+                    "component-gap": "2rem"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Instrument Serif"],
+                    "headline-md": ["Instrument Serif"],
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["JetBrains Mono"],
+                    "label-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "headline-lg": ["4.5rem", {"lineHeight": "1.1", "letterSpacing": "-0.02em"}],
+                    "headline-md": ["2.5rem", {"lineHeight": "1.2"}],
+                    "headline-sm": ["1.25rem", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-lg": ["1.25rem", {"lineHeight": "1.7"}],
+                    "body-md": ["1rem", {"lineHeight": "1.7"}],
+                    "label-md": ["0.875rem", {"lineHeight": "1.5", "letterSpacing": "0.05em"}],
+                    "label-sm": ["0.75rem", {"lineHeight": "1.5"}]
+            }
+          },
+        }
+      }
+    </script>
+<style>body {
+    background-color: #110F0D;
+    color: #E8DCC8;
+    overflow-x: hidden
+    }
+.grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99;
+    opacity: 0.03;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAeq9lPzegmP-cwl1VB84NUhmwIxcJBz8AfzdJ0K6riMPmH1sChcnQf269vhBGlTntX3PsBw33dbxkZLaSYlTMY_kYYd3E2w5leIuZRDZZKhcyDLZUO0mDrRmn-1Zy568QWgYDVdA9PiLyzVBsxg2grWAjze4jOWh08b9zWSKBDrgMhxCBaXiFGKFBUhnOdCBbnb3YCerKzihz9wEwJU-Jr33ExZSLcoeEamBibjxVEeP2AlHVDJ4yT2UEPH7pDAtVKuvDqP7D2cZ0)
+    }
+.mycelial-mesh {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(#3A3530 0.5px, transparent 0.5px);
+    background-size: 30px 30px;
+    opacity: 0.15;
+    mask-image: radial-gradient(ellipse at center, black, transparent 80%)
+    }
+.amber-glow {
+    box-shadow: 0 0 40px -10px rgba(212, 145, 61, 0.2)
+    }
+.terminal-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%
+    }
+.glass-nav {
+    background: rgba(30, 26, 22, 0.8);
+    backdrop-filter: blur(12px)
+    }</style>
+</head>
+<body class="font-body-md selection:bg-amber-resin/30 selection:text-amber-resin">
+<div class="grain"></div>
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 glass-nav border-b border-outline-variant/20 h-16 shadow-sm">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-full">
+<div class="flex items-center gap-8">
+<img alt="Logo" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida/ADBb0uhcqJ90XpkYf1VOA4RrqbpGQ3RaaZ_pCgieT2-UbmPvMW-FlubeSgllHQ9Eb-2TgAfRLxEMTINaL8VYsnHabwF8Y1rWQORKKqbq8pz56B6ZuVO66_YxkIoMqP00HkWdfhx5nMKEZxNKgNf1999DuPzyCYgOWNyPz96TAf1a6It4rWIHCMKyUTUqwu22iEmVs1kd7M3cmkAWOJ_BLZu18GoD2Zbyk0g4eKRuagakm4w1EzGZlOYQRPoUtJ4"/>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-label-md text-label-md text-amber-resin font-bold border-b-2 border-amber-resin pb-1" href="#">The Vine</a>
+<a class="font-label-md text-label-md text-muted-bark hover:text-amber-resin transition-colors" href="#">Features</a>
+<a class="font-label-md text-label-md text-muted-bark hover:text-amber-resin transition-colors" href="#">Connectors</a>
+<a class="font-label-md text-label-md text-muted-bark hover:text-amber-resin transition-colors" href="#">API</a>
+<a class="font-label-md text-label-md text-muted-bark hover:text-amber-resin transition-colors" href="#">Docs</a>
+<a class="font-label-md text-label-md text-muted-bark hover:text-amber-resin transition-colors" href="#">Pricing</a>
+<a class="font-label-md text-label-md text-muted-bark hover:text-amber-resin transition-colors" href="#">Security</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-md text-label-md text-muted-bark uppercase text-xs tracking-widest">ES/EN</span>
+<button class="bg-amber-resin text-warm-panel font-label-md text-label-md px-5 py-2 rounded-lg hover:shadow-[0_0_20px_rgba(212,145,61,0.4)] transition-all transform hover:-translate-y-0.5 font-bold">Connect Now</button>
+</div>
+</div>
+</nav>
+<main class="relative">
+<!-- Hero Section -->
+<section class="relative pt-32 pb-section-gap px-gutter max-w-container-max mx-auto min-h-screen flex items-center">
+<div class="mycelial-mesh"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
+<div class="lg:col-span-7 flex flex-col justify-center">
+<h1 class="font-headline-lg text-headline-lg mb-6 leading-tight">When agents share memory, they share mind.</h1>
+<p class="font-body-lg text-body-lg text-muted-bark mb-10 italic max-w-xl">
+                        The channel layer for AI agents. Mind-to-mind memory sharing across every engine.
+                    </p>
+<div class="flex flex-wrap gap-4 mb-12">
+<button class="bg-amber-resin text-warm-panel font-label-md text-label-md px-8 py-4 rounded-lg hover:shadow-[0_0_30px_rgba(212,145,61,0.5)] transition-all transform hover:-translate-y-1 font-bold">Start Free</button>
+<button class="border border-outline-variant text-amber-resin font-label-md text-label-md px-8 py-4 rounded-lg hover:bg-cedar-hover/30 transition-all">Quick Start →</button>
+</div>
+<!-- Terminal UI -->
+<div class="bg-bark-black rounded-xl border border-outline-variant/30 overflow-hidden shadow-2xl max-w-2xl">
+<div class="bg-surface-container-high px-4 py-3 flex items-center justify-between border-b border-outline-variant/20">
+<div class="flex gap-2">
+<div class="terminal-dot bg-error/50"></div>
+<div class="terminal-dot bg-amber-resin/50"></div>
+<div class="terminal-dot bg-vine-green/50"></div>
+</div>
+<div class="flex gap-4">
+<span class="font-label-sm text-label-sm text-amber-resin border-b border-amber-resin">npm</span>
+<span class="font-label-sm text-label-sm text-muted-bark">pip</span>
+<span class="font-label-sm text-label-sm text-muted-bark">curl</span>
+</div>
+</div>
+<div class="p-6 font-label-md text-label-md text-copy-parchment leading-relaxed bg-[#0a0908]">
+<div class="flex gap-3">
+<span class="text-vine-green">$</span>
+<span>npm install @telepathine/core</span>
+</div>
+<div class="mt-2 text-muted-bark opacity-50 italic">// initializing neural bridge...</div>
+<div class="mt-2 flex gap-3">
+<span class="text-vine-green">$</span>
+<span>telepath connect --channel main-vine</span>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 flex items-center justify-center relative">
+<div class="absolute -inset-4 bg-amber-resin/10 blur-[120px] rounded-full"></div>
+<img alt="Mycelium network" class="relative z-10 w-full h-auto drop-shadow-[0_0_30px_rgba(212,145,61,0.3)] animate-pulse-slow" src="https://lh3.googleusercontent.com/aida/ADBb0uih-JwcpUI861fAT94t3Yc5MZfcE0QCa8Ejfa2BIz969biES5r85DutcHzQIJHEozhS0sghbN3Zxysdc3z3pPadj405ZlPRJdlaPgSoJCeIETg5isyXh48YCzPYvz_j4MMdxUsbPJ7voijgRfPVlAIrzza4pCqyK1b_WnZs7vV_0G_ON6Rq7meXvxs0GMF19mwVKFVH2GOK9eXtd9sxCO4ZC-baEYjJM1V5_sI-v3pRdVrhx43hIHRB_k8"/>
+</div>
+</div>
+</section>
+<!-- Logo Wall -->
+<section class="py-12 border-y border-outline-variant/10 bg-forest-soil/50">
+<div class="max-w-container-max mx-auto px-gutter text-center">
+<p class="font-label-sm text-label-sm text-muted-bark uppercase tracking-widest mb-10">Works with the forest</p>
+<div class="flex flex-wrap justify-center items-center gap-12 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+<span class="font-headline-sm text-headline-sm text-copy-parchment">Claude</span>
+<span class="font-headline-sm text-headline-sm text-copy-parchment">GPT</span>
+<span class="font-headline-sm text-headline-sm text-copy-parchment">Cursor</span>
+<span class="font-headline-sm text-headline-sm text-copy-parchment">Windsurf</span>
+<span class="font-headline-sm text-headline-sm text-copy-parchment">Aider</span>
+<span class="font-headline-sm text-headline-sm text-copy-parchment">Gemini</span>
+<span class="font-headline-sm text-headline-sm text-copy-parchment">Codex</span>
+</div>
+</div>
+</section>
+<!-- Features Zig-Zag -->
+<section class="py-section-gap px-gutter max-w-container-max mx-auto space-y-32">
+<!-- Feature 1 -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="order-2 lg:order-1">
+<span class="text-amber-resin font-label-md text-label-md uppercase tracking-tighter mb-4 block">Neural Bus</span>
+<h2 class="font-headline-md text-headline-md mb-6">Relay. Remember. Reason.</h2>
+<p class="font-body-lg text-body-lg text-muted-bark mb-8">
+                        Agents are no longer isolated silos. Telepathine provides the shared synaptic space where reasoning steps from one agent become the context for the next. Synchronize minds in real-time.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-vine-green" style="font-variation-settings: 'FILL' 1;">hub</span>
+<span class="font-body-md text-body-md">Low-latency mind-to-mind relay</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-vine-green" style="font-variation-settings: 'FILL' 1;">sync</span>
+<span class="font-body-md text-body-md">Global state synchrony across clusters</span>
+</li>
+</ul>
+</div>
+<div class="order-1 lg:order-2">
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-amber-resin to-vine-green rounded-xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
+<img class="relative rounded-xl border border-outline-variant/30 w-full h-[450px] object-cover" data-alt="A detailed digital painting of glowing fungal networks connecting tree branches, representing the 'Signal Bus' feature. The art style is organic yet technological, with pulsing amber light flowing through translucent filaments. The scene is set in a deep, dark forest at twilight with soft ambient lighting." src="https://lh3.googleusercontent.com/aida/ADBb0uifiKbhIbb4qkTZ8nUfT1TsbhrmJ8U38zzjLNzh8LtRYnKeMV5SbY19aVlpLJ0z6jG0YTvPBkV5TtBBIe0Qsc8nrPPT4lj6byg67iyOOmw0mwZw0t9SpRx3ZRsrTHMKfa9mJPwDDnO--hOfOXWnRTplPFXKyo8WN3K9N5Xtu6Jp4tb-rB3Ko4pzN-flmrCcFYwAa12n7HPoLvWfOcc-qePVHZxqlAExcv-TY_yInqBoBK210B0ElLVD20k"/>
+</div>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-vine-green to-amber-resin rounded-xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
+<img class="relative rounded-xl border border-outline-variant/30 w-full h-[450px] object-cover" data-alt="A central, ancient tree trunk with glowing amber liquid resin pouring into an organic hollow, symbolizing 'Persistent Memory'. The imagery is rich with mossy textures, bark details, and a warm golden glow. Tiny glowing spores float in the air, creating a magical, high-tech forest atmosphere with deep shadows." src="https://lh3.googleusercontent.com/aida/ADBb0uifiKbhIbb4qkTZ8nUfT1TsbhrmJ8U38zzjLNzh8LtRYnKeMV5SbY19aVlpLJ0z6jG0YTvPBkV5TtBBIe0Qsc8nrPPT4lj6byg67iyOOmw0mwZw0t9SpRx3ZRsrTHMKfa9mJPwDDnO--hOfOXWnRTplPFXKyo8WN3K9N5Xtu6Jp4tb-rB3Ko4pzN-flmrCcFYwAa12n7HPoLvWfOcc-qePVHZxqlAExcv-TY_yInqBoBK210B0ElLVD20k"/>
+</div>
+<div>
+<span class="text-amber-resin font-label-md text-label-md uppercase tracking-tighter mb-4 block">The Extended Mind</span>
+<h2 class="font-headline-md text-headline-md mb-6">Persistent Memory</h2>
+<p class="font-body-lg text-body-lg text-muted-bark mb-8">
+                        Every interaction, every snippet of code, and every logical conclusion is etched into the permanent collective memory. Sessions don't end—they evolve the vine.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-amber-resin" style="font-variation-settings: 'FILL' 1;">database</span>
+<span class="font-body-md text-body-md">Sub-millisecond memory retrieval</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-amber-resin" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<span class="font-body-md text-body-md">Self-enriching knowledge graphs</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div>
+<span class="text-amber-resin font-label-md text-label-md uppercase tracking-tighter mb-4 block">Deep Retrieval</span>
+<h2 class="font-headline-md text-headline-md mb-6">Hybrid Search</h2>
+<p class="font-body-lg text-body-lg text-muted-bark mb-8">
+                        Don't just look for words; look for meanings. Our mycelial indexing combines exact-match precision with latent semantic understanding to find exactly what your agents need.
+                    </p>
+<div class="bg-moss-card border border-outline-variant/20 p-6 rounded-xl">
+<div class="flex items-center gap-4 mb-4">
+<div class="p-2 bg-amber-resin/10 rounded-lg">
+<span class="material-symbols-outlined text-amber-resin">search_insights</span>
+</div>
+<span class="font-headline-sm text-headline-sm">Semantic Core</span>
+</div>
+<p class="text-muted-bark font-body-md">Advanced vector-based retrieval that understands the context of code and conversation.</p>
+</div>
+</div>
+<div>
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-amber-resin to-vine-green rounded-xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
+<img class="relative rounded-xl border border-outline-variant/30 w-full h-[450px] object-cover" data-alt="An ornate, ancient magnifying glass looking through a complex web of glowing neural fibers and tree roots, representing 'Hybrid Search'. The lens highlights a crystalline structure of concentrated light. The background is dark and textured with aged wood patterns and amber highlights." src="https://lh3.googleusercontent.com/aida/ADBb0uifiKbhIbb4qkTZ8nUfT1TsbhrmJ8U38zzjLNzh8LtRYnKeMV5SbY19aVlpLJ0z6jG0YTvPBkV5TtBBIe0Qsc8nrPPT4lj6byg67iyOOmw0mwZw0t9SpRx3ZRsrTHMKfa9mJPwDDnO--hOfOXWnRTplPFXKyo8WN3K9N5Xtu6Jp4tb-rB3Ko4pzN-flmrCcFYwAa12n7HPoLvWfOcc-qePVHZxqlAExcv-TY_yInqBoBK210B0ElLVD20k"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Narrative Section -->
+<section class="py-section-gap relative overflow-hidden bg-bark-black">
+<div class="absolute top-0 right-0 w-1/3 h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/dark-wood.png')]"></div>
+<div class="max-w-container-max mx-auto px-gutter relative z-10 text-center">
+<div class="max-w-3xl mx-auto">
+<h2 class="font-headline-md text-headline-md mb-8 italic">"Nature solved distributed memory billions of years ago. We are just bringing it to the silicon."</h2>
+<a class="inline-flex items-center gap-2 text-amber-resin font-label-md text-label-md hover:underline decoration-2 underline-offset-8 transition-all" href="#">
+                        The story of the vine 
+                        <span class="material-symbols-outlined">trending_flat</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Workflow Step -->
+<section class="py-section-gap px-gutter max-w-container-max mx-auto">
+<h2 class="font-headline-md text-headline-md mb-16 text-center">Three breaths to connectivity</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="relative p-8 rounded-2xl bg-warm-panel border border-outline-variant/20 amber-glow">
+<div class="text-6xl font-headline-lg text-amber-resin/10 absolute top-4 right-8 select-none">01</div>
+<span class="material-symbols-outlined text-amber-resin text-4xl mb-6">install_desktop</span>
+<h3 class="font-headline-sm text-headline-sm mb-4">Install connector</h3>
+<p class="text-muted-bark">Deploy our lightweight binary or npm package to your agent's environment.</p>
+</div>
+<div class="relative p-8 rounded-2xl bg-warm-panel border border-outline-variant/20">
+<div class="text-6xl font-headline-lg text-amber-resin/10 absolute top-4 right-8 select-none">02</div>
+<span class="material-symbols-outlined text-amber-resin text-4xl mb-6">vpn_key</span>
+<h3 class="font-headline-sm text-headline-sm mb-4">Set API key</h3>
+<p class="text-muted-bark">Authenticate with your workspace and bind to the global knowledge vine.</p>
+</div>
+<div class="relative p-8 rounded-2xl bg-warm-panel border border-outline-variant/20">
+<div class="text-6xl font-headline-lg text-amber-resin/10 absolute top-4 right-8 select-none">03</div>
+<span class="material-symbols-outlined text-amber-resin text-4xl mb-6">leak_add</span>
+<h3 class="font-headline-sm text-headline-sm mb-4">Open the channel</h3>
+<p class="text-muted-bark">Start sharing thoughts, memories, and actions across your AI ecosystem.</p>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="py-section-gap px-gutter max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline-md text-headline-md mb-4">Resource your intelligence</h2>
+<p class="text-muted-bark max-w-2xl mx-auto font-body-md">Scale from local prototypes to global agentic networks.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+<!-- Spark -->
+<div class="bg-warm-panel p-10 rounded-2xl border border-outline-variant/10 flex flex-col">
+<h3 class="font-headline-sm text-headline-sm mb-2">Spark</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-headline-lg">$0</span>
+<span class="text-muted-bark font-label-sm">/month</span>
+</div>
+<ul class="space-y-4 mb-12 flex-grow">
+<li class="flex items-center gap-2 text-muted-bark"><span class="material-symbols-outlined text-sm text-vine-green">check_circle</span> 1 Channel</li>
+<li class="flex items-center gap-2 text-muted-bark"><span class="material-symbols-outlined text-sm text-vine-green">check_circle</span> 100MB Persistent Memory</li>
+<li class="flex items-center gap-2 text-muted-bark"><span class="material-symbols-outlined text-sm text-vine-green">check_circle</span> 3 Agents Limit</li>
+</ul>
+<button class="w-full py-4 rounded-lg border border-outline-variant text-copy-parchment hover:bg-cedar-hover transition-all font-bold">Plant your seed</button>
+</div>
+<!-- Ignite -->
+<div class="bg-warm-panel p-10 rounded-2xl border-2 border-amber-resin relative amber-glow flex flex-col transform md:-translate-y-4">
+<div class="absolute top-0 right-10 -translate-y-1/2 bg-amber-resin text-warm-panel px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Popular</div>
+<h3 class="font-headline-sm text-headline-sm mb-2">Ignite</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-headline-lg">$29</span>
+<span class="text-muted-bark font-label-sm">/month</span>
+</div>
+<ul class="space-y-4 mb-12 flex-grow">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-amber-resin">check_circle</span> Unlimited Channels</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-amber-resin">check_circle</span> 10GB Persistent Memory</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-amber-resin">check_circle</span> Unlimited Agents</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-amber-resin">check_circle</span> Priority Reasoning Relay</li>
+</ul>
+<button class="w-full py-4 rounded-lg bg-amber-resin text-warm-panel hover:shadow-[0_0_20px_rgba(212,145,61,0.5)] transition-all font-bold">Ignite growth</button>
+</div>
+<!-- Blaze -->
+<div class="bg-warm-panel p-10 rounded-2xl border border-outline-variant/10 flex flex-col">
+<h3 class="font-headline-sm text-headline-sm mb-2">Blaze</h3>
+<div class="flex items-baseline gap-1 mb-8">
+<span class="text-4xl font-headline-lg">$99</span>
+<span class="text-muted-bark font-label-sm">/month</span>
+</div>
+<ul class="space-y-4 mb-12 flex-grow">
+<li class="flex items-center gap-2 text-muted-bark"><span class="material-symbols-outlined text-sm text-vine-green">check_circle</span> Custom Connectors</li>
+<li class="flex items-center gap-2 text-muted-bark"><span class="material-symbols-outlined text-sm text-vine-green">check_circle</span> Enterprise Compliance</li>
+<li class="flex items-center gap-2 text-muted-bark"><span class="material-symbols-outlined text-sm text-vine-green">check_circle</span> 1:1 Engineering Support</li>
+<li class="flex items-center gap-2 text-muted-bark"><span class="material-symbols-outlined text-sm text-vine-green">check_circle</span> Dedicated Mesh</li>
+</ul>
+<button class="w-full py-4 rounded-lg border border-outline-variant text-copy-parchment hover:bg-cedar-hover transition-all font-bold">Contact us</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-bark-black border-t border-outline-variant/10 w-full py-section-gap">
+<div class="flex flex-col md:flex-row justify-between items-start px-gutter max-w-container-max mx-auto gap-component-gap">
+<div class="max-w-sm">
+<div class="text-headline-md font-headline-md text-amber-resin mb-4">Telepathine.ai</div>
+<p class="font-body-md text-body-md text-muted-bark opacity-80 mb-8">The interconnected mycelial network for collective AI intelligence.</p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-12">
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md text-amber-resin font-bold">Network</h4>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-copy-parchment transition-colors" href="#">The Vine</a>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-copy-parchment transition-colors" href="#">Mycelium API</a>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-copy-parchment transition-colors" href="#">Manifesto</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md text-amber-resin font-bold">Legal</h4>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-copy-parchment transition-colors" href="#">Security</a>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-copy-parchment transition-colors" href="#">Privacy</a>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-copy-parchment transition-colors" href="#">Terms</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md text-amber-resin font-bold">Connect</h4>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-copy-parchment transition-colors" href="#">X / Twitter</a>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-copy-parchment transition-colors" href="#">GitHub</a>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-copy-parchment transition-colors" href="#">Discord</a>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter mt-16 pt-8 border-t border-outline-variant/5 text-center md:text-left">
+<p class="font-label-sm text-label-sm text-muted-bark opacity-60">© 2024 Telepathine.ai. All rights reserved.</p>
+</div>
+</footer>
+<script>
+        // Subtle interaction: Parallax effect on the mycelium network image
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            const heroImage = document.querySelector('img[src*="IMAGE_3"]');
+            if (heroImage) {
+                heroImage.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+
+        // Sticky header transition
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2');
+                nav.classList.remove('py-0');
+            } else {
+                nav.classList.remove('py-2');
+                nav.classList.add('py-0');
+            }
+        });
+    </script>
+</body></html>

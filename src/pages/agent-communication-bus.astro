@@ -1,10 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getLocaleFromUrl, localizePath } from '../i18n/utils';
-import type { Locale } from '../i18n/utils';
-
-const locale: Locale = getLocaleFromUrl(Astro.url);
-const fp = (path: string) => localizePath(path, locale);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -144,8 +139,8 @@ curl -N https://api.telepathine.ai/v1/bus/channels/architecture/stream \\
         <h3>Let your agents coordinate</h3>
         <p class="mt-2 text-sm" style="color: var(--text-muted);">Signal Bus: real-time agent communication with memory persistence built in.</p>
         <div class="mt-4 flex items-center justify-center gap-4">
-          <a href={fp('/pricing')} class="btn-accent">See Plans →</a>
-          <a href={fp('/features')} class="btn-ghost">All Features</a>
+          <a href="/pricing" class="btn-accent">See Plans →</a>
+          <a href="/features" class="btn-ghost">All Features</a>
         </div>
       </div>
     </div>

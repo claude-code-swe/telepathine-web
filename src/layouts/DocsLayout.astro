@@ -1,7 +1,5 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import { getUI } from '../i18n/ui';
-import { type Locale, getLocaleFromUrl, localizePath } from '../i18n/utils';
 
 export interface Props {
   title: string;
@@ -12,19 +10,15 @@ export interface Props {
 
 const { title, description, ogImage, jsonLd } = Astro.props;
 
-const currentLocale: Locale = getLocaleFromUrl(Astro.url);
-const ui = getUI(currentLocale);
-const fp = (path: string) => localizePath(path, currentLocale);
-
 const docsNav = [
-  { label: 'Quick Start', href: fp('/docs/quickstart') },
-  { label: 'Context Injection', href: fp('/docs/context-injection') },
-  { label: 'Hybrid Search', href: fp('/docs/search') },
-  { label: 'Sessions', href: fp('/docs/sessions') },
-  { label: 'Morpheus Pipeline', href: fp('/docs/morpheus') },
-  { label: 'Signal Bus', href: fp('/docs/telepathine') },
-  { label: 'Project Isolation', href: fp('/docs/project-isolation') },
-  { label: 'Bring Your Own Key', href: fp('/docs/byok') },
+  { label: 'Quick Start', href: '/docs/quickstart' },
+  { label: 'Context Injection', href: '/docs/context-injection' },
+  { label: 'Hybrid Search', href: '/docs/search' },
+  { label: 'Sessions', href: '/docs/sessions' },
+  { label: 'Morpheus Pipeline', href: '/docs/morpheus' },
+  { label: 'Signal Bus', href: '/docs/telepathine' },
+  { label: 'Project Isolation', href: '/docs/project-isolation' },
+  { label: 'Bring Your Own Key', href: '/docs/byok' },
 ];
 ---
 
@@ -33,15 +27,15 @@ const docsNav = [
     <div class="flex gap-8 py-8">
       <aside class="hidden w-56 shrink-0 lg:block">
         <nav class="sticky top-20 space-y-1">
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">{ui.docs.guides}</p>
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">Guides</p>
           {docsNav.map(item => (
             <a href={item.href} class="sidebar-link">{item.label}</a>
           ))}
           <div class="my-4" style="border-top: 1px solid var(--line);"></div>
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">{ui.docs.api}</p>
-          <a href={fp('/api/rest')} class="sidebar-link">{ui.docs.restApi}</a>
-          <a href={fp('/api/mcp')} class="sidebar-link">{ui.docs.mcpServer}</a>
-          <a href={fp('/api/sdks')} class="sidebar-link">{ui.docs.sdks}</a>
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">API</p>
+          <a href="/api/rest" class="sidebar-link">REST API</a>
+          <a href="/api/mcp" class="sidebar-link">MCP Server</a>
+          <a href="/api/sdks" class="sidebar-link">SDKs</a>
         </nav>
       </aside>
       <article class="min-w-0 flex-1 max-w-3xl">

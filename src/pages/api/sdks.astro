@@ -1,11 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
-import { getLocaleFromUrl, localizePath } from '../../i18n/utils';
-import type { Locale } from '../../i18n/utils';
-
-const locale: Locale = getLocaleFromUrl(Astro.url);
-const fp = (path: string) => localizePath(path, locale);
 ---
 
 <BaseLayout
@@ -14,7 +9,7 @@ const fp = (path: string) => localizePath(path, locale);
 >
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <a href={fp('/api')} class="text-sm transition" style="color: var(--text-muted);">← API Overview</a>
+      <a href="/api" class="text-sm transition" style="color: var(--text-muted);">← API Overview</a>
       <h1 class="mt-4">SDKs</h1>
       <p class="mt-4 text-lg" style="color: var(--text-muted);">Full-featured SDKs for TypeScript and Python. Typed interfaces, automatic retries, timeout handling, and all API surfaces covered.</p>
     </div>

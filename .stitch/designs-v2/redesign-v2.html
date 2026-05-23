@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Telepathine.ai - When agents share memory, they share mind.</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#ffb865",
+                        "on-error-container": "#ffdad6",
+                        "forest-soil": "#161311",
+                        "on-primary-fixed-variant": "#663d00",
+                        "on-primary-fixed": "#2b1700",
+                        "deep-forest": "#3D6B41",
+                        "inverse-primary": "#875200",
+                        "surface-tint": "#ffb865",
+                        "on-background": "#e8e1dd",
+                        "amber-resin": "#D4913D",
+                        "on-error": "#690005",
+                        "secondary": "#a0d3a1",
+                        "on-tertiary-fixed": "#201b0f",
+                        "secondary-container": "#24522c",
+                        "surface-container-low": "#1d1b19",
+                        "moss-card": "#1A1613",
+                        "on-secondary": "#073915",
+                        "surface-container": "#221f1d",
+                        "copy-parchment": "#E0D4BE",
+                        "surface-dim": "#151311",
+                        "bark-black": "#110F0D",
+                        "tertiary-container": "#a89e8c",
+                        "outline-variant": "#514437",
+                        "inverse-on-surface": "#33302d",
+                        "on-surface-variant": "#d6c3b2",
+                        "tertiary-fixed": "#ede1cd",
+                        "secondary-fixed": "#bbf0bc",
+                        "primary-fixed": "#ffddba",
+                        "on-tertiary-container": "#3c3528",
+                        "on-primary-container": "#4f2f00",
+                        "muted-bark": "#A8A090",
+                        "cedar-hover": "#221E18",
+                        "surface-variant": "#373432",
+                        "outline": "#9f8e7e",
+                        "tertiary": "#d1c5b2",
+                        "secondary-fixed-dim": "#a0d3a1",
+                        "on-secondary-fixed-variant": "#22502a",
+                        "surface-container-highest": "#373432",
+                        "on-primary": "#482a00",
+                        "on-secondary-container": "#92c594",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#4d4637",
+                        "warm-panel": "#1E1A16",
+                        "on-secondary-fixed": "#002108",
+                        "surface-bright": "#3c3936",
+                        "warm-parchment": "#E8DCC8",
+                        "on-tertiary": "#363022",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#100e0c",
+                        "on-surface": "#e8e1dd",
+                        "background": "#151311",
+                        "primary-container": "#d4913d",
+                        "primary-fixed-dim": "#ffb865",
+                        "vine-green": "#5A8A5E",
+                        "inverse-surface": "#e8e1dd",
+                        "moss-light": "#7AAB7E",
+                        "tertiary-fixed-dim": "#d1c5b2",
+                        "surface": "#151311",
+                        "surface-container-high": "#2c2927"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "2rem",
+                        "margin-desktop": "4rem",
+                        "gutter": "1.5rem",
+                        "container-max": "1280px",
+                        "component-gap": "2rem",
+                        "section-gap": "6rem"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Instrument Serif"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-lg": ["Instrument Serif"],
+                        "body-md": ["Geist Sans"],
+                        "body-lg": ["Geist Sans"],
+                        "headline-sm": ["Geist Sans"],
+                        "label-sm": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["2rem", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "label-md": ["0.875rem", { "lineHeight": "1.5", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg": ["3rem", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "body-md": ["1rem", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "body-lg": ["1.125rem", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "headline-sm": ["1.25rem", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "label-sm": ["0.75rem", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    },
+                    backgroundImage: {
+                        'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.03%22/%3E%3C/svg%3E')",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.forest-soil');
+            color: theme('colors.on-surface');
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: theme('backgroundImage.noise');
+            pointer-events: none;
+            z-index: 50;
+        }
+        .mycelial-bg {
+            background-image: radial-gradient(circle at 20% 30%, rgba(212, 145, 61, 0.08) 0%, transparent 40%),
+                              radial-gradient(circle at 80% 70%, rgba(90, 138, 94, 0.06) 0%, transparent 50%);
+        }
+        .glow-amber {
+            box-shadow: 0 4px 20px -2px rgba(212, 145, 61, 0.15);
+        }
+        .glow-amber:hover {
+            box-shadow: 0 6px 25px -2px rgba(212, 145, 61, 0.25);
+            transform: translateY(-1px);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(212, 145, 61, 0.3);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md mycelial-bg">
+<!-- TopNavBar -->
+<header class="bg-warm-panel/80 backdrop-blur-md sticky top-0 z-40 border-b border-outline-variant/30 shadow-[0_2px_15px_-3px_rgba(212,145,61,0.07)]">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-2">
+<img alt="Telepathine.ai Logo" class="h-8 w-8 object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0uhcqJ90XpkYf1VOA4RrqbpGQ3RaaZ_pCgieT2-UbmPvMW-FlubeSgllHQ9Eb-2TgAfRLxEMTINaL8VYsnHabwF8Y1rWQORKKqbq8pz56B6ZuVO66_YxkIoMqP00HkWdfhx5nMKEZxNKgNf1999DuPzyCYgOWNyPz96TAf1a6It4rWIHCMKyUTUqwu22iEmVs1kd7M3cmkAWOJ_BLZu18GoD2Zbyk0g4eKRuagakm4w1EzGZlOYQRPoUtJ4"/>
+<span class="font-headline-md text-headline-md font-bold text-amber-resin tracking-tight hidden sm:block">Telepathine.ai</span>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-label-md text-label-md text-amber-resin border-b-2 border-amber-resin pb-1" href="#">The Vine</a>
+<a class="font-label-md text-label-md text-muted-bark hover:text-amber-resin transition-colors duration-300" href="#">Features</a>
+<a class="font-label-md text-label-md text-muted-bark hover:text-amber-resin transition-colors duration-300" href="#">Connectors</a>
+<a class="font-label-md text-label-md text-muted-bark hover:text-amber-resin transition-colors duration-300" href="#">API</a>
+<a class="font-label-md text-label-md text-muted-bark hover:text-amber-resin transition-colors duration-300" href="#">Docs</a>
+<a class="font-label-md text-label-md text-muted-bark hover:text-amber-resin transition-colors duration-300" href="#">Pricing</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="font-label-sm text-label-sm text-muted-bark flex gap-2">
+<span class="hover:text-amber-resin cursor-pointer transition-colors">ES</span>
+<span>|</span>
+<span class="text-amber-resin font-medium">EN</span>
+</div>
+<button class="bg-amber-resin text-warm-parchment font-label-md text-label-md px-4 py-2 rounded transition-all duration-300 glow-amber hover:bg-primary">
+                    Start Free
+                </button>
+</div>
+</div>
+</header>
+<main class="flex-grow flex flex-col gap-section-gap pb-section-gap">
+<!-- Hero Section -->
+<section class="px-margin-mobile md:px-margin-desktop pt-12 md:pt-24 max-w-container-max mx-auto w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-7 flex flex-col gap-8">
+<div class="flex flex-col gap-4">
+<h1 class="font-headline-lg text-headline-lg text-amber-resin text-glow">
+                            When agents share memory, they share mind.
+                        </h1>
+<p class="font-body-lg text-body-lg text-copy-parchment italic max-w-2xl">
+                            The channel layer for AI agents. Mind-to-mind memory sharing across every engine.
+                        </p>
+</div>
+<div class="flex flex-wrap gap-4 items-center">
+<button class="bg-amber-resin text-warm-parchment font-label-md text-label-md px-6 py-3 rounded transition-all duration-300 glow-amber hover:bg-primary">
+                            Start Free
+                        </button>
+<button class="border border-outline-variant text-amber-resin font-label-md text-label-md px-6 py-3 rounded transition-all duration-300 hover:bg-surface-variant hover:border-amber-resin/50">
+                            Quick Start →
+                        </button>
+</div>
+<div class="mt-4 bg-bark-black border border-outline-variant/50 rounded-lg p-4 font-label-md text-label-md w-fit flex items-center gap-3">
+<span class="text-vine-green">$</span>
+<code class="text-copy-parchment">npm install <span class="text-amber-resin">@telepathine/sdk</span></code>
+<button class="text-muted-bark hover:text-amber-resin ml-4 transition-colors">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="absolute inset-0 bg-amber-resin/10 blur-3xl rounded-full"></div>
+<img alt="Mycelium network glowing with amber energy" class="relative z-10 w-full rounded-xl border border-outline-variant/20 shadow-2xl mix-blend-screen opacity-90 object-cover h-[400px]" src="https://lh3.googleusercontent.com/aida/ADBb0uih-JwcpUI861fAT94t3Yc5MZfcE0QCa8Ejfa2BIz969biES5r85DutcHzQIJHEozhS0sghbN3Zxysdc3z3pPadj405ZlPRJdlaPgSoJCeIETg5isyXh48YCzPYvz_j4MMdxUsbPJ7voijgRfPVlAIrzza4pCqyK1b_WnZs7vV_0G_ON6Rq7meXvxs0GMF19mwVKFVH2GOK9eXtd9sxCO4ZC-baEYjJM1V5_sI-v3pRdVrhx43hIHRB_k8"/>
+</div>
+</div>
+</section>
+<!-- Social Proof -->
+<section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full border-y border-outline-variant/10 py-8 bg-surface-container-low/30">
+<div class="flex flex-col md:flex-row items-center gap-8 justify-center opacity-70">
+<span class="font-label-sm text-label-sm text-muted-bark uppercase tracking-widest">Works with</span>
+<div class="flex flex-wrap justify-center gap-8 md:gap-12 items-center grayscale sepia-[0.3] hover:grayscale-0 transition-all duration-500">
+<span class="font-headline-sm text-headline-sm text-copy-parchment">Claude</span>
+<span class="font-headline-sm text-headline-sm text-copy-parchment">GPT-4</span>
+<span class="font-headline-sm text-headline-sm text-copy-parchment">Cursor</span>
+<span class="font-headline-sm text-headline-sm text-copy-parchment">Llama</span>
+<span class="font-headline-sm text-headline-sm text-copy-parchment">Mistral</span>
+</div>
+</div>
+</section>
+<!-- Features (Zig-Zag) -->
+<section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full flex flex-col gap-24">
+<div class="text-center mb-8">
+<h2 class="font-headline-md text-headline-md text-amber-resin">Relay. Remember. Reason.</h2>
+<div class="h-px w-24 bg-gradient-to-r from-transparent via-amber-resin/50 to-transparent mx-auto mt-4"></div>
+</div>
+<!-- Feature 1 -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-4 order-2 md:order-1 pl-0 md:pl-12">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-amber-resin">hub</span>
+<h3 class="font-headline-sm text-headline-sm text-copy-parchment">Signal Bus</h3>
+</div>
+<p class="text-muted-bark">Agents relay mind-to-mind across channels. Instantly broadcast state changes, context updates, and learned insights across your entire fleet of agents in real-time.</p>
+</div>
+<div class="order-1 md:order-2 bg-moss-card border border-outline-variant/30 rounded-xl overflow-hidden shadow-lg">
+<div class="h-1 w-full bg-gradient-to-r from-amber-resin/20 via-amber-resin to-amber-resin/20"></div>
+<img alt="Glowing mushroom network signifying signal bus" class="w-full h-64 object-cover opacity-80 mix-blend-screen" src="https://lh3.googleusercontent.com/aida/ADBb0uifiKbhIbb4qkTZ8nUfT1TsbhrmJ8U38zzjLNzh8LtRYnKeMV5SbY19aVlpLJ0z6jG0YTvPBkV5TtBBIe0Qsc8nrPPT4lj6byg67iyOOmw0mwZw0t9SpRx3ZRsrTHMKfa9mJPwDDnO--hOfOXWnRTplPFXKyo8WN3K9N5Xtu6Jp4tb-rB3Ko4pzN-flmrCcFYwAa12n7HPoLvWfOcc-qePVHZxqlAExcv-TY_yInqBoBK210B0ElLVD20k" style="object-position: left;"/>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="bg-moss-card border border-outline-variant/30 rounded-xl overflow-hidden shadow-lg">
+<div class="h-1 w-full bg-gradient-to-r from-amber-resin/20 via-amber-resin to-amber-resin/20"></div>
+<img alt="Pool of glowing amber sap signifying persistent memory" class="w-full h-64 object-cover opacity-80 mix-blend-screen" src="https://lh3.googleusercontent.com/aida/ADBb0uifiKbhIbb4qkTZ8nUfT1TsbhrmJ8U38zzjLNzh8LtRYnKeMV5SbY19aVlpLJ0z6jG0YTvPBkV5TtBBIe0Qsc8nrPPT4lj6byg67iyOOmw0mwZw0t9SpRx3ZRsrTHMKfa9mJPwDDnO--hOfOXWnRTplPFXKyo8WN3K9N5Xtu6Jp4tb-rB3Ko4pzN-flmrCcFYwAa12n7HPoLvWfOcc-qePVHZxqlAExcv-TY_yInqBoBK210B0ElLVD20k" style="object-position: center;"/>
+</div>
+<div class="flex flex-col gap-4 pr-0 md:pr-12">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-amber-resin">memory</span>
+<h3 class="font-headline-sm text-headline-sm text-copy-parchment">Persistent Memory</h3>
+</div>
+<p class="text-muted-bark">Every session enriches the extended mind. Store high-dimensional embeddings and relational knowledge graphs that persist beyond single context windows.</p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-4 order-2 md:order-1 pl-0 md:pl-12">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-amber-resin">travel_explore</span>
+<h3 class="font-headline-sm text-headline-sm text-copy-parchment">Hybrid Search</h3>
+</div>
+<p class="text-muted-bark">Find what you need by keyword or by meaning. Combine dense vector retrieval with exact keyword matching to surface the perfect memory fragment instantly.</p>
+</div>
+<div class="order-1 md:order-2 bg-moss-card border border-outline-variant/30 rounded-xl overflow-hidden shadow-lg">
+<div class="h-1 w-full bg-gradient-to-r from-amber-resin/20 via-amber-resin to-amber-resin/20"></div>
+<img alt="Magnifying glass focusing light on neural roots" class="w-full h-64 object-cover opacity-80 mix-blend-screen" src="https://lh3.googleusercontent.com/aida/ADBb0uifiKbhIbb4qkTZ8nUfT1TsbhrmJ8U38zzjLNzh8LtRYnKeMV5SbY19aVlpLJ0z6jG0YTvPBkV5TtBBIe0Qsc8nrPPT4lj6byg67iyOOmw0mwZw0t9SpRx3ZRsrTHMKfa9mJPwDDnO--hOfOXWnRTplPFXKyo8WN3K9N5Xtu6Jp4tb-rB3Ko4pzN-flmrCcFYwAa12n7HPoLvWfOcc-qePVHZxqlAExcv-TY_yInqBoBK210B0ElLVD20k" style="object-position: right;"/>
+</div>
+</div>
+</section>
+<!-- Narrative Section -->
+<section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full text-center py-12">
+<div class="max-w-3xl mx-auto flex flex-col gap-6">
+<span class="material-symbols-outlined text-amber-resin/50 text-4xl mx-auto block">spa</span>
+<p class="font-headline-sm text-headline-sm text-copy-parchment font-light leading-relaxed">
+                    "Nature solved distributed memory billions of years ago. Mycelial networks connect forests, sharing nutrients and signals beneath the soil. We are building that same Wood Wide Web for the digital minds of tomorrow."
+                </p>
+<a class="font-label-md text-label-md text-amber-resin hover:text-primary transition-colors underline decoration-amber-resin/40 underline-offset-4 mt-4" href="#">
+                    The story of the vine →
+                </a>
+</div>
+</section>
+<!-- Pricing -->
+<section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<div class="text-center mb-12">
+<h2 class="font-headline-md text-headline-md text-amber-resin">Cultivate Your Network</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+<!-- Spark -->
+<div class="bg-surface-container border border-outline-variant/20 rounded-xl p-8 flex flex-col gap-6 relative overflow-hidden transition-all hover:border-outline-variant/50">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-copy-parchment">Spark</h3>
+<p class="font-label-sm text-label-sm text-muted-bark mt-1">For single agents</p>
+</div>
+<div class="font-headline-md text-headline-md text-amber-resin">$0<span class="text-lg text-muted-bark">/mo</span></div>
+<ul class="flex flex-col gap-3 font-label-sm text-label-sm text-copy-parchment flex-grow">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-vine-green text-sm">check</span> 10k messages/mo</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-vine-green text-sm">check</span> Standard Memory</li>
+</ul>
+<button class="w-full border border-outline-variant text-amber-resin font-label-md text-label-md py-2 rounded hover:bg-surface-variant transition-colors">Start Spore</button>
+</div>
+<!-- Ignite (Popular) -->
+<div class="bg-moss-card border-2 border-amber-resin/50 rounded-xl p-8 flex flex-col gap-6 relative overflow-hidden glow-amber transform md:-translate-y-4">
+<div class="absolute top-0 inset-x-0 h-1 bg-amber-resin"></div>
+<div class="absolute top-4 right-4 bg-amber-resin/10 text-amber-resin font-label-sm text-label-sm px-2 py-1 rounded-full border border-amber-resin/20">Popular</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-copy-parchment">Ignite</h3>
+<p class="font-label-sm text-label-sm text-muted-bark mt-1">For small hives</p>
+</div>
+<div class="font-headline-md text-headline-md text-amber-resin">$49<span class="text-lg text-muted-bark">/mo</span></div>
+<ul class="flex flex-col gap-3 font-label-sm text-label-sm text-copy-parchment flex-grow">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-vine-green text-sm">check</span> 500k messages/mo</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-vine-green text-sm">check</span> Persistent Memory Graph</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-vine-green text-sm">check</span> Signal Bus Access</li>
+</ul>
+<button class="w-full bg-amber-resin text-warm-parchment font-label-md text-label-md py-2 rounded hover:bg-primary transition-colors">Grow Network</button>
+</div>
+<!-- Blaze -->
+<div class="bg-surface-container border border-outline-variant/20 rounded-xl p-8 flex flex-col gap-6 relative overflow-hidden transition-all hover:border-outline-variant/50">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-copy-parchment">Blaze</h3>
+<p class="font-label-sm text-label-sm text-muted-bark mt-1">For enterprise swarms</p>
+</div>
+<div class="font-headline-md text-headline-md text-amber-resin">Custom</div>
+<ul class="flex flex-col gap-3 font-label-sm text-label-sm text-copy-parchment flex-grow">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-vine-green text-sm">check</span> Unlimited throughput</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-vine-green text-sm">check</span> Dedicated Clusters</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-vine-green text-sm">check</span> SLA Guarantees</li>
+</ul>
+<button class="w-full border border-outline-variant text-amber-resin font-label-md text-label-md py-2 rounded hover:bg-surface-variant transition-colors">Contact Sales</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-bark-black border-t border-outline-variant/20 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-8 max-w-container-max mx-auto space-y-6 md:space-y-0">
+<div class="flex flex-col gap-2 items-center md:items-start">
+<div class="flex items-center gap-2">
+<img alt="Telepathine.ai small logo" class="h-6 w-6 object-contain opacity-50" src="https://lh3.googleusercontent.com/aida/ADBb0uhcqJ90XpkYf1VOA4RrqbpGQ3RaaZ_pCgieT2-UbmPvMW-FlubeSgllHQ9Eb-2TgAfRLxEMTINaL8VYsnHabwF8Y1rWQORKKqbq8pz56B6ZuVO66_YxkIoMqP00HkWdfhx5nMKEZxNKgNf1999DuPzyCYgOWNyPz96TAf1a6It4rWIHCMKyUTUqwu22iEmVs1kd7M3cmkAWOJ_BLZu18GoD2Zbyk0g4eKRuagakm4w1EzGZlOYQRPoUtJ4"/>
+<span class="font-headline-sm text-headline-sm italic text-muted-bark">Telepathine.ai</span>
+</div>
+<p class="font-body-md text-body-md text-muted-bark text-sm">© 2024 Telepathine.ai. When agents share memory, they share mind.</p>
+</div>
+<nav class="flex flex-wrap justify-center gap-6">
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-warm-parchment underline decoration-amber-resin/40 transition-all" href="#">The Vine</a>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-warm-parchment underline decoration-amber-resin/40 transition-all" href="#">Protocol</a>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-warm-parchment underline decoration-amber-resin/40 transition-all" href="#">Neural API</a>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-warm-parchment underline decoration-amber-resin/40 transition-all" href="#">Ancient Docs</a>
+<a class="font-label-sm text-label-sm text-muted-bark hover:text-warm-parchment underline decoration-amber-resin/40 transition-all" href="#">Security Shell</a>
+</nav>
+</div>
+</footer>
+</body></html>

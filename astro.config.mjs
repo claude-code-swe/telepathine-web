@@ -5,16 +5,8 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-	site: "https://claude-code-swe.github.io/telepathine-web",
-	base: "/telepathine-web",
+	site: "https://telepathine.ai",
 	integrations: [react(), mdx(), sitemap()],
-	i18n: {
-		defaultLocale: 'es',
-		locales: ['es', 'en'],
-		routing: {
-			prefixDefaultLocale: false,
-		},
-	},
 	vite: {
 		plugins: [tailwindcss()],
 	},

@@ -56,6 +56,26 @@ const statusClasses: Record<string, string> = {
         </div>
       )}
 
+      {connector.busIntegration && (
+        <div class="mt-10">
+          <h2 class="text-xl font-bold">Bus Integration</h2>
+          <div class="mt-4">
+            {connector.busIntegration === 'connected' && (
+              <span class="rounded-full px-2.5 py-0.5 text-xs font-medium" style="background: #10B98120; color: #10B981;">✓ Connected (bidirectional)</span>
+            )}
+            {connector.busIntegration === 'send-only' && (
+              <span class="rounded-full px-2.5 py-0.5 text-xs font-medium" style="background: #F59E0B20; color: #F59E0B;">⚠ Send-only</span>
+            )}
+            {connector.busIntegration === 'not-wired' && (
+              <span class="rounded-full px-2.5 py-0.5 text-xs font-medium" style="background: #6B728020; color: #6B7280;">Not wired</span>
+            )}
+          </div>
+          {connector.platformPriority !== undefined && (
+            <p class="mt-2 text-sm" style="color: var(--text-muted);">Platform priority: P{connector.platformPriority}</p>
+          )}
+        </div>
+      )}
+
       <div class="mt-10">
         <h2 class="text-xl font-bold">Configuration</h2>
         <div class="mt-4">

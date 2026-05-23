@@ -31,6 +31,7 @@
     "mcpMemoryServer": "MCP Memory Server",
     "modelAgnosticMemory": "Model-Agnostic Memory",
     "agentCommunicationBus": "Agent Communication Bus",
+    "agentCommunicationBusStatus": "Not yet in production",
     "claudeMemoryAlternative": "Claude Memory Alternative",
     "copyright": "© 2026 ArtemisAI. All rights reserved."
   },
@@ -50,7 +51,11 @@
     "supportedEvents": "Supported Events",
     "configuration": "Configuration",
     "quickTest": "Quick Test",
-    "allConnectors": "All Connectors"
+    "allConnectors": "All Connectors",
+    "busConnected": "Bus Connected",
+    "busSendOnly": "Bus Send-Only",
+    "busNotWired": "Bus Not Wired",
+    "platformPriority": "Platform Priority"
   },
   "docs": {
     "guides": "Guides",

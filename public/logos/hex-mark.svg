@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <!-- Hexagonal frame -->
-  <path d="M32 4L58 18V46L32 60L6 46V18L32 4Z" stroke="#D4913D" stroke-width="2" fill="none"/>
+  <path d="M32 4L58 18V46L32 60L6 46V18L32 4Z" stroke="#0AE5A0" stroke-width="2" fill="none"/>
   <!-- Inner channel element -->
-  <path d="M32 18L44 24.5V37.5L32 44L20 37.5V24.5L32 18Z" fill="#D4913D" opacity="0.3"/>
-  <path d="M32 22L40 26.5V35.5L32 40L24 35.5V26.5L32 22Z" fill="#D4913D"/>
+  <path d="M32 18L44 24.5V37.5L32 44L20 37.5V24.5L32 18Z" fill="#0AE5A0" opacity="0.3"/>
+  <path d="M32 22L40 26.5V35.5L32 40L24 35.5V26.5L32 22Z" fill="#0AE5A0"/>
   <!-- Signal node -->
-  <circle cx="32" cy="29" r="2.5" fill="#110F0D"/>
+  <circle cx="32" cy="29" r="2.5" fill="#0C0F13"/>
 </svg>

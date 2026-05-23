@@ -2,11 +2,6 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ConnectorCard from '../../components/ConnectorCard.astro';
 import { connectors } from '../../data/connectors';
-import { getLocaleFromUrl, localizePath } from '../../i18n/utils';
-import type { Locale } from '../../i18n/utils';
-
-const locale: Locale = getLocaleFromUrl(Astro.url);
-const fp = (path: string) => localizePath(path, locale);
 
 const jsonLd = {
   '@context': 'https://schema.org',

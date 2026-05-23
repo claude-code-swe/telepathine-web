@@ -22,15 +22,15 @@ export const BRAND = {
 	API_KEY_PLACEHOLDER: "your_api_key_here",
 
 	/** Primary tagline */
-	TAGLINE: "Your memory should outlive your agent.",
+	TAGLINE: "When agents share memory, they become aware.",
 
 	/** Default meta description */
 	DEFAULT_DESCRIPTION:
-		"The portable memory layer for AI agents. Works with every coding agent.",
+		"The awareness layer for AI agents. Persistent memory, hybrid search, signal bus — any engine, any agent.",
 
 	/** Secondary description (used in some meta contexts) */
 	SECONDARY_DESCRIPTION:
-		"One memory, every engine. Any agent. Project-scoped, engine-agnostic, MCP-native.",
+		"Any engine, any agent. Project-scoped, engine-agnostic, MCP-native. Agents become aware.",
 
 	/** Organization */
 	ORG_NAME: "ArtemisAI",
@@ -49,12 +49,11 @@ export const BRAND = {
  *   coordinate, project-scoped, tenant-isolated, RLS-enforced,
  *   engine-agnostic, portable, vendor-neutral, cross-engine,
  *   session-surviving, amnesia-proof, signal, trace, continuity,
- *   broadcast
+ *   broadcast, **aware, awareness, context-aware, state-aware**
  *
  * ✅ Use sparingly (10% ambient vibe, max 2x on entire site):
  *   mind-to-mind, channel opener, feeling at a distance,
- *   wavelength, synchrony, mycelium (visual only), extended mind,
- *   traces, bioluminescent
+ *   wavelength, synchrony, extended mind, traces, bioluminescent
  *
  * ❌ NEVER USE:
  *   explicit ritual/entheogen terminology, spiritual/mystical claims,

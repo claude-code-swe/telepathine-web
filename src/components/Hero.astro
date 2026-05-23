@@ -1,77 +1,60 @@
 ---
 export interface Props {
-  title?: string;
-  subtitle?: string;
+  title: string;
+  subtitle: string;
+  code?: string;
 }
 
-const { 
-  title = 'When agents <em>share memory</em>, they share mind.',
-  subtitle = 'The channel layer for AI agents. A unified protocol for persistent memory, cross-model context injection, and real-time coordination.'
-} = Astro.props;
+const { title, subtitle, code } = Astro.props;
 ---
 
-<section class="content-layer relative px-4 pb-16 pt-28 sm:px-6 sm:pt-36 lg:px-8">
-  <div class="mx-auto max-w-[1280px]">
-    <div class="grid items-center gap-8 md:grid-cols-12 md:gap-12">
-      <!-- Left: 7 cols — messaging -->
-      <div class="col-span-7 flex flex-col gap-8 text-left">
-        <h1 set:html={title} />
-        <p class="max-w-lg text-lg leading-relaxed sm:text-xl" style="color: var(--text-muted); font-family: var(--font-sans);">{subtitle}</p>
-        
-        <!-- Install command -->
-        <div class="max-w-md">
-          <div class="install-box flex items-center gap-3">
-            <div class="terminal-dots px-3 py-2" style="border-right: 1px solid var(--line);">
-              <span class="terminal-dot terminal-dot-red"></span>
-              <span class="terminal-dot terminal-dot-yellow"></span>
-              <span class="terminal-dot terminal-dot-green"></span>
-            </div>
-            <code style="font-family: var(--font-mono); font-size: 0.875rem; color: var(--accent);">$ npm i @telepathine/sdk</code>
+<section class="content-layer relative overflow-hidden px-4 pb-16 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+  <!-- Gradient orbs -->
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute left-1/2 top-0 -translate-x-1/2 h-[500px] w-[800px] rounded-full blur-3xl" style="background: var(--accent); opacity: 0.08;"></div>
+    <div class="absolute right-0 top-1/3 h-[300px] w-[400px] rounded-full blur-3xl" style="background: var(--accent-secondary); opacity: 0.06;"></div>
+  </div>
+
+  <div class="mx-auto max-w-4xl text-center">
+    <h1 class="gradient-text">{title}</h1>
+    <p class="mx-auto mt-6 max-w-2xl text-lg sm:text-xl" style="font-family: var(--font-serif); font-style: italic; color: var(--text-copy);">{subtitle}</p>
+    <div class="mx-auto mt-6 h-0.5 w-16 rounded-full" style="background: linear-gradient(90deg, var(--accent), transparent);"></div>
+    <div class="mt-8 flex items-center justify-center gap-4">
+      <a href="/pricing" class="btn-accent" style="padding: 0.625rem 1.25rem;">Start Free</a>
+      <a href="/docs/quickstart" class="btn-ghost">Quick Start →</a>
+    </div>
+
+    <!-- Tabbed install box -->
+    <div class="mx-auto mt-12 max-w-xl">
+      <div class="install-box">
+        <div class="flex items-center justify-between px-4 py-2" style="border-bottom: 1px solid var(--line);">
+          <div class="terminal-dots">
+            <span class="terminal-dot terminal-dot-red"></span>
+            <span class="terminal-dot terminal-dot-yellow"></span>
+            <span class="terminal-dot terminal-dot-green"></span>
+          </div>
+          <div class="install-tabs" id="install-tabs">
+            <button class="install-tab is-active" data-tab="npm" onclick="switchInstallTab('npm')">npm</button>
+            <button class="install-tab" data-tab="pip" onclick="switchInstallTab('pip')">pip</button>
+            <button class="install-tab" data-tab="manual" onclick="switchInstallTab('manual')">curl</button>
           </div>
         </div>
-
-        <!-- CTAs -->
-        <div class="flex items-center gap-4">
-          <a href="/pricing" class="btn-accent">Start Free</a>
-          <a href="/docs/quickstart" class="btn-ghost">Read Docs →</a>
-        </div>
-      </div>
-
-      <!-- Right: 5 cols — code terminal -->
-      <div class="col-span-5 w-full">
-        <div class="code-terminal shadow-2xl">
-          <div class="code-terminal-bar">
-            <span class="code-terminal-dot code-terminal-dot-red"></span>
-            <span class="code-terminal-dot code-terminal-dot-yellow"></span>
-            <span class="code-terminal-dot code-terminal-dot-green"></span>
-            <span class="ml-4 font-mono text-[10px]" style="color: var(--text-muted);">agent.ts</span>
-          </div>
-          <div class="code-terminal-body min-h-[300px]">
-            <pre><span class="syn-kw">import</span> <span class="syn-var">&#123; telepathine &#125;</span> <span class="syn-kw">from</span> <span class="syn-str">'@telepathine/sdk'</span>;
-
-<span class="syn-kw">const</span> <span class="syn-var">agent</span> = telepathine.init();
-
-<span class="syn-kw">await</span> agent.<span class="syn-var">inject</span>(&#123;
-  memory: <span class="syn-str">'shared-context-v4'</span>,
-  scope:  <span class="syn-str">'global'</span>
-&#125;);
-
-<span class="syn-cmt">// Channel established.</span></pre>
-          </div>
-        </div>
+        <div class="install-code" id="install-code-npm"><span class="prefix">$ </span>npx @ai-memory/plugin-claude install</div>
+        <div class="install-code" id="install-code-pip" style="display:none;"><span class="prefix">$ </span>pip install agent-memory-hermes</div>
+        <div class="install-code" id="install-code-manual" style="display:none;"><span class="prefix">$ </span>curl -s https://telepathine.ai/install.sh | bash</div>
       </div>
     </div>
   </div>
 </section>
 
-<style>
-  h1 {
-    font-family: var(--font-serif);
-    font-weight: 400;
-   	line-height: 1.05;
+<script>
+  function switchInstallTab(tab: string) {
+    document.querySelectorAll('.install-tab').forEach(t => t.classList.remove('is-active'));
+    document.querySelector(`.install-tab[data-tab="${tab}"]`)?.classList.add('is-active');
+    (document.getElementById('install-code-npm') as HTMLElement).style.display = tab === 'npm' ? '' : 'none';
+    (document.getElementById('install-code-pip') as HTMLElement).style.display = tab === 'pip' ? '' : 'none';
+    (document.getElementById('install-code-manual') as HTMLElement).style.display = tab === 'manual' ? '' : 'none';
   }
-  h1 em {
-    font-style: italic;
-    color: var(--accent);
-  }
-</style>
+  // Expose globally for onclick handlers
+  (window as any).switchInstallTab = switchInstallTab;
+</script>

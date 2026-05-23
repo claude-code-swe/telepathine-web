@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import FeatureCard from '../components/FeatureCard.astro';
 import LogoWall from '../components/LogoWall.astro';
 
 const jsonLd = {
@@ -9,242 +10,100 @@ const jsonLd = {
   name: 'Telepathine.ai',
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'Any',
-  description: 'The channel layer for AI agents. Persistent memory, hybrid search, signal bus.',
+  description: 'The awareness layer for AI agents. Persistent memory, hybrid search, signal bus.',
   url: 'https://telepathine.ai',
   offers: [
     { '@type': 'Offer', price: '0', priceCurrency: 'USD', name: 'Spark' },
     { '@type': 'Offer', price: '29', priceCurrency: 'USD', name: 'Ignite' },
     { '@type': 'Offer', price: '99', priceCurrency: 'USD', name: 'Blaze' },
   ],
-  featureList: ['Signal Bus', 'Persistent Memory', 'Hybrid Search', 'Context Injection', 'Morpheus Pipeline', '17 connectors'],
+  featureList: ['Persistent Memory', 'Hybrid Search', 'Context Injection', 'Morpheus Pipeline', 'Signal Bus', 'Connectors for every major agent'],
 };
 ---
 
 <BaseLayout
-  title="Telepathine.ai — The Channel Layer for AI Agents"
-  description="The channel layer for AI agents. Persistent memory, cross-model context injection, real-time signal bus. Works with every engine."
+  title="Telepathine.ai — The Awareness Layer for AI Agents"
+  description="The awareness layer for AI agents. Persistent memory, cross-model context injection, real-time signal bus. Any engine, any agent."
   jsonLd={jsonLd}
 >
-  <!-- ====== HERO ====== -->
-  <Hero />
+  <Hero
+    title="When agents <em>share memory</em>, they become aware."
+    subtitle="The awareness layer for AI agents. Persistent memory, cross-model context injection, and real-time signal bus."
+  />
 
-  <!-- ====== LOGO WALL ====== -->
-  <section class="content-layer px-4 py-12 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
-    <div class="mx-auto max-w-[1280px]">
-      <p class="mb-8 text-left font-mono text-xs uppercase tracking-widest" style="color: var(--text-muted);">Integrated with the frontier</p>
+  <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="mb-8 text-center text-sm uppercase tracking-widest" style="color: var(--text-muted);">Works with</p>
       <LogoWall />
     </div>
   </section>
 
-  <!-- ====== FEATURE 1: SIGNAL BUS ====== -->
-  <section class="content-layer px-4 py-24 sm:px-6 lg:px-8" style="border-bottom: 1px solid var(--line-subtle);">
-    <div class="mx-auto grid max-w-[1280px] items-center gap-16 md:grid-cols-2">
-      <div class="flex flex-col gap-6">
-        <span class="layer-label">Layer 01</span>
-        <h2>Signal Bus</h2>
-        <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7;">
-          High-throughput, low-latency relay for real-time agent coordination.
-          Direct state sync between autonomous nodes without centralized bottlenecks.
-        </p>
-        <div class="code-snippet">
-          <code>{'telepathine.relay({ channel: \'swarm-alpha\' })'}</code>
-        </div>
+  <section class="content-layer section-divider section-accent-top px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <h2 class="text-center">Capture. Search. Relay.</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-center text-lg" style="color: var(--text-muted);">
+        Three capabilities that transform your AI agents from stateless tools into persistent, intelligent collaborators.
+      </p>
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        <FeatureCard icon="🧠" title="Persistent Memory" description="Your agents remember decisions, changes, and learnings across sessions and projects. Never re-explain context again." />
+        <FeatureCard icon="🔍" title="Hybrid Search" description="Combine full-text and semantic vector search. Find what you need by keyword or by meaning, scoped to your project." />
+        <FeatureCard icon="📡" title="Signal Bus" description="Agents broadcast on channels via the Signal Bus. Coordinate swarms, share findings, stay in sync." />
       </div>
-      <div class="flex justify-center">
-        <!-- Wireframe network topology diagram -->
-        <div class="w-full max-w-lg rounded-lg border p-8" style="background: var(--bg-card); border-color: var(--line-strong);">
-          <svg viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
-            <!-- Hex nodes -->
-            <polygon points="200,30 230,47 230,83 200,100 170,83 170,47" stroke="#D4913D" stroke-width="1.5" fill="#D4913D08"/>
-            <polygon points="100,100 130,117 130,153 100,170 70,153 70,117" stroke="#D4913D" stroke-width="1.5" fill="#D4913D08"/>
-            <polygon points="300,100 330,117 330,153 300,170 270,153 270,117" stroke="#D4913D" stroke-width="1.5" fill="#D4913D08"/>
-            <polygon points="150,170 180,187 180,223 150,240 120,223 120,187" stroke="#5A8A5E" stroke-width="1.5" fill="#5A8A5E08"/>
-            <polygon points="250,170 280,187 280,223 250,240 220,223 220,187" stroke="#5A8A5E" stroke-width="1.5" fill="#5A8A5E08"/>
-            <!-- Connections -->
-            <line x1="200" y1="100" x2="100" y2="100" stroke="#D4913D" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.4"/>
-            <line x1="200" y1="100" x2="300" y2="100" stroke="#D4913D" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.4"/>
-            <line x1="100" y1="170" x2="150" y2="170" stroke="#5A8A5E" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.4"/>
-            <line x1="300" y1="170" x2="250" y2="170" stroke="#5A8A5E" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.4"/>
-            <line x1="150" y1="240" x2="250" y2="240" stroke="#5A8A5E" stroke-width="0.8" stroke-dasharray="4,4" opacity="0.3"/>
-            <!-- Node labels -->
-            <text x="200" y="70" text-anchor="middle" fill="#D4913D" font-family="monospace" font-size="10">relay</text>
-            <text x="100" y="140" text-anchor="middle" fill="#D4913D" font-family="monospace" font-size="10">node-α</text>
-            <text x="300" y="140" text-anchor="middle" fill="#D4913D" font-family="monospace" font-size="10">node-β</text>
-            <text x="150" y="210" text-anchor="middle" fill="#5A8A5E" font-family="monospace" font-size="10">agent-1</text>
-            <text x="250" y="210" text-anchor="middle" fill="#5A8A5E" font-family="monospace" font-size="10">agent-2</text>
-            <!-- Active pulse dot on relay -->
-            <circle cx="200" cy="65" r="3" fill="#D4913D" opacity="0.8"/>
-          </svg>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider section-alt px-4 py-20 sm:px-6 lg:px-8"> lg:grid-cols-2 lg:items-center">
+        <div>
+          <h2>How it works</h2>
+          <div class="mt-8 space-y-6">
+            <div class="flex gap-4">
+              <div class="step-circle">1</div>
+              <div>
+                <h3 class="font-semibold" style="color: var(--text);">Install a connector</h3>
+                <p class="mt-1 text-sm" style="color: var(--text-muted);">One command installs the adapter for your agent platform. Auto-detects your environment.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="step-circle">2</div>
+              <div>
+                <h3 class="font-semibold" style="color: var(--text);">Set your API key</h3>
+                <p class="mt-1 text-sm" style="color: var(--text-muted);">Get an API key from Telepathine.ai. Set it in your environment. That's the only config needed.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="step-circle">3</div>
+              <div>
+                <h3 class="font-semibold" style="color: var(--text);">Your agent remembers</h3>
+                <p class="mt-1 text-sm" style="color: var(--text-muted);">Every session creates observations. Every new session injects relevant context. Your agent builds institutional knowledge.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="surface-panel p-6">
+          <pre class="overflow-x-auto text-sm" style="color: var(--text-copy);"><code>{`# Session 1 — your agent works
+→ POST /v1/sessions { project: "auth-service" }
+→ POST /v1/sessions/:id/observations
+    { type: "decision", title: "Use JWT + refresh tokens" }
+→ POST /v1/sessions/:id/complete
+
+# Session 2 — next day, new context
+→ GET /v1/context/inject?projects=auth-service
+
+# Agent sees:
+# [auth-service] recent context
+# • Decision: Use JWT + refresh tokens
+# • Changed: src/auth/middleware.ts
+# • Session summary: Implemented JWT auth...`}</code></pre>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ====== FEATURE 2: PERSISTENT MEMORY ====== -->
-  <section class="content-layer px-4 py-24 sm:px-6 lg:px-8" style="border-bottom: 1px solid var(--line-subtle);">
-    <div class="mx-auto grid max-w-[1280px] items-center gap-16 md:grid-cols-2">
-      <!-- Visual on left this time (zig-zag) -->
-      <div class="order-2 flex justify-center md:order-1">
-        <div class="w-full max-w-lg rounded-lg border p-8" style="background: var(--bg-card); border-color: var(--line-strong);">
-          <div class="space-y-4 font-mono text-[10px]" style="color: var(--text-muted); opacity: 0.5;">
-            <div class="border-l-2 pl-4 py-2 hover:opacity-80 transition-opacity" style="border-color: var(--accent); opacity: 0.6;">
-              <span style="color: var(--accent);">&#123;</span>
-              <div class="pl-4">"node_id": <span style="color: var(--accent-secondary);">"mem_0X92"</span>,</div>
-              <div class="pl-4">"context": <span style="color: var(--accent-secondary);">"project_theta"</span>,</div>
-              <div class="pl-4">"relations": [</div>
-              <div class="pl-8">&#123;"type": "causal", "target": "session_88"&#125;,</div>
-              <div class="pl-8">&#123;"type": "semantic", "target": "user_intent"&#125;</div>
-              <div class="pl-4">]</div>
-              <span style="color: var(--accent);">&#125;</span>
-            </div>
-            <div class="border-l-2 pl-4 py-2" style="border-color: var(--accent); opacity: 0.3;">
-              <span style="color: var(--accent);">&#123;</span>
-              <div class="pl-4">"node_id": <span style="color: var(--accent-secondary);">"mem_0X93"</span>, ... &#125;</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="order-1 flex flex-col gap-6 md:order-2">
-        <span class="layer-label">Layer 02</span>
-        <h2>Persistent Memory</h2>
-        <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7;">
-          Every session enriches a shared memory graph. Agents don't just act — they remember,
-          learn from previous deployments, and build upon common project structures.
-        </p>
-        <div class="code-snippet">
-          <code>{'telepathine.inject({ project: \'my-app\' })'}</code>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== FEATURE 3: HYBRID SEARCH ====== -->
-  <section class="content-layer px-4 py-24 sm:px-6 lg:px-8" style="border-bottom: 1px solid var(--line-subtle);">
-    <div class="mx-auto grid max-w-[1280px] items-center gap-16 md:grid-cols-2">
-      <div class="flex flex-col gap-6">
-        <span class="layer-label">Layer 03</span>
-        <h2>Hybrid Search</h2>
-        <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7;">
-          Simultaneous keyword and semantic retrieval for precise information grounding.
-          Telepathine ensures agents always have the most relevant context.
-        </p>
-        <!-- Search mockup -->
-        <div class="relative max-w-md">
-          <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-          </svg>
-          <input class="w-full border py-3 pl-10 pr-4 font-mono text-sm" style="background: var(--bg-panel); border-color: var(--line); color: var(--text-copy);" placeholder="Search the memory graph..." type="text" readonly />
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="rounded-lg border p-4" style="background: var(--bg-card); border-color: var(--line-strong);">
-          <div class="mb-3 h-1 w-8 rounded" style="background: var(--accent); opacity: 0.4;"></div>
-          <p class="text-sm" style="color: var(--text);">Semantic: Swarm protocols</p>
-          <p class="mt-1 text-xs" style="color: var(--text-muted);">Rank: 0.98 Match</p>
-        </div>
-        <div class="rounded-lg border p-4 translate-y-4" style="background: var(--bg-card); border-color: var(--line-strong);">
-          <div class="mb-3 h-1 w-8 rounded" style="background: var(--accent-secondary); opacity: 0.4;"></div>
-          <p class="text-sm" style="color: var(--text);">Keyword: Relay.ts</p>
-          <p class="mt-1 text-xs" style="color: var(--text-muted);">Direct Code Reference</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== PRICING ====== -->
-  <section class="content-layer py-24 sm:px-6 lg:px-8" style="background: #16131180; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
-    <div class="mx-auto max-w-[1280px] px-4">
-      <div class="mb-16 text-center">
-        <h2>Simple, usage-based pricing</h2>
-        <p class="mt-4" style="color: var(--text-muted);">Start free. Scale when ready.</p>
-      </div>
-      <div class="grid gap-6 md:grid-cols-3">
-        <!-- Spark -->
-        <div class="pricing-card">
-          <div class="flex flex-col gap-2">
-            <h3 style="font-family: var(--font-sans);">Spark</h3>
-            <div class="flex items-baseline gap-1">
-              <span class="text-3xl font-bold" style="color: var(--text);">$0</span>
-              <span class="font-mono text-xs" style="color: var(--text-muted);">/month</span>
-            </div>
-          </div>
-          <ul class="flex flex-grow flex-col gap-4">
-            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> 10k messages / mo
-            </li>
-            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> 5 memory nodes
-            </li>
-            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Shared relay pools
-            </li>
-          </ul>
-          <a href="/pricing" class="block rounded-lg border py-3 text-center font-semibold transition" style="border-color: var(--line-strong); color: var(--text);">Get Started</a>
-        </div>
-
-        <!-- Ignite (featured) -->
-        <div class="pricing-card pricing-card-featured relative">
-          <span class="pricing-popular-badge">Popular</span>
-          <div class="flex flex-col gap-2">
-            <h3 style="font-family: var(--font-sans);">Ignite</h3>
-            <div class="flex items-baseline gap-1">
-              <span class="text-3xl font-bold" style="color: var(--text);">$29</span>
-              <span class="font-mono text-xs" style="color: var(--text-muted);">/month</span>
-            </div>
-          </div>
-          <ul class="flex flex-grow flex-col gap-4">
-            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> 500k messages / mo
-            </li>
-            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Unlimited memory nodes
-            </li>
-            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Dedicated relay pools
-            </li>
-            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Advanced analytics
-            </li>
-          </ul>
-          <a href="/pricing" class="btn-accent block text-center">Scale Up</a>
-        </div>
-
-        <!-- Blaze -->
-        <div class="pricing-card">
-          <div class="flex flex-col gap-2">
-            <h3 style="font-family: var(--font-sans);">Blaze</h3>
-            <div class="flex items-baseline gap-1">
-              <span class="text-3xl font-bold" style="color: var(--text);">$99</span>
-              <span class="font-mono text-xs" style="color: var(--text-muted);">/month</span>
-            </div>
-          </div>
-          <ul class="flex flex-grow flex-col gap-4">
-            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Unlimited messages
-            </li>
-            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Priority relay access
-            </li>
-            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> White-label API
-            </li>
-            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> 24/7 Concierge support
-            </li>
-          </ul>
-          <a href="/pricing" class="block rounded-lg border py-3 text-center font-semibold transition" style="border-color: var(--line-strong); color: var(--text);">Contact Enterprise</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== CTA ====== -->
-  <section class="content-layer px-4 py-24 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-[1280px] text-left">
+  <section class="content-layer section-divider section-accent-top px-4 py-20 sm:px-6 lg:px-8">
       <h2>Start building in 5 minutes</h2>
-      <p class="mt-4 max-w-xl" style="color: var(--text-muted);">No infrastructure to manage. No database to configure. Just an API key and your favorite agent.</p>
-      <div class="mt-8 flex items-center gap-4">
-        <a href="/docs/quickstart" class="btn-accent">Quick Start Guide →</a>
+      <p class="mt-4" style="color: var(--text-muted);">No infrastructure to manage. No database to configure. Just an API key and your favorite agent.</p>
+      <div class="mt-8 flex items-center justify-center gap-4">
+        <a href="/docs/quickstart" class="btn-accent" style="padding: 0.625rem 1.5rem;">Quick Start Guide →</a>
         <a href="/api" class="btn-ghost">API Reference</a>
       </div>
     </div>

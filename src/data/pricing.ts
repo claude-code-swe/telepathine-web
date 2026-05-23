@@ -24,7 +24,8 @@ export const plans: PlanTier[] = [
 		name: "Spark",
 		price: "$0",
 		priceAnnual: "$0",
-		description: "Ship something before paying. 10K observations, real features.",
+		description:
+			"Ship something before paying. 10K observations, real features.",
 		tagline: "Free forever for solo devs.",
 		cta: "Get Started",
 		highlighted: false,

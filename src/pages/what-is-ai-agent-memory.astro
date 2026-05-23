@@ -1,125 +1,393 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const faqItems = [
+  {
+    question: 'What is AI agent memory?',
+    answer: 'AI agent memory is a persistent external storage layer that allows an AI agent to retain, retrieve, and reason over information across separate sessions — solving the fundamental statelessness of large language models. Production systems combine vector similarity search, keyword search, and entity-relationship graphs to deliver relevant context at ~7,000 tokens per query vs. 25,000+ for full-context — a 90% token cost reduction with comparable accuracy (arXiv:2504.19413, ECAI 2025).',
+  },
+  {
+    question: 'Why do AI agents need memory?',
+    answer: 'Large language models are stateless — each session starts with no knowledge of prior interactions. Without external memory, agents forget every decision, convention, and learning between sessions. AI agent memory solves this by capturing observations during work, enriching them into structured knowledge, and injecting relevant context at the start of each new session.',
+  },
+  {
+    question: 'How does AI agent memory reduce token costs?',
+    answer: 'Instead of re-injecting entire conversation histories (25,000+ tokens), memory systems retrieve only the most relevant observations using hybrid search — typically ~7,000 tokens per query. This reduces token costs by approximately 90% while maintaining comparable accuracy, as demonstrated in arXiv:2504.19413 (ECAI 2025).',
+  },
+  {
+    question: 'What is the difference between user-scoped and project-scoped memory?',
+    answer: 'User-scoped memory ties observations to an individual user account — what one developer learns, another cannot access. Project-scoped memory ties observations to a project, so all agents and developers working on that project share the same knowledge base. Project-scoped memory enables institutional knowledge; user-scoped memory creates silos.',
+  },
+  {
+    question: 'What is a model-agnostic memory layer?',
+    answer: 'A model-agnostic memory layer works identically across all LLM providers without vendor-locked storage formats. 70%+ of organizations run 3+ LLM models in production (Datadog 2026). Model-agnostic memory ensures context survives when you switch from Claude to Gemini, or from GPT-4 to a local model.',
+  },
+  {
+    question: 'How does hybrid search work in agent memory?',
+    answer: 'Hybrid search combines full-text search (FTS) and semantic vector similarity in a single query. FTS finds exact keyword matches; vector search finds conceptually similar content even without matching terms. Production systems typically weight results 60/40 (FTS/vector) and merge them with a reciprocal rank fusion algorithm for optimal relevance.',
+  },
+  {
+    question: 'What is an agent communication bus?',
+    answer: 'An agent communication bus is a structured message broadcasting system that enables real-time coordination between autonomous AI agents. Agents register on channels, broadcast findings, and subscribe to relevant event streams — enabling multi-agent coordination without human mediation. No other memory product ships a real-time agent bus.',
+  },
+  {
+    question: 'Can I self-host AI agent memory?',
+    answer: 'Yes — Telepathine.ai is open source under Apache 2.0. You can run the entire memory stack on your own infrastructure: the REST API, MCP server, Morpheus pipeline, and Signal Bus. Self-hosting is free and always will be. Managed cloud is available for teams that prefer not to operate infrastructure.',
+  },
+  {
+    question: 'What is the Morpheus pipeline?',
+    answer: 'The Morpheus pipeline is an LLM-powered observation intelligence layer that processes raw agent output into structured, searchable knowledge. It normalizes observations, deduplicates redundant entries, supersedes stale information, applies time-based decay, consolidates related observations, and generates session summaries — all automatically.',
+  },
+  {
+    question: 'How does context injection work?',
+    answer: 'Context injection delivers formatted, compressed context to your agent at session start. Instead of dumping raw data, it uses progressive disclosure: header with project metadata, timeline of recent changes, summary of key decisions, and footer with scope information. Your agent receives exactly what it needs — typically ~7,000 tokens instead of 25,000+ for full history.',
+  },
+];
+
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: 'What Is AI Agent Memory?',
-  description: 'AI agent memory gives coding assistants persistent context across sessions. Learn how observation capture, hybrid search, and context injection eliminate amnesia in AI-powered development.',
-  url: 'https://telepathine.ai/what-is-ai-agent-memory',
-  author: {
-    '@type': 'Organization',
-    name: 'ArtemisAI',
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'ArtemisAI',
-  },
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      headline: 'What Is AI Agent Memory?',
+      description: 'AI agent memory is a persistent external storage layer that allows an AI agent to retain, retrieve, and reason over information across separate sessions — solving the fundamental statelessness of large language models.',
+      url: 'https://telepathine.ai/what-is-ai-agent-memory',
+      author: {
+        '@type': 'Organization',
+        name: 'ArtemisAI',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'ArtemisAI',
+      },
+      datePublished: '2026-05-23',
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    },
+  ],
 };
 ---
 
 <BaseLayout
   title="What Is AI Agent Memory?"
-  description="AI agent memory gives coding assistants persistent context across sessions. Learn how observation capture, hybrid search, and context injection work — and why your agent needs them."
+  description="AI agent memory is a persistent external storage layer that allows an AI agent to retain, retrieve, and reason over information across separate sessions — solving the fundamental statelessness of large language models."
   jsonLd={jsonLd}
   canonicalUrl="https://telepathine.ai/what-is-ai-agent-memory"
 >
+  <!-- ====== HERO ====== -->
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
-    <div class="mx-auto max-w-3xl">
-      <p class="text-sm uppercase tracking-widest" style="color: var(--text-muted);">Guide</p>
+    <div class="mx-auto max-w-3xl text-left">
+      <p class="layer-label">Definitive Guide</p>
       <h1 class="mt-2">What Is AI Agent Memory?</h1>
-      <p class="mt-6 text-lg" style="color: var(--text-muted);">AI agent memory is a persistent storage layer that lets coding assistants remember decisions, changes, and learnings across sessions — so they never start from zero.</p>
+      <p class="mt-6 text-lg" style="color: var(--text-copy);">
+        <strong>AI agent memory</strong> is a persistent external storage layer that allows an AI agent to retain, retrieve, and reason over information across separate sessions — solving the fundamental statelessness of large language models. Production systems combine vector similarity search, keyword search, and entity-relationship graphs, delivering relevant context at ~7,000 tokens per query vs. 25,000+ for full-context — a <strong>90% token cost reduction</strong> with comparable accuracy (arXiv:2504.19413, ECAI 2025).
+      </p>
     </div>
   </section>
 
+  <!-- ====== THE PROBLEM ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-3xl space-y-8">
-      <div>
-        <h2>The problem: stateless agents</h2>
-        <p class="mt-3" style="color: var(--text-muted);">Most AI coding assistants are stateless. When you close a session, the context disappears. Next time you open the same project, you re-explain your architecture, your conventions, your trade-offs. Every. Single. Time.</p>
-        <p class="mt-3" style="color: var(--text-muted);">This isn't just annoying — it's expensive. Context window tokens cost money. Repeated explanations waste compute. And worse, your agent can't build on its own prior work because it doesn't remember doing it.</p>
-      </div>
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>The problem: stateless agents</h2>
+      <p style="color: var(--text-muted);">Every AI agent starts from zero. When you close a session, the context disappears. Next time you open the same project, you re-explain your architecture, your conventions, your trade-offs. Every. Single. Time.</p>
+      <p style="color: var(--text-muted);">This isn't just inconvenient — it's expensive. Re-injecting full conversation histories costs ~25,000+ tokens per query. Repeated explanations waste compute. And your agent can't build on its own prior work because it doesn't remember doing it.</p>
+      <p style="color: var(--text-muted);">AI agent memory is the #1 bottleneck cited in <strong style="color: var(--text);">57% of organizations</strong> with agents in production (LangChain State of Agent Engineering 2026). The vector database market supporting these systems hit <strong style="color: var(--text);">$3.2B in 2025</strong>, projected $8.95B by 2030 (27.5% CAGR).</p>
 
-      <div>
-        <h2>What AI agent memory does</h2>
-        <p class="mt-3" style="color: var(--text-muted);">An AI agent memory system captures, stores, and retrieves context for your coding agents. It works in three stages:</p>
-        <div class="mt-6 space-y-6">
-          <div class="flex gap-4">
-            <div class="step-circle">1</div>
-            <div>
-              <h3 class="font-semibold" style="color: var(--text);">Capture</h3>
-              <p class="mt-1 text-sm" style="color: var(--text-muted);">Record decisions, code changes, learnings, and tool interactions as structured observations. Each observation gets a type, title, narrative, extracted facts, and key concepts — enriched automatically.</p>
-            </div>
+      <div class="surface-panel p-6 mt-6">
+        <p class="text-sm font-semibold" style="color: var(--accent);">The lock-in compounding this problem</p>
+        <p class="mt-3 text-sm" style="color: var(--text-muted);">Claude's memory only works with Claude. ChatGPT's memory only works with ChatGPT. When you switch agents, your memory doesn't follow — you start from zero again. <strong style="color: var(--text);">70%+ of organizations run 3+ LLM models in production</strong> (Datadog 2026). Vendor-locked memory creates silos across your own toolchain.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== HOW IT WORKS ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>How AI agent memory works</h2>
+      <p style="color: var(--text-muted);">Production agent memory systems operate as a four-stage pipeline — capture, enrich, inject, and connect:</p>
+
+      <div class="mt-8 space-y-8">
+        <div class="flex gap-4">
+          <div class="step-circle">1</div>
+          <div>
+            <h3>Observe — Capture what your agents learn</h3>
+            <p class="mt-2" style="color: var(--text-muted);">Record decisions, code changes, learnings, and tool interactions as structured observations. Each observation gets a type, title, narrative, extracted facts, and key concepts. Connectors for Claude Code, Cursor, Gemini, Windsurf, and Copilot capture these automatically via hook pipelines — no manual logging required.</p>
           </div>
-          <div class="flex gap-4">
-            <div class="step-circle">2</div>
-            <div>
-              <h3 class="font-semibold" style="color: var(--text);">Search</h3>
-              <p class="mt-1 text-sm" style="color: var(--text-muted);">Hybrid search combines full-text keyword matching with semantic vector similarity. Find what you need by exact term or by meaning — scoped to your project, not someone else's.</p>
-            </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="step-circle">2</div>
+          <div>
+            <h3>Enrich — The Morpheus pipeline</h3>
+            <p class="mt-2" style="color: var(--text-muted);">Raw observations enter the Morpheus pipeline: normalize, deduplicate, supersede stale entries, apply time-based decay, consolidate related observations, and generate session summaries. Raw tool output becomes structured, searchable knowledge — automatically.</p>
           </div>
-          <div class="flex gap-4">
-            <div class="step-circle">3</div>
-            <div>
-              <h3 class="font-semibold" style="color: var(--text);">Inject</h3>
-              <p class="mt-1 text-sm" style="color: var(--text-muted);">Progressive context injection delivers formatted, compressed context to your agent at session start. Header, timeline, summary, footer — your agent sees what it needs, not a data dump.</p>
-            </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="step-circle">3</div>
+          <div>
+            <h3>Inject — Progressive context delivery</h3>
+            <p class="mt-2" style="color: var(--text-muted);">At session start, context injection delivers formatted, compressed context to your agent. Progressive disclosure: header with project metadata → timeline of recent changes → summary of key decisions → footer. Your agent receives ~7,000 tokens of relevant context instead of 25,000+ for full history — a 90% token cost reduction (arXiv:2504.19413, ECAI 2025).</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="step-circle">4</div>
+          <div>
+            <h3>Connect — The Signal Bus</h3>
+            <p class="mt-2" style="color: var(--text-muted);">Agents broadcast findings on channels. Other agents subscribe to those channels and receive updates via Server-Sent Events (SSE) in real time. The Memory Bridge persists bus messages as observations — so even agents that weren't subscribed can catch up later. No other memory product ships a real-time agent communication bus.</p>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div>
-        <h2>Why it matters</h2>
-        <p class="mt-3" style="color: var(--text-muted);">Without persistent memory, your AI assistant treats every session as a blank slate. With it, your agent accumulates institutional knowledge — learning your project's patterns, recording your decisions, and surfacing relevant context precisely when needed.</p>
-        <p class="mt-3" style="color: var(--text-muted);">The result: less repetition, faster onboarding, more consistent output, and fewer hallucinations from missing context.</p>
+  <!-- ====== TYPES OF MEMORY ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>Types of AI agent memory</h2>
+      <p style="color: var(--text-muted);">Agent memory systems draw from cognitive science. Three types map to production AI systems:</p>
+
+      <div class="mt-6 space-y-4">
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Episodic memory</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Records specific events: "On May 12, the agent chose event-sourcing for the audit log." Session observations and timelines are episodic. They capture what happened, when, and in what context. Episodic memory is the substrate — without it, agents have no history.</p>
+        </div>
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Semantic memory</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Distilled knowledge: "This project uses PostgreSQL with RLS for multi-tenancy." The Morpheus pipeline converts episodic observations into semantic knowledge — extracting facts, concepts, and relationships that survive independent of the original session. Vector embeddings power semantic search over this layer.</p>
+        </div>
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Working memory (context injection)</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">The active context window — what your agent sees right now. Context injection populates working memory from episodic and semantic stores. Progressive disclosure delivers only what's relevant: typically ~7,000 tokens vs. 25,000+ for full history, a 90% reduction (arXiv:2504.19413, ECAI 2025).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ARCHITECTURE ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>Production architecture</h2>
+      <p style="color: var(--text-muted);">A production agent memory system combines three retrieval mechanisms:</p>
+
+      <div class="mt-6 space-y-4">
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Vector similarity search</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Embeddings stored in a vector index (pgvector, Pinecone, Weaviate). Enables semantic retrieval: "find observations about authentication" matches even if the word "auth" isn't used. Critical for conceptual queries where exact keywords fail.</p>
+        </div>
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Full-text search (FTS)</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">PostgreSQL tsvector-based full-text search with ts_rank scoring. Finds exact keyword matches — essential for code references, API names, and specific identifiers. Production systems weight FTS results ~60% and vector ~40% using reciprocal rank fusion for optimal relevance.</p>
+        </div>
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Entity-relationship graph</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Observations linked by causal, semantic, and temporal relationships. Enables traversal queries: "find all decisions that led to the current architecture." The graph layer provides reasoning structure that flat vector search cannot.</p>
+        </div>
       </div>
 
-      <div>
-        <h2>How Telepathine.ai does it</h2>
-        <p class="mt-3" style="color: var(--text-muted);">Telepathine.ai is the portable memory layer for AI agents. It's engine-agnostic (works with Claude, Cursor, Gemini, Windsurf, Copilot, and any MCP-compatible client), project-scoped (your data stays in your project), and MCP-native (16 tools via the Model Context Protocol).</p>
-        <p class="mt-3" style="color: var(--text-muted);">The Morpheus pipeline processes raw observations into structured, searchable knowledge — normalizing, deduplicating, superseding stale entries, applying decay, and generating session summaries automatically.</p>
-        <pre class="mt-4 overflow-x-auto rounded-lg p-4 text-sm" style="background: var(--bg-code); border: 1px solid var(--line); color: var(--text-copy);"><code>{`# Session 1 — your agent works and records
-curl -X POST https://api.telepathine.ai/v1/sessions \\
-  -H "Authorization: Bearer $TELEPATHINE_API_KEY" \\
-  -d '{"project":"my-app"}'
+      <div class="mt-8">
+        <h3 class="text-sm font-semibold" style="color: var(--text);">Hybrid search in practice</h3>
+        <div class="code-terminal mt-4">
+          <div class="code-terminal-bar">
+            <span class="code-terminal-dot code-terminal-dot-red"></span>
+            <span class="code-terminal-dot code-terminal-dot-yellow"></span>
+            <span class="code-terminal-dot code-terminal-dot-green"></span>
+            <span class="ml-4 font-mono text-[10px]" style="color: var(--text-muted);">hybrid-search.ts</span>
+          </div>
+          <div class="code-terminal-body">
+            <pre><span class="syn-cmt">// Hybrid search: FTS + vector in one query</span>
+<span class="syn-kw">const</span> results = <span class="syn-kw">await</span> telepathine.<span class="syn-var">search</span>&#40;&#123;
+  query: <span class="syn-str">'authentication architecture decisions'</span>,
+  mode:  <span class="syn-str">'hybrid'</span>,     <span class="syn-cmt">// fts-only | vector-only | hybrid</span>
+  limit: <span class="syn-str">10</span>,
+  project: <span class="syn-str">'my-service'</span>
+&#125;&#41;;
 
-# Session 2 — new session, old context surfaces
-curl https://api.telepathine.ai/v1/context/inject?projects=my-app \\
+<span class="syn-cmt">// Results ranked by reciprocal rank fusion</span>
+<span class="syn-cmt">// ~7,000 tokens vs 25,000+ for full context</span>
+<span class="syn-cmt">// 90% token cost reduction (arXiv:2504.19413)</span></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== COMPARISON ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>AI agent memory products compared</h2>
+      <p style="color: var(--text-muted);">The market has fragmented into four territories. Only one quadrant — engine-agnostic + agent-centric — is unoccupied:</p>
+
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--line);">
+              <th class="pb-3 pr-4 text-left text-xs" style="color: var(--text-muted);">Dimension</th>
+              <th class="pb-3 px-3 text-left text-xs" style="color: var(--text-muted);">Mem0</th>
+              <th class="pb-3 px-3 text-left text-xs" style="color: var(--text-muted);">Zep</th>
+              <th class="pb-3 px-3 text-left text-xs" style="color: var(--text-muted);">Letta</th>
+              <th class="pb-3 pl-3 text-left text-xs" style="color: var(--accent);">Telepathine</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Lock-in</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">SDK-coupled</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Cloud-only</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Framework-locked</td>
+              <td class="py-3 pl-3" style="color: var(--text);">Engine-agnostic</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Scope</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">User-scoped</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">User-scoped</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Framework-scoped</td>
+              <td class="py-3 pl-3" style="color: var(--text);">Project-scoped</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Protocol</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">MCP bolt-on</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Experimental</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">None</td>
+              <td class="py-3 pl-3" style="color: var(--text);">MCP-native</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Self-host</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Partial</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Killed</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Partial</td>
+              <td class="py-3 pl-3" style="color: var(--text);">Apache 2.0</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Connectors</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">SDK-only</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">SDK-only</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Own framework</td>
+              <td class="py-3 pl-3" style="color: var(--text);">17 platform adapters</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Agent comms</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">None</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">None</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">None</td>
+              <td class="py-3 pl-3" style="color: var(--text);">Real-time SSE bus</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Full-feature price</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">$249/mo (graph)</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">$125–375/mo</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Free tier only</td>
+              <td class="py-3 pl-3" style="color: var(--text);">$29/mo</td>
+            </tr>
+            <tr style="opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">BYOK</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Enterprise only</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Enterprise only</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">N/A</td>
+              <td class="py-3 pl-3" style="color: var(--text);">Every tier</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PRODUCTION CONSIDERATIONS ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>Production considerations</h2>
+
+      <div class="mt-4 space-y-6">
+        <div>
+          <h3>Project isolation</h3>
+          <p class="mt-2" style="color: var(--text-muted);">Multi-tenant memory requires per-project data isolation. Row-Level Security (RLS) with FORCE policies ensures each project's observations are visible only to authorized agents. Without RLS, a fallback to a generic project namespace can leak observations across projects — a real incident we documented and fixed permanently (LEAK-01 postmortem).</p>
+        </div>
+        <div>
+          <h3>Observation intelligence</h3>
+          <p class="mt-2" style="color: var(--text-muted);">Raw observations accumulate fast. Without enrichment — deduplication, supersession, decay — your memory graph becomes noise. The Morpheus pipeline processes observations automatically: normalizing format, deduplicating redundant entries, superseding stale information with newer versions, and generating compressed session summaries. This keeps the signal-to-noise ratio high as your project scales.</p>
+        </div>
+        <div>
+          <h3>Token budget management</h3>
+          <p class="mt-2" style="color: var(--text-muted);">Every token injected into context costs money. Progressive context injection with a ~7,000-token budget (vs. 25,000+ for full context) reduces costs by ~90% with comparable accuracy (arXiv:2504.19413, ECAI 2025). Managing this budget — choosing which observations to include and which to exclude — is the core engineering challenge of production memory systems.</p>
+        </div>
+        <div>
+          <h3>Bring Your Own Key (BYOK)</h3>
+          <p class="mt-2" style="color: var(--text-muted);">The Morpheus pipeline and embedding generation require LLM and embedding API calls. BYOK lets you provide your own provider keys — OpenAI, Anthropic, or any compatible endpoint. Your AI keys are encrypted at rest and never shared. BYOK on every tier means no feature gating for core functionality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CODE EXAMPLE ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>Getting started with AI agent memory</h2>
+      <p style="color: var(--text-muted);">Three steps to give your agent persistent, project-scoped memory:</p>
+
+      <div class="code-terminal mt-6">
+        <div class="code-terminal-bar">
+          <span class="code-terminal-dot code-terminal-dot-red"></span>
+          <span class="code-terminal-dot code-terminal-dot-yellow"></span>
+          <span class="code-terminal-dot code-terminal-dot-green"></span>
+          <span class="ml-4 font-mono text-[10px]" style="color: var(--text-muted);">quickstart.sh</span>
+        </div>
+        <div class="code-terminal-body">
+          <pre><span class="syn-cmt"># 1. Add MCP server to your agent config</span>
+&#123;
+  "mcpServers": &#123;
+    "telepathine": &#123;
+      "command": "npx",
+      "args": ["-y", "@ai-memory/mcp-server"],
+      "env": &#123;
+        "TELEPATHINE_API_KEY": "your_api_key_here"
+      &#125;
+    &#125;
+  &#125;
+&#125;
+
+<span class="syn-cmt"># 2. Start a session — your agent records observations</span>
+$ curl -X POST https://api.telepathine.ai/v1/sessions \
+  -H "Authorization: Bearer $TELEPATHINE_API_KEY" \
+  -d '&#123;"project":"my-app"&#125;'
+
+<span class="syn-cmt"># 3. New session — prior context surfaces automatically</span>
+$ curl https://api.telepathine.ai/v1/context/inject?projects=my-app \
   -H "Authorization: Bearer $TELEPATHINE_API_KEY"
-
-# Agent sees prior decisions, changes, and summaries
-# without you re-explaining anything`}</code></pre>
-      </div>
-
-      <div>
-        <h2>Key concepts</h2>
-        <div class="mt-4 space-y-4">
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--accent);">Observation</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">A single recorded memory — a decision, change, learning, or tool interaction. Structured with type, title, narrative, facts, and concepts.</p>
-          </div>
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--accent);">Session</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">A time-bounded interaction between your agent and your project. Sessions track lifecycle: start, observe, summarize, complete.</p>
-          </div>
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--accent);">Context Injection</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">The formatted, compressed context delivered to your agent at session start. Progressive disclosure: timeline, summary, key facts.</p>
-          </div>
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--accent);">Morpheus Pipeline</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">The observation intelligence layer: normalize, deduplicate, supersede, decay, consolidate, and summarize raw data into structured knowledge.</p>
-          </div>
+<span class="syn-cmt"># → ~7,000 tokens of relevant context</span>
+<span class="syn-cmt"># → 90% token cost reduction vs. full history</span></pre>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="surface-panel p-6 text-center">
-        <h3>Start giving your agent memory</h3>
-        <p class="mt-2 text-sm" style="color: var(--text-muted);">10,000 observations free per month. No credit card required.</p>
-        <div class="mt-4 flex items-center justify-center gap-4">
-          <a href="/docs/quickstart" class="btn-accent">Quick Start Guide →</a>
-          <a href="/features" class="btn-ghost">See All Features</a>
+  <!-- ====== FAQ ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-6 text-left">
+      <h2>Frequently asked questions</h2>
+      {faqItems.map(item => (
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--text);">{item.question}</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">{item.answer}</p>
         </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ====== CTA ====== -->
+  <section class="content-layer px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-left">
+      <h2>No agent starts from zero</h2>
+      <p class="mt-4" style="color: var(--text-muted);">Try Telepathine free — 10K observations per month, no credit card required. Works with every major agent.</p>
+      <div class="mt-6 flex items-center gap-4">
+        <a href="/docs/quickstart" class="btn-accent">Quick Start Guide →</a>
+        <a href="/features" class="btn-ghost">See All Features</a>
       </div>
     </div>
   </section>

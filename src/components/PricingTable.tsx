@@ -96,7 +96,10 @@ export default function PricingTable() {
 							{plan.tagline}
 						</p>
 						{"target" in plan && plan.target && (
-							<p className="mt-1 text-xs" style={{ color: "var(--text-muted)", opacity: 0.6 }}>
+							<p
+								className="mt-1 text-xs"
+								style={{ color: "var(--text-muted)", opacity: 0.6 }}
+							>
 								{plan.target}
 							</p>
 						)}

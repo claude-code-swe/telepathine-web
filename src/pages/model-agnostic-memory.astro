@@ -1,88 +1,243 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const faqItems = [
+  {
+    question: 'What is a model-agnostic memory layer?',
+    answer: 'A model-agnostic memory layer works identically across all LLM providers without vendor-locked storage formats. Your observations, context injections, and search results are stored in a provider-neutral format. You can switch from OpenAI to Anthropic to a local model without losing any accumulated memory. 70%+ of organizations run 3+ LLM models in production (Datadog 2026).',
+  },
+  {
+    question: 'Why does model-agnostic memory matter?',
+    answer: 'Vendor-locked memory creates switching costs. The more context you build up in one provider\'s ecosystem, the harder it is to leave. Model-agnostic memory decouples your institutional knowledge from your LLM subscription — your memory survives provider changes, pricing shifts, and model upgrades.',
+  },
+  {
+    question: 'How is model-agnostic different from multi-model?',
+    answer: 'Multi-model means supporting several providers. Model-agnostic means your core data format and behavior don\'t change regardless of which provider you use. A model-agnostic system stores observations in a provider-neutral schema, uses configurable embedding models, and lets you swap LLM providers for the intelligence pipeline (Morpheus) without data migration.',
+  },
+  {
+    question: 'Does model-agnostic mean lower quality?',
+    answer: 'No. Model-agnostic architecture separates storage from intelligence. Observations are stored in a neutral format. The Morpheus pipeline uses your chosen LLM (via BYOK) to enrich them. If GPT-4 works best for your summarization, use it. If Claude is better for your domain, use that. The memory layer doesn\'t care — it stores the output regardless of source.',
+  },
+  {
+    question: 'How does BYOK work with model-agnostic memory?',
+    answer: 'Bring Your Own Key (BYOK) means you provide your own LLM and embedding provider API keys. The Morpheus pipeline uses your keys to process observations. The embedding service uses your keys for vector generation. BYOK is available on every tier — including the free Spark plan. Your keys are encrypted at rest and never shared.',
+  },
+  {
+    question: 'Can I run model-agnostic memory on-premises?',
+    answer: 'Yes. The entire Telepathine stack is open source under Apache 2.0. You can run the REST API, MCP server, Morpheus pipeline, and Signal Bus on your own infrastructure with your own database and your own LLM endpoints.',
+  },
+];
+
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: 'Model-Agnostic Memory for AI Agents',
-  description: 'Model-agnostic memory works with any LLM, any agent framework, any embedding provider. Why vendor-neutral memory matters and how Telepathine.ai delivers it.',
-  url: 'https://telepathine.ai/model-agnostic-memory',
-  author: {
-    '@type': 'Organization',
-    name: 'ArtemisAI',
-  },
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      headline: 'Model-Agnostic Memory: Why Your AI Shouldn\'t Pick a Side',
+      description: 'A model-agnostic memory layer works identically across all LLM providers without vendor-locked storage formats. 70%+ of organizations run 3+ LLM models in production.',
+      url: 'https://telepathine.ai/model-agnostic-memory',
+      author: {
+        '@type': 'Organization',
+        name: 'ArtemisAI',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'ArtemisAI',
+      },
+      datePublished: '2026-05-23',
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    },
+  ],
 };
 ---
 
 <BaseLayout
-  title="Model-Agnostic Memory for AI Agents"
-  description="Model-agnostic memory works with any LLM, any agent framework, any embedding provider. Why vendor-neutral memory matters and how to get it."
+  title="Model-Agnostic Memory: Why Your AI Shouldn't Pick a Side"
+  description="A model-agnostic memory layer works identically across all LLM providers without vendor-locked storage formats. Why vendor-neutral memory matters and how to get it."
   jsonLd={jsonLd}
   canonicalUrl="https://telepathine.ai/model-agnostic-memory"
 >
+  <!-- ====== HERO ====== -->
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
-    <div class="mx-auto max-w-3xl">
-      <p class="text-sm uppercase tracking-widest" style="color: var(--text-muted);">Guide</p>
-      <h1 class="mt-2">Model-Agnostic Memory</h1>
-      <p class="mt-6 text-lg" style="color: var(--text-muted);">Your agent memory shouldn't care which LLM you use. Model-agnostic memory works with any provider, any framework, any embedding model — so your context survives engine switches.</p>
+    <div class="mx-auto max-w-3xl text-left">
+      <p class="layer-label">Category Definition</p>
+      <h1 class="mt-2">Model-Agnostic Memory: Why Your AI Shouldn't Pick a Side</h1>
+      <p class="mt-6 text-lg" style="color: var(--text-copy);">
+        A <strong>model-agnostic memory layer</strong> works identically across all LLM providers without vendor-locked storage formats. <strong style="color: var(--accent);">70%+ of organizations run 3+ LLM models in production</strong> (Datadog 2026). Your agent memory shouldn't care which one you're using.
+      </p>
     </div>
   </section>
 
+  <!-- ====== THE LOCK-IN PROBLEM ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>The lock-in problem</h2>
+      <p style="color: var(--text-muted);">Claude's memory only works with Claude. ChatGPT's memory only works with ChatGPT. When you switch agents, your memory doesn't follow — you start from zero.</p>
+      <p style="color: var(--text-muted);">This isn't an accident. Every major AI vendor wants to own your memory because it creates lock-in. The more context you've built up, the harder it is to leave. Your accumulated institutional knowledge becomes a switching cost.</p>
+      <p style="color: var(--text-muted);">But real development teams use multiple agents. Claude for architecture. Cursor for implementation. Gemini for research. Copilot for boilerplate. <strong style="color: var(--text);">Your memory should travel with your project, not your subscription.</strong></p>
+
+      <div class="mt-6 surface-panel p-6">
+        <p class="text-sm font-semibold" style="color: var(--accent);">The competitive map</p>
+        <div class="mt-4 overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--line);">
+                <th class="pb-3 pr-4 text-left text-xs" style="color: var(--text-muted);">Dimension</th>
+                <th class="pb-3 px-3 text-left text-xs" style="color: var(--text-muted);">Mem0</th>
+                <th class="pb-3 px-3 text-left text-xs" style="color: var(--text-muted);">Zep</th>
+                <th class="pb-3 px-3 text-left text-xs" style="color: var(--text-muted);">Letta</th>
+                <th class="pb-3 pl-3 text-left text-xs" style="color: var(--accent);">Telepathine</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+                <td class="py-3 pr-4" style="color: var(--text-copy);">Engine coupling</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">SDK-coupled</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">Cloud-only</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">Framework-locked</td>
+                <td class="py-3 pl-3" style="color: var(--text);">Engine-agnostic</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+                <td class="py-3 pr-4" style="color: var(--text-copy);">Scope</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">User-scoped</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">User-scoped</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">Framework-scoped</td>
+                <td class="py-3 pl-3" style="color: var(--text);">Project-scoped</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+                <td class="py-3 pr-4" style="color: var(--text-copy);">Cross-tool</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">No</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">No</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">No</td>
+                <td class="py-3 pl-3" style="color: var(--text);">17 connectors</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+                <td class="py-3 pr-4" style="color: var(--text-copy);">Embedding model</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">Fixed (OpenAI)</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">Fixed</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">Fixed</td>
+                <td class="py-3 pl-3" style="color: var(--text);">Configurable (BYOK)</td>
+              </tr>
+              <tr style="opacity: 0.8;">
+                <td class="py-3 pr-4" style="color: var(--text-copy);">LLM for pipeline</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">Fixed</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">Fixed</td>
+                <td class="py-3 px-3" style="color: var(--text-muted);">Own framework</td>
+                <td class="py-3 pl-3" style="color: var(--text);">Your choice (BYOK)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-xs" style="color: var(--text-muted);">Only Telepathine occupies the engine-agnostic + agent-centric quadrant. Window: 12–18 months before competitors move.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== WHAT MODEL-AGNOSTIC MEANS ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-3xl space-y-8">
-      <div>
-        <h2>The lock-in problem</h2>
-        <p class="mt-3" style="color: var(--text-muted);">Claude's memory only works with Claude. ChatGPT's memory only works with ChatGPT. When you switch agents, your memory doesn't follow — you start from zero.</p>
-        <p class="mt-3" style="color: var(--text-muted);">This isn't an accident. Every major AI vendor wants to own your memory because it creates lock-in. The more context you've built up, the harder it is to leave. Your accumulated institutional knowledge becomes a switching cost.</p>
-        <p class="mt-3" style="color: var(--text-muted);">But real development teams use multiple agents. Claude for architecture. Cursor for implementation. Gemini for research. Copilot for boilerplate. Your memory should travel with your project, not your subscription.</p>
-      </div>
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>What model-agnostic means</h2>
 
-      <div>
-        <h2>What model-agnostic means</h2>
-        <div class="mt-4 space-y-4">
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--accent);">LLM-agnostic</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">The memory system doesn't depend on a specific language model. Use OpenAI for embeddings today, switch to a local model tomorrow — your observations stay intact. BYOK on every tier means you control which model processes your data.</p>
-          </div>
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--accent);">Framework-agnostic</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">Works with LangChain, CrewAI, AutoGen, or bare HTTP calls. No SDK lock-in. The REST API, MCP server, and official SDKs all access the same intelligence layer — pick your integration path.</p>
-          </div>
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--accent);">Agent-agnostic</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">Claude Code, Cursor, Gemini CLI, Windsurf, Copilot, Pi, or any MCP-compatible client. Pre-built connectors for every major agent platform. Your project memory is the same regardless of which agent you're using.</p>
-          </div>
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--accent);">Embedding-agnostic</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">Vector embeddings power semantic search, but the memory system shouldn't be tied to one embedding model. Configure your own embedding provider, or use the default. Swap models without losing observations.</p>
-          </div>
+      <div class="mt-4 space-y-4">
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">LLM-agnostic</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">The memory system doesn't depend on a specific language model. Use OpenAI for embeddings today, switch to a local model tomorrow — your observations stay intact. BYOK on every tier means you control which model processes your data. The Morpheus pipeline uses your keys; it doesn't hardcode a provider.</p>
+        </div>
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Framework-agnostic</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Works with LangChain, CrewAI, AutoGen, or bare HTTP calls. No SDK lock-in. The REST API, MCP server, and official SDKs all access the same intelligence layer — pick your integration path. The MCP server makes it especially easy: one config entry, zero code.</p>
+        </div>
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Agent-agnostic</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Claude Code, Cursor, Gemini CLI, Windsurf, Copilot, Pi, or any MCP-compatible client. 17 pre-built connectors for every major agent platform. Your project memory is the same regardless of which agent you're using. Switch agents without losing context.</p>
+        </div>
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Embedding-agnostic</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Vector embeddings power semantic search, but the memory system shouldn't be tied to one embedding model. Configure your own embedding provider, or use the default. Swap models without losing observations — embeddings are regenerated, not recreated from scratch.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div>
-        <h2>Why it matters for teams</h2>
-        <p class="mt-3" style="color: var(--text-muted);">When every developer on your team uses a different agent, vendor-locked memory creates silos. Developer A's Claude sessions can't inform Developer B's Cursor sessions. Institutional knowledge fragments.</p>
-        <p class="mt-3" style="color: var(--text-muted);">Model-agnostic memory solves this. All agents write to the same project-scoped memory. All agents read from the same context injection. Your team builds a shared knowledge base regardless of individual tool preferences.</p>
-      </div>
+  <!-- ====== WHY IT MATTERS FOR TEAMS ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>Why it matters for teams</h2>
+      <p style="color: var(--text-muted);">When every developer on your team uses a different agent, vendor-locked memory creates silos. Developer A's Claude sessions can't inform Developer B's Cursor sessions. Institutional knowledge fragments.</p>
+      <p style="color: var(--text-muted);">Model-agnostic memory solves this. All agents write to the same project-scoped memory. All agents read from the same context injection. Your team builds a shared knowledge base regardless of individual tool preferences.</p>
 
-      <div>
-        <h2>How Telepathine.ai does it</h2>
-        <p class="mt-3" style="color: var(--text-muted);">Telepathine.ai is built model-agnostic from the ground up:</p>
-        <ul class="mt-3 space-y-2 text-sm" style="color: var(--text-muted);">
-          <li>• <strong style="color: var(--text);">Project-scoped, not user-scoped.</strong> Memory belongs to the project, not the agent or the user. Any agent working on the same project sees the same context.</li>
-          <li>• <strong style="color: var(--text);">MCP-native protocol.</strong> The Model Context Protocol is vendor-neutral by design. Any MCP client connects.</li>
-          <li>• <strong style="color: var(--text);">BYOK everywhere.</strong> Your LLM keys, your embedding keys. We never choose your model for you.</li>
-          <li>• <strong style="color: var(--text);">Open source.</strong> Apache 2.0 license. Self-host, modify, extend. No black box.</li>
-        </ul>
-      </div>
-
-      <div class="surface-panel p-6 text-center">
-        <h3>Stop re-explaining yourself to every AI</h3>
-        <p class="mt-2 text-sm" style="color: var(--text-muted);">One memory. Every engine. Any agent.</p>
-        <div class="mt-4 flex items-center justify-center gap-4">
-          <a href="/docs/quickstart" class="btn-accent">Get Started Free →</a>
-          <a href="/connectors" class="btn-ghost">See Connectors</a>
+      <div class="code-terminal mt-6">
+        <div class="code-terminal-bar">
+          <span class="code-terminal-dot code-terminal-dot-red"></span>
+          <span class="code-terminal-dot code-terminal-dot-yellow"></span>
+          <span class="code-terminal-dot code-terminal-dot-green"></span>
+          <span class="ml-4 font-mono text-[10px]" style="color: var(--text-muted);">team-workflow.ts</span>
         </div>
+        <div class="code-terminal-body">
+          <pre><span class="syn-cmt">// Developer A uses Claude Code</span>
+<span class="syn-kw">await</span> telepathine.<span class="syn-var">observe</span>&#40;&#123;
+  project: <span class="syn-str">'my-service'</span>,
+  type: <span class="syn-str">'decision'</span>,
+  title: <span class="syn-str">'Use event-sourcing for audit log'</span>
+&#125;&#41;;
+
+<span class="syn-cmt">// Developer B uses Cursor — same project memory</span>
+<span class="syn-kw">const</span> context = <span class="syn-kw">await</span> telepathine.<span class="syn-var">inject</span>&#40;&#123;
+  project: <span class="syn-str">'my-service'</span>,
+  limit: <span class="syn-str">10</span>
+&#125;&#41;;
+<span class="syn-cmt">// → Includes Developer A's decision automatically</span>
+<span class="syn-cmt">// → ~7K tokens, 90% cost reduction</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== ARCHITECTURE ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>How Telepathine implements model-agnostic memory</h2>
+      <ul class="space-y-3 text-sm" style="color: var(--text-muted);">
+        <li><strong style="color: var(--text);">Project-scoped, not user-scoped.</strong> Memory belongs to the project, not the agent or the user. Any agent working on the same project sees the same context. Institutional knowledge replaces individual silos.</li>
+        <li><strong style="color: var(--text);">MCP-native protocol.</strong> The Model Context Protocol is vendor-neutral by design. Any MCP client connects. No SDK dependency, no language lock-in.</li>
+        <li><strong style="color: var(--text);">BYOK everywhere.</strong> Your LLM keys, your embedding keys. We never choose your model for you. Swap providers without data migration.</li>
+        <li><strong style="color: var(--text);">Open source.</strong> Apache 2.0 license. Self-host, modify, extend. No black box. No vendor dependency.</li>
+        <li><strong style="color: var(--text);">Provider-neutral schema.</strong> Observations are stored in a format that doesn't encode provider-specific metadata. Embeddings reference a model name but the observation text, facts, and concepts are provider-agnostic.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ====== FAQ ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-6 text-left">
+      <h2>Frequently asked questions</h2>
+      {faqItems.map(item => (
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--text);">{item.question}</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">{item.answer}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ====== CTA ====== -->
+  <section class="content-layer px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-left">
+      <h2>Stop re-explaining yourself to every AI</h2>
+      <p class="mt-4" style="color: var(--text-muted);">One memory. Every engine. Any agent. Start free — 10K observations/month, no credit card.</p>
+      <div class="mt-6 flex items-center gap-4">
+        <a href="/docs/quickstart" class="btn-accent">Get Started Free →</a>
+        <a href="/connectors" class="btn-ghost">See Connectors</a>
       </div>
     </div>
   </section>

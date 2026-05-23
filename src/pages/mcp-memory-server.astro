@@ -1,149 +1,281 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const faqItems = [
+  {
+    question: 'What is an MCP memory server?',
+    answer: 'An MCP memory server exposes AI agent memory operations — recording observations, searching history, injecting context, managing sessions — as tools via the Model Context Protocol (MCP). Any MCP-compatible client (Claude Code, Cursor, Windsurf, etc.) can connect and use these tools without writing HTTP requests or handling API auth.',
+  },
+  {
+    question: 'How is MCP-native different from MCP bolt-on?',
+    answer: 'MCP bolt-on means wrapping an existing REST API in a thin MCP layer — the agent still constructs requests internally. MCP-native means the memory system was designed as MCP tools from the start: proper input schemas, type-safe parameters, built-in auth, rate limiting, and error handling. The agent calls a tool; the server handles everything.',
+  },
+  {
+    question: 'Which agents support MCP memory servers?',
+    answer: 'Any MCP-compatible client. This includes Claude Code, Cursor, Windsurf, Gemini CLI, and any agent that implements the Model Context Protocol. Telepathine also provides REST API, TypeScript SDK, and Python SDK for non-MCP agents.',
+  },
+  {
+    question: 'How long does setup take?',
+    answer: 'Under 30 seconds. Add the MCP server config to your .mcp.json or client configuration with your API key. Your agent immediately gets 13 memory tools. No code changes, no database to configure.',
+  },
+  {
+    question: 'Can I self-host the MCP server?',
+    answer: 'Yes. The entire Telepathine stack — REST API, MCP server, Morpheus pipeline, and Signal Bus — is open source under Apache 2.0. Run it on your own infrastructure with your own database.',
+  },
+  {
+    question: 'How does context injection save tokens?',
+    answer: 'Context injection delivers ~7,000 tokens of relevant context per query instead of 25,000+ for full conversation history — a 90% token cost reduction with comparable accuracy (arXiv:2504.19413, ECAI 2025). The MCP server calls inject_context automatically at session start.',
+  },
+  {
+    question: 'What is the Signal Bus in the MCP server?',
+    answer: 'The Signal Bus is the real-time agent communication layer. Two MCP tools — broadcast_message and subscribe_channel — let agents broadcast structured messages on named channels and receive them via Server-Sent Events. Bus messages are automatically persisted as observations.',
+  },
+];
+
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: 'MCP Memory Server — Model Context Protocol Memory',
-  description: 'MCP memory server gives AI agents persistent memory via the Model Context Protocol. 16 tools, project-scoped, hybrid search, context injection — for any MCP-compatible client.',
-  url: 'https://telepathine.ai/mcp-memory-server',
-  author: {
-    '@type': 'Organization',
-    name: 'ArtemisAI',
-  },
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      headline: 'MCP Memory Server — Add Persistent Memory to Any Agent',
+      description: 'Add persistent memory to any MCP-compatible AI agent with 13 tools — observations, hybrid search, context injection, session lifecycle, and agent communication. Setup in 30 seconds.',
+      url: 'https://telepathine.ai/mcp-memory-server',
+      author: {
+        '@type': 'Organization',
+        name: 'ArtemisAI',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'ArtemisAI',
+      },
+      datePublished: '2026-05-23',
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    },
+  ],
 };
 
 const toolList = [
-  { name: 'create_observation', desc: 'Record a decision, change, or learning' },
-  { name: 'search_observations', desc: 'Hybrid search across project memory' },
-  { name: 'inject_context', desc: 'Inject relevant context into the agent prompt' },
-  { name: 'start_session', desc: 'Begin a new agent session' },
-  { name: 'complete_session', desc: 'End session and trigger summarization' },
-  { name: 'list_sessions', desc: 'View session history for a project' },
-  { name: 'get_observation', desc: 'Retrieve a single observation by ID' },
-  { name: 'update_observation', desc: 'Modify an existing observation' },
-  { name: 'delete_observation', desc: 'Remove an observation' },
-  { name: 'list_projects', desc: 'See all projects with recorded memory' },
-  { name: 'get_project_stats', desc: 'Observation counts, session activity' },
-  { name: 'search_sessions', desc: 'Find sessions by date, project, or status' },
-  { name: 'get_session', desc: 'Retrieve full session with observations' },
-  { name: 'broadcast_message', desc: 'Send a message on the Signal Bus' },
-  { name: 'list_channels', desc: 'View active communication channels' },
-  { name: 'subscribe_channel', desc: 'Subscribe an agent to a channel' },
+  { name: 'create_observation', desc: 'Record a decision, change, or learning', badge: 'post' },
+  { name: 'search_observations', desc: 'Hybrid search (FTS + vector) across project memory', badge: 'get' },
+  { name: 'inject_context', desc: 'Inject relevant context into the agent prompt (~7K tokens)', badge: 'post' },
+  { name: 'start_session', desc: 'Begin a new agent session with project context', badge: 'post' },
+  { name: 'complete_session', desc: 'End session and trigger Morpheus summarization', badge: 'post' },
+  { name: 'list_sessions', desc: 'View session history for a project', badge: 'get' },
+  { name: 'get_observation', desc: 'Retrieve a single observation by ID', badge: 'get' },
+  { name: 'update_observation', desc: 'Modify an existing observation', badge: 'put' },
+  { name: 'delete_observation', desc: 'Remove an observation', badge: 'delete' },
+  { name: 'list_projects', desc: 'See all projects with recorded memory', badge: 'get' },
+  { name: 'get_project_stats', desc: 'Observation counts, session activity, memory graph size', badge: 'get' },
+  { name: 'search_sessions', desc: 'Find sessions by date, project, or status', badge: 'get' },
+  { name: 'get_session', desc: 'Retrieve full session with all observations', badge: 'get' },
 ];
 ---
 
 <BaseLayout
-  title="MCP Memory Server"
-  description="MCP memory server for AI agents. 16 tools via the Model Context Protocol — persistent observations, hybrid search, context injection, session lifecycle, and agent communication."
+  title="MCP Memory Server — Add Persistent Memory to Any Agent"
+  description="Add persistent memory to any MCP-compatible AI agent. 13 tools for observations, hybrid search, context injection, sessions, and agent communication. Setup in 30 seconds."
   jsonLd={jsonLd}
   canonicalUrl="https://telepathine.ai/mcp-memory-server"
 >
+  <!-- ====== HERO ====== -->
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
-    <div class="mx-auto max-w-3xl">
-      <p class="text-sm uppercase tracking-widest" style="color: var(--text-muted);">Guide</p>
-      <h1 class="mt-2">MCP Memory Server</h1>
-      <p class="mt-6 text-lg" style="color: var(--text-muted);">Give any MCP-compatible AI agent persistent memory with 16 tools — observations, search, context injection, sessions, and agent communication.</p>
+    <div class="mx-auto max-w-3xl text-left">
+      <p class="layer-label">Quick Start</p>
+      <h1 class="mt-2">MCP Memory Server — Add Persistent Memory to Any Agent</h1>
+      <p class="mt-6 text-lg" style="color: var(--text-copy);">
+        An <strong>MCP memory server</strong> exposes persistent memory operations — recording observations, searching history, injecting context — as Model Context Protocol tools. Any MCP-compatible agent connects in 30 seconds. <strong>90% token cost reduction</strong> with progressive context injection (arXiv:2504.19413, ECAI 2025).
+      </p>
     </div>
   </section>
 
-  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-3xl space-y-8">
-      <div>
-        <h2>What is an MCP memory server?</h2>
-        <p class="mt-3" style="color: var(--text-muted);">The Model Context Protocol (MCP) is an open standard for connecting AI models to external tools and data sources. An MCP memory server exposes memory operations — recording observations, searching history, injecting context — as MCP tools that any compatible client can call.</p>
-        <p class="mt-3" style="color: var(--text-muted);">Telepathine.ai ships a production MCP server with 16 tools. It works with Claude Code, Cursor, Windsurf, and any MCP-compatible client out of the box.</p>
-      </div>
-
-      <div>
-        <h2>Setup in 30 seconds</h2>
-        <pre class="mt-4 overflow-x-auto rounded-lg p-4 text-sm" style="background: var(--bg-code); border: 1px solid var(--line); color: var(--text-copy);"><code>{`# Add to your .mcp.json or client config
-{
-  "mcpServers": {
-    "telepathine": {
+  <!-- ====== QUICK START ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>Setup in 30 seconds</h2>
+      <div class="code-terminal mt-4">
+        <div class="code-terminal-bar">
+          <span class="code-terminal-dot code-terminal-dot-red"></span>
+          <span class="code-terminal-dot code-terminal-dot-yellow"></span>
+          <span class="code-terminal-dot code-terminal-dot-green"></span>
+          <span class="ml-4 font-mono text-[10px]" style="color: var(--text-muted);">.mcp.json</span>
+        </div>
+        <div class="code-terminal-body">
+          <pre><span class="syn-cmt">// Add to .mcp.json or your client config:</span>
+&#123;
+  "mcpServers": &#123;
+    "telepathine": &#123;
       "command": "npx",
       "args": ["-y", "@ai-memory/mcp-server"],
-      "env": {
+      "env": &#123;
         "TELEPATHINE_API_KEY": "your_api_key_here"
-      }
-    }
-  }
-}`}</code></pre>
-        <p class="mt-3 text-sm" style="color: var(--text-muted);">That's it. Your agent now has 16 memory tools available. No code changes to your agent. No database to configure.</p>
+      &#125;
+    &#125;
+  &#125;
+&#125;
+
+<span class="syn-cmt">// That's it. Your agent now has 13 memory tools.</span>
+<span class="syn-cmt">// No code changes. No database to configure.</span></pre>
+        </div>
       </div>
 
-      <div>
-        <h2>The 16 MCP tools</h2>
-        <div class="mt-6 grid gap-3 sm:grid-cols-2">
-          {toolList.map(tool => (
-            <div class="surface-card p-3">
+      <div class="mt-6 flex gap-4">
+        <div class="step-circle">1</div>
+        <div>
+          <h3 class="font-semibold" style="color: var(--text);">Install the config</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Add the MCP server entry above to your <code>.mcp.json</code>, Claude Code config, Cursor settings, or any MCP client. The <code>npx</code> command fetches and runs the server automatically.</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="step-circle">2</div>
+        <div>
+          <h3 class="font-semibold" style="color: var(--text);">Set your API key</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Replace <code>your_api_key_here</code> with your Telepathine API key. Get one free at telepathine.ai — 10K observations/month, no credit card.</p>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <div class="step-circle">3</div>
+        <div>
+          <h3 class="font-semibold" style="color: var(--text);">Your agent remembers</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Start a session. Record observations. Next session, context injection delivers ~7,000 tokens of relevant prior work — automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 13 TOOLS ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>The 13 MCP tools</h2>
+      <p style="color: var(--text-muted);">Every operation is a first-class MCP tool with proper input schemas, type-safe parameters, built-in auth, rate limiting, and error handling. Your agent calls a tool — the server handles everything.</p>
+
+      <div class="mt-6 grid gap-3 sm:grid-cols-2">
+        {toolList.map(tool => (
+          <div class="surface-card p-3">
+            <div class="flex items-center gap-2">
               <code class="text-xs font-mono" style="color: var(--accent);">{tool.name}</code>
-              <p class="mt-1 text-xs" style="color: var(--text-muted);">{tool.desc}</p>
+              <span class={`tag-mono method-${tool.badge}`}>{tool.badge.toUpperCase()}</span>
             </div>
-          ))}
-        </div>
+            <p class="mt-1 text-xs" style="color: var(--text-muted);">{tool.desc}</p>
+          </div>
+        ))}
       </div>
+    </div>
+  </section>
 
-      <div>
-        <h2>Why MCP-native matters</h2>
-        <p class="mt-3" style="color: var(--text-muted);">Most memory solutions bolt MCP on as an afterthought — a thin wrapper around a REST API. Telepathine.ai was designed MCP-native from the start. Every operation is a first-class tool with proper input schemas, error handling, and type safety.</p>
-        <p class="mt-3" style="color: var(--text-muted);">This means your agent doesn't need to construct HTTP requests or handle API errors. It calls a tool. The MCP server handles auth, rate limiting, retries, and response formatting.</p>
+  <!-- ====== WHY MCP-NATIVE ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>Why MCP-native beats SDK-coupled approaches</h2>
+      <p style="color: var(--text-muted);">Most memory solutions bolt MCP on as an afterthought — a thin wrapper around a REST API. The agent still constructs HTTP requests, handles auth tokens, parses error codes. MCP-native means the memory system was designed as tools from the start:</p>
+
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--line);">
+              <th class="pb-3 pr-4 text-left text-xs" style="color: var(--text-muted);">Dimension</th>
+              <th class="pb-3 px-3 text-left text-xs" style="color: var(--text-muted);">SDK-Coupled (Mem0)</th>
+              <th class="pb-3 pl-3 text-left text-xs" style="color: var(--accent);">MCP-Native (Telepathine)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Integration</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">4 lines of SDK code per agent</td>
+              <td class="py-3 pl-3" style="color: var(--text-muted);">1 config entry, zero code</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Portability</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Locked to SDK language</td>
+              <td class="py-3 pl-3" style="color: var(--text-muted);">Works with every MCP client</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Auth</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Agent manages tokens</td>
+              <td class="py-3 pl-3" style="color: var(--text-muted);">Server handles auth automatically</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Error handling</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Agent must parse HTTP codes</td>
+              <td class="py-3 pl-3" style="color: var(--text-muted);">MCP error types, built-in</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Schema</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Implicit, docs-only</td>
+              <td class="py-3 pl-3" style="color: var(--text-muted);">JSON Schema, validated</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Agent comms</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">None</td>
+              <td class="py-3 pl-3" style="color: var(--text-muted);">Signal Bus tools included</td>
+            </tr>
+            <tr style="opacity: 0.8;">
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Self-host</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Docker (partial)</td>
+              <td class="py-3 pl-3" style="color: var(--text-muted);">Apache 2.0, full stack</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+    </div>
+  </section>
 
-      <div>
-        <h2>MCP memory vs. built-in memory</h2>
-        <div class="mt-4 overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead>
-              <tr style="border-bottom: 1px solid var(--line);">
-                <th class="pb-3 pr-4 text-left text-xs" style="color: var(--text-muted);">Dimension</th>
-                <th class="pb-3 px-3 text-left text-xs" style="color: var(--text-muted);">Built-in Memory</th>
-                <th class="pb-3 pl-3 text-left text-xs" style="color: var(--text-muted);">MCP Memory Server</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-                <td class="py-3 pr-4" style="color: var(--text-copy);">Portability</td>
-                <td class="py-3 px-3" style="color: var(--text-muted);">Locked to one agent</td>
-                <td class="py-3 pl-3" style="color: var(--text-muted);">Works with every MCP client</td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-                <td class="py-3 pr-4" style="color: var(--text-copy);">Project scope</td>
-                <td class="py-3 px-3" style="color: var(--text-muted);">User-level or none</td>
-                <td class="py-3 pl-3" style="color: var(--text-muted);">Project-scoped by default</td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-                <td class="py-3 pr-4" style="color: var(--text-copy);">Search</td>
-                <td class="py-3 px-3" style="color: var(--text-muted);">Keyword only</td>
-                <td class="py-3 pl-3" style="color: var(--text-muted);">Hybrid (FTS + semantic)</td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-                <td class="py-3 pr-4" style="color: var(--text-copy);">Intelligence</td>
-                <td class="py-3 px-3" style="color: var(--text-muted);">Raw storage</td>
-                <td class="py-3 pl-3" style="color: var(--text-muted);">Morpheus pipeline</td>
-              </tr>
-              <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-                <td class="py-3 pr-4" style="color: var(--text-copy);">Agent comms</td>
-                <td class="py-3 px-3" style="color: var(--text-muted);">None</td>
-                <td class="py-3 pl-3" style="color: var(--text-muted);">Signal Bus (16th tool)</td>
-              </tr>
-              <tr style="opacity: 0.8;">
-                <td class="py-3 pr-4" style="color: var(--text-copy);">Self-host</td>
-                <td class="py-3 px-3" style="color: var(--text-muted);">No</td>
-                <td class="py-3 pl-3" style="color: var(--text-muted);">Apache 2.0</td>
-              </tr>
-            </tbody>
-          </table>
+  <!-- ====== TOKEN SAVINGS ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>Context injection token savings</h2>
+      <p style="color: var(--text-muted);">Every token injected into your agent's context window costs money. Context injection with hybrid search delivers relevant context at a fraction of full-history cost:</p>
+
+      <div class="mt-6 surface-panel p-6">
+        <div class="grid gap-6 sm:grid-cols-3 text-center">
+          <div>
+            <p class="text-3xl font-bold" style="color: var(--text);">~25K</p>
+            <p class="mt-1 text-xs" style="color: var(--text-muted);">Full context (no memory)</p>
+          </div>
+          <div>
+            <p class="text-3xl font-bold" style="color: var(--accent);">~7K</p>
+            <p class="mt-1 text-xs" style="color: var(--text-muted);">With context injection</p>
+          </div>
+          <div>
+            <p class="text-3xl font-bold" style="color: var(--accent-secondary);">~90%</p>
+            <p class="mt-1 text-xs" style="color: var(--text-muted);">Token cost reduction</p>
+          </div>
         </div>
+        <p class="mt-4 text-center text-xs" style="color: var(--text-muted);">Source: arXiv:2504.19413, ECAI 2025 — comparable accuracy at 90% lower token cost</p>
       </div>
+    </div>
+  </section>
 
-      <div class="surface-panel p-6 text-center">
-        <h3>Add memory to your agent</h3>
-        <p class="mt-2 text-sm" style="color: var(--text-muted);">One config entry. 16 tools. Any MCP client.</p>
-        <div class="mt-4 flex items-center justify-center gap-4">
-          <a href="/api/mcp" class="btn-accent">MCP Docs →</a>
-          <a href="/docs/quickstart" class="btn-ghost">Quick Start</a>
+  <!-- ====== FAQ ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-6 text-left">
+      <h2>Frequently asked questions</h2>
+      {faqItems.map(item => (
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--text);">{item.question}</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">{item.answer}</p>
         </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ====== CTA ====== -->
+  <section class="content-layer px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-left">
+      <h2>Add memory to your agent</h2>
+      <p class="mt-4" style="color: var(--text-muted);">One config entry. 13 tools. Any MCP client. Start free — 10K observations/month, no credit card.</p>
+      <div class="mt-6 flex items-center gap-4">
+        <a href="/docs/quickstart" class="btn-accent">Quick Start →</a>
+        <a href="/api/mcp" class="btn-ghost">MCP API Reference</a>
       </div>
     </div>
   </section>

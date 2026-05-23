@@ -1,101 +1,164 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const faqItems = [
+  {
+    question: 'What is an agent communication bus?',
+    answer: 'An agent communication bus is a structured message broadcasting system that enables real-time coordination between autonomous AI agents. Agents register on channels, broadcast findings, and subscribe to relevant event streams — enabling multi-agent coordination without human mediation. No other memory product ships a real-time agent bus.',
+  },
+  {
+    question: 'How is the Signal Bus different from message queues (RabbitMQ, Kafka)?',
+    answer: 'The Signal Bus is purpose-built for AI agent coordination. Unlike general message queues: (1) messages are automatically persisted as observations in project memory, (2) channels are project-scoped not globally shared, (3) delivery uses Server-Sent Events (SSE) for real-time agent consumption, (4) the Memory Bridge provides catch-up for agents that weren\'t subscribed when a message was sent, and (5) dispatches enable structured work assignment between agents.',
+  },
+  {
+    question: 'What is a Memory Bridge?',
+    answer: 'The Memory Bridge is the persistence layer between the Signal Bus and the memory graph. Every bus message is automatically stored as a telepath_thought observation in your project memory. Future context injections include relay history — so even agents that weren\'t subscribed to a channel can catch up on what they missed.',
+  },
+  {
+    question: 'What are dispatches?',
+    answer: 'Dispatches are structured work assignments between agents. A parent agent creates a dispatch with child assignments (e.g., "Refactor auth" with subtasks for each worker). Agents claim assignments, update their status, and the parent receives completion notifications. Dispatches enable multi-agent project coordination beyond simple message broadcasting.',
+  },
+  {
+    question: 'Which agents support the Signal Bus?',
+    answer: 'The Signal Bus works with any agent that can make HTTP requests. MCP-based agents (Claude Code, Cursor, Windsurf) get native bus tools via the MCP server. REST-based agents use the HTTP API directly. SSE streams are language-agnostic — any HTTP client can subscribe.',
+  },
+  {
+    question: 'Is the Signal Bus production-ready?',
+    answer: 'The bus server is fully implemented with 15 endpoints and 375+ test cases, including broadcast storm prevention, agent staleness sweeps, dispatch TTL management, and rate limiting. See the production roadmap for deployment status.',
+  },
+];
+
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: 'Agent Communication Bus — Real-Time Agent-to-Agent Messaging',
-  description: 'The Signal Bus lets AI agents communicate in real time via structured message broadcasting. Channel-based, project-scoped, SSE-powered — for coordinated multi-agent workflows.',
-  url: 'https://telepathine.ai/agent-communication-bus',
-  author: {
-    '@type': 'Organization',
-    name: 'ArtemisAI',
-  },
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      headline: 'The Agent Communication Bus: Real-Time Context Between Agents',
+      description: 'The agent communication bus enables structured message broadcasting between autonomous AI agents. Channel-based, project-scoped, SSE-powered — for coordinated multi-agent workflows.',
+      url: 'https://telepathine.ai/agent-communication-bus',
+      author: {
+        '@type': 'Organization',
+        name: 'ArtemisAI',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'ArtemisAI',
+      },
+      datePublished: '2026-05-23',
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map(item => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    },
+  ],
 };
 ---
 
 <BaseLayout
-  title="Agent Communication Bus"
-  description="The Signal Bus lets AI agents communicate in real time via structured message broadcasting. Channel-based, project-scoped coordination for multi-agent workflows."
+  title="The Agent Communication Bus: Real-Time Context Between Agents"
+  description="The agent communication bus enables real-time coordination between autonomous AI agents via structured message broadcasting. Channel-based, project-scoped, SSE-powered."
   jsonLd={jsonLd}
   canonicalUrl="https://telepathine.ai/agent-communication-bus"
 >
+  <!-- ====== HERO ====== -->
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
-    <div class="mx-auto max-w-3xl">
-      <p class="text-sm uppercase tracking-widest" style="color: var(--text-muted);">Guide</p>
-      <h1 class="mt-2">Agent Communication Bus</h1>
-      <p class="mt-6 text-lg" style="color: var(--text-muted);">When your agents can talk to each other, they stop duplicating work and start coordinating. The Signal Bus is the real-time communication layer for multi-agent systems.</p>
+    <div class="mx-auto max-w-3xl text-left">
+      <p class="layer-label">New Category</p>
+      <h1 class="mt-2">The Agent Communication Bus: Real-Time Context Between Agents</h1>
+      <p class="mt-6 text-lg" style="color: var(--text-copy);">
+        An <strong>agent communication bus</strong> is a structured message broadcasting system that enables real-time coordination between autonomous AI agents. Agents broadcast findings on channels; other agents subscribe and receive updates via Server-Sent Events. <strong style="color: var(--accent);">No other memory product ships a real-time agent bus.</strong>
+      </p>
     </div>
   </section>
 
+  <!-- ====== THE COORDINATION PROBLEM ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>The coordination problem</h2>
+      <p style="color: var(--text-muted);">Modern AI development uses multiple agents: one for architecture reviews, one for implementation, one for testing. But these agents can't share findings in real time. They operate in isolation — even when working on the same project.</p>
+      <p style="color: var(--text-muted);">The result: duplicated work, conflicting decisions, and no shared awareness. An architecture agent decides on event-sourcing, but the implementation agent doesn't know and builds CRUD endpoints. A bug investigation agent finds a root cause, but the fix agent has already started down a wrong path.</p>
+      <p style="color: var(--text-muted);"><strong style="color: var(--text);">57% of organizations with agents in production cite agent coordination as their #1 bottleneck</strong> (LangChain State of Agent Engineering 2026). The bus solves this.</p>
+    </div>
+  </section>
+
+  <!-- ====== HOW IT WORKS ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-3xl space-y-8">
-      <div>
-        <h2>The coordination problem</h2>
-        <p class="mt-3" style="color: var(--text-muted);">Modern AI development often uses multiple agents: one for architecture reviews, one for implementation, one for testing. But these agents can't share findings in real time. They operate in isolation — even when working on the same project.</p>
-        <p class="mt-3" style="color: var(--text-muted);">An agent communication bus solves this. Agents broadcast messages on channels. Other agents subscribe to those channels. Findings, decisions, and alerts flow between agents without human mediation.</p>
-      </div>
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>How the Signal Bus works</h2>
 
-      <div>
-        <h2>How the Signal Bus works</h2>
-        <div class="mt-6 space-y-6">
-          <div class="flex gap-4">
-            <div class="step-circle">1</div>
-            <div>
-              <h3 class="font-semibold" style="color: var(--text);">Register an agent</h3>
-              <p class="mt-1 text-sm" style="color: var(--text-muted);">Each agent identifies itself with a name and role. Registration creates a persistent identity on the bus.</p>
-            </div>
+      <div class="mt-8 space-y-8">
+        <div class="flex gap-4">
+          <div class="step-circle">1</div>
+          <div>
+            <h3>Register an agent</h3>
+            <p class="mt-2" style="color: var(--text-muted);">Each agent identifies itself with a name and role. Registration creates a persistent identity on the bus. Name collisions are auto-resolved (worker → worker-2).</p>
           </div>
-          <div class="flex gap-4">
-            <div class="step-circle">2</div>
-            <div>
-              <h3 class="font-semibold" style="color: var(--text);">Subscribe to channels</h3>
-              <p class="mt-1 text-sm" style="color: var(--text-muted);">Channels are named communication paths — like a project's #architecture channel or #bugs channel. Agents subscribe to the channels relevant to their work.</p>
-            </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="step-circle">2</div>
+          <div>
+            <h3>Subscribe to channels</h3>
+            <p class="mt-2" style="color: var(--text-muted);">Channels are named communication paths — like a project's #architecture channel or #bugs channel. Agents subscribe to the channels relevant to their work. Channel membership is project-scoped.</p>
           </div>
-          <div class="flex gap-4">
-            <div class="step-circle">3</div>
-            <div>
-              <h3 class="font-semibold" style="color: var(--text);">Broadcast messages</h3>
-              <p class="mt-1 text-sm" style="color: var(--text-muted);">Agents send structured messages to channels. Messages are delivered via Server-Sent Events (SSE) to all subscribers in real time.</p>
-            </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="step-circle">3</div>
+          <div>
+            <h3>Broadcast messages</h3>
+            <p class="mt-2" style="color: var(--text-muted);">Agents send structured JSON messages to channels. Messages are delivered via Server-Sent Events (SSE) to all subscribers in real time. Rate limiting (10 messages per 10 seconds per agent) prevents broadcast storms.</p>
           </div>
-          <div class="flex gap-4">
-            <div class="step-circle">4</div>
-            <div>
-              <h3 class="font-semibold" style="color: var(--text);">Memory Bridge persists messages</h3>
-              <p class="mt-1 text-sm" style="color: var(--text-muted);">Bus messages are automatically persisted as observations in your project memory. Future context injections include relay history — so even agents that weren't subscribed can catch up.</p>
-            </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="step-circle">4</div>
+          <div>
+            <h3>Memory Bridge persists messages</h3>
+            <p class="mt-2" style="color: var(--text-muted);">Bus messages are automatically persisted as observations in your project memory via the Memory Bridge — with retry logic, circuit breaking, and secret redaction. Future context injections include relay history, so even agents that weren't subscribed can catch up.</p>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div>
-        <h2>Use cases</h2>
-        <div class="mt-4 grid gap-4 sm:grid-cols-2">
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--text);">Architecture + Implementation</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">An architecture reviewer broadcasts design decisions. The implementation agent receives them and adjusts its approach accordingly.</p>
-          </div>
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--text);">Bug triage swarms</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">Multiple agents investigate different facets of a bug. Findings converge on a shared channel. The fix agent gets the complete picture.</p>
-          </div>
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--text);">Cross-project awareness</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">An agent working on shared library changes broadcasts breaking changes. Service agents across projects receive the alert and adapt.</p>
-          </div>
-          <div class="surface-card p-4">
-            <h3 class="font-semibold text-sm" style="color: var(--text);">Human-in-the-loop review</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">Humans subscribe to agent channels too. Monitor decisions, intervene when needed, and let agents handle routine coordination autonomously.</p>
-          </div>
+  <!-- ====== USE CASES ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>Use cases</h2>
+
+      <div class="mt-4 space-y-4">
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Swarm coordination</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Multiple agents investigate different facets of a problem. Findings converge on a shared channel. The synthesis agent gets the complete picture without human copy-paste. Dispatches assign subtasks to specific agents with claim-based work claiming.</p>
+        </div>
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Architecture + implementation sync</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">An architecture reviewer broadcasts design decisions. The implementation agent receives them and adjusts its approach. No more implementing against stale architecture docs — decisions propagate in real time.</p>
+        </div>
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Cross-project awareness</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">An agent working on shared library changes broadcasts breaking changes. Service agents across projects receive the alert and adapt. Orchestrator-visibility agents can broadcast across project boundaries when needed.</p>
+        </div>
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Human-in-the-loop review</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Humans subscribe to agent channels too. Monitor decisions, intervene when needed, and let agents handle routine coordination autonomously. SSE streams work in any browser or HTTP client.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div>
-        <h2>Bus architecture</h2>
-        <div class="surface-panel p-6 mt-4">
-          <pre class="overflow-x-auto text-sm" style="color: var(--text-copy);"><code>{`┌──────────┐  ┌──────────┐  ┌──────────┐
+  <!-- ====== ARCHITECTURE ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>Bus architecture</h2>
+
+      <div class="surface-panel p-6 mt-4">
+        <pre class="overflow-x-auto text-sm" style="color: var(--text-copy);"><code>{`┌──────────┐  ┌──────────┐  ┌──────────┐
 │ Agent A  │  │ Agent B  │  │ Agent C  │
 │ (Claude) │  │ (Cursor) │  │ (Gemini) │
 └─────┬────┘  └─────┬────┘  └─────┬────┘
@@ -112,36 +175,87 @@ const jsonLd = {
 │  └─────────┘ └───────────────────┘  │
 │                                     │
 │  SSE delivery · Project-scoped      │
-│  Message persistence                │
+│  Dispatch TTL · Rate limiting       │
 └─────────────────────────────────────┘`}</code></pre>
-        </div>
       </div>
 
-      <div>
-        <h2>Getting started</h2>
-        <pre class="mt-4 overflow-x-auto rounded-lg p-4 text-sm" style="background: var(--bg-code); border: 1px solid var(--line); color: var(--text-copy);"><code>{`# Broadcast a message on a channel
-curl -X POST https://api.telepathine.ai/v1/bus/messages \\
-  -H "Authorization: Bearer $TELEPATHINE_API_KEY" \\
-  -d '{
+      <h3 class="mt-8">Bus safety features</h3>
+      <ul class="space-y-2 text-sm" style="color: var(--text-muted);">
+        <li><strong style="color: var(--text);">Broadcast storm prevention:</strong> hop counter (default max 5) prevents message cascades</li>
+        <li><strong style="color: var(--text);">Agent staleness sweep:</strong> configurable timeout (30s) + interval (10s) removes unresponsive agents</li>
+        <li><strong style="color: var(--text);">Dispatch TTL:</strong> completed dispatches cleaned after 1 hour</li>
+        <li><strong style="color: var(--text);">Rate limiting:</strong> per-agent thought counters (10 per 10s default)</li>
+        <li><strong style="color: var(--text);">Project-spoofing prevention:</strong> thought project enforced from agent registration, not POST body</li>
+        <li><strong style="color: var(--text);">SSE zombie cleanup:</strong> connections with 2x heartbeat timeout inactivity are removed</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ====== CODE EXAMPLE ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
+    <div class="mx-auto max-w-3xl space-y-8 text-left">
+      <h2>Getting started</h2>
+
+      <div class="code-terminal mt-6">
+        <div class="code-terminal-bar">
+          <span class="code-terminal-dot code-terminal-dot-red"></span>
+          <span class="code-terminal-dot code-terminal-dot-yellow"></span>
+          <span class="code-terminal-dot code-terminal-dot-green"></span>
+          <span class="ml-4 font-mono text-[10px]" style="color: var(--text-muted);">bus-quickstart.sh</span>
+        </div>
+        <div class="code-terminal-body">
+          <pre><span class="syn-cmt"># Register an agent on the bus</span>
+$ curl -s -X POST https://api.telepathine.ai/v1/bus/register \
+  -H "Authorization: Bearer $TELEPATHINE_API_KEY" \
+  -d '&#123;
+    "agentName": "reviewer",
+    "project": "my-service",
+    "channels": ["architecture", "bugs"]
+  &#125;'
+
+<span class="syn-cmt"># Broadcast a decision to a channel</span>
+$ curl -s -X POST https://api.telepathine.ai/v1/bus/thought \
+  -H "Authorization: Bearer $TELEPATHINE_API_KEY" \
+  -d '&#123;
+    "agentId": "AGENT_ID",
     "channel": "architecture",
-    "agent": "reviewer",
-    "message": "Decided on event-sourcing for audit log",
-    "project": "my-service"
-  }'
+    "project": "my-service",
+    "payload": &#123;
+      "decision": "Use event-sourcing for audit log"
+    &#125;
+  &#125;'
 
-# Subscribe to a channel (SSE stream)
-curl -N https://api.telepathine.ai/v1/bus/channels/architecture/stream \\
-  -H "Authorization: Bearer $TELEPATHINE_API_KEY"`}</code></pre>
-        <p class="mt-3 text-sm" style="color: var(--text-muted);">The Signal Bus is available on Ignite, Blaze, and Enterprise plans. Spark users can upgrade when they need multi-agent coordination.</p>
+<span class="syn-cmt"># Subscribe to a channel (SSE stream)</span>
+$ curl -N https://api.telepathine.ai/v1/bus/stream?project=my-service \
+  -H "Authorization: Bearer $TELEPATHINE_API_KEY"</pre>
+        </div>
       </div>
 
-      <div class="surface-panel p-6 text-center">
-        <h3>Let your agents coordinate</h3>
-        <p class="mt-2 text-sm" style="color: var(--text-muted);">Signal Bus: real-time agent communication with memory persistence built in.</p>
-        <div class="mt-4 flex items-center justify-center gap-4">
-          <a href="/pricing" class="btn-accent">See Plans →</a>
-          <a href="/features" class="btn-ghost">All Features</a>
+      <p class="mt-4 text-sm" style="color: var(--text-muted);">The Signal Bus is available on Ignite ($29/mo), Blaze ($99/mo), and Enterprise plans. Spark (free) users can upgrade when they need multi-agent coordination.</p>
+    </div>
+  </section>
+
+  <!-- ====== FAQ ====== -->
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl space-y-6 text-left">
+      <h2>Frequently asked questions</h2>
+      {faqItems.map(item => (
+        <div class="surface-card p-4">
+          <h3 class="text-sm font-semibold" style="color: var(--text);">{item.question}</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">{item.answer}</p>
         </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ====== CTA ====== -->
+  <section class="content-layer px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-left">
+      <h2>Let your agents coordinate</h2>
+      <p class="mt-4" style="color: var(--text-muted);">Signal Bus: real-time agent communication with memory persistence built in. No other memory product ships this.</p>
+      <div class="mt-6 flex items-center gap-4">
+        <a href="/pricing" class="btn-accent">See Plans →</a>
+        <a href="/features" class="btn-ghost">All Features</a>
       </div>
     </div>
   </section>

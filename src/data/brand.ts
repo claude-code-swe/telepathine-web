@@ -22,15 +22,15 @@ export const BRAND = {
 	API_KEY_PLACEHOLDER: "your_api_key_here",
 
 	/** Primary tagline */
-	TAGLINE: "When agents share memory, they become aware.",
+	TAGLINE: "Your memory should outlive your agent.",
 
 	/** Default meta description */
 	DEFAULT_DESCRIPTION:
-		"The awareness layer for AI agents. Persistent memory, hybrid search, signal bus — any engine, any agent.",
+		"The portable memory layer for AI agents. Persistent memory, hybrid search, signal bus — any engine, any agent.",
 
 	/** Secondary description (used in some meta contexts) */
 	SECONDARY_DESCRIPTION:
-		"Any engine, any agent. Project-scoped, engine-agnostic, MCP-native. Agents become aware.",
+		"Any engine, any agent. Project-scoped, engine-agnostic, MCP-native. Your memory should outlive your agent.",
 
 	/** Organization */
 	ORG_NAME: "ArtemisAI",

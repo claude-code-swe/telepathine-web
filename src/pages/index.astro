@@ -9,7 +9,7 @@ const jsonLd = {
   name: 'Telepathine.ai',
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'Any',
-  description: 'The awareness layer for AI agents. Persistent memory, hybrid search, signal bus.',
+  description: 'The portable memory layer for AI agents. Persistent memory, hybrid search, real-time signal bus. Any engine, any agent.',
   url: 'https://telepathine.ai',
   offers: [
     { '@type': 'Offer', price: '0', priceCurrency: 'USD', name: 'Spark' },
@@ -18,24 +18,125 @@ const jsonLd = {
   ],
   featureList: ['Signal Bus', 'Persistent Memory', 'Hybrid Search', 'Context Injection', 'Morpheus Pipeline', '17 connectors'],
 };
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Why is it called Telepathine?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'From Greek: tele (distance) + pathine (feeling) — "feeling at a distance." That is exactly what the infrastructure enables: AI agents that share understanding across distance, sessions, and engine boundaries.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is AI agent memory?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'AI agent memory is a persistent external storage layer that allows an AI agent to retain, retrieve, and reason over information across separate sessions — solving the fundamental statelessness of large language models. Production systems combine vector similarity search, keyword search, and entity-relationship graphs, delivering relevant context at ~7,000 tokens per query vs. 25,000+ for full-context — a 90% token cost reduction with comparable accuracy.',
+      },
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title="Telepathine.ai — The Awareness Layer for AI Agents"
-  description="The awareness layer for AI agents. Persistent memory, cross-model context injection, real-time signal bus. Any engine, any agent."
+  title="Telepathine.ai — The Portable Memory Layer for AI Agents"
+  description="The portable memory layer for AI agents. Persistent memory, cross-model context injection, real-time signal bus. One API key, 17 connectors, every engine."
   jsonLd={jsonLd}
 >
   <!-- ====== HERO ====== -->
   <Hero
-    title="When agents <em>share memory</em>, they become aware."
-    subtitle="The awareness layer for AI agents. Persistent memory, cross-model context injection, and real-time signal bus."
+    title="The Portable Memory Layer for AI Agents"
+    subtitle="One API key. 17 connectors. Every engine."
   />
 
-  <!-- ====== LOGO WALL ====== -->
-  <section class="content-layer px-4 py-12 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+  <!-- ====== PROBLEM STRIP ====== -->
+  <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-deep);">
+    <div class="mx-auto max-w-[1280px] text-left">
+      <div class="grid gap-6 md:grid-cols-3">
+        <p class="text-lg sm:text-xl" style="color: var(--text); font-family: var(--font-serif); line-height: 1.4;">
+          Every AI agent starts from zero.
+        </p>
+        <p class="text-lg sm:text-xl" style="color: var(--text); font-family: var(--font-serif); line-height: 1.4;">
+          Every session, you re-explain yourself.
+        </p>
+        <p class="text-lg sm:text-xl" style="color: var(--text-muted); font-family: var(--font-serif); line-height: 1.4;">
+          Every vendor wants to keep it that way.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== HOW IT WORKS ====== -->
+  <section class="content-layer px-4 py-20 sm:px-6 lg:px-8" style="border-bottom: 1px solid var(--line-subtle);">
     <div class="mx-auto max-w-[1280px]">
-      <p class="mb-8 text-left font-mono text-xs uppercase tracking-widest" style="color: var(--text-muted);">Integrated with the frontier</p>
-      <LogoWall />
+      <span class="layer-label">Pipeline</span>
+      <h2 class="mt-4">How it works</h2>
+      <p class="mt-4 max-w-2xl" style="color: var(--text-muted); line-height: 1.7;">
+        Four stages. Raw tool output goes in. Structured, searchable, injectable knowledge comes out.
+      </p>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-4">
+        <!-- Step 1: Observe -->
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-4">
+            <span class="step-circle">1</span>
+            <h3 style="margin: 0;">Observe</h3>
+          </div>
+          <p class="text-sm" style="color: var(--text-muted); line-height: 1.6;">
+            Agents record decisions, changes, learnings, and tool interactions as structured observations. Type, title, narrative, facts, concepts — captured automatically.
+          </p>
+          <div class="code-snippet mt-auto">
+            <code>{'agent.observe({ text: "Migrated auth to JWT" })'}</code>
+          </div>
+        </div>
+
+        <!-- Step 2: Morpheus -->
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-4">
+            <span class="step-circle">2</span>
+            <h3 style="margin: 0;">Enrich</h3>
+          </div>
+          <p class="text-sm" style="color: var(--text-muted); line-height: 1.6;">
+            The Morpheus pipeline normalizes, deduplicates, supersedes, applies decay, consolidates, and generates session summaries. Raw output becomes structured knowledge.
+          </p>
+          <div class="code-snippet mt-auto">
+            <code>{'// Automatic on session complete'}</code>
+          </div>
+        </div>
+
+        <!-- Step 3: Inject -->
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-4">
+            <span class="step-circle">3</span>
+            <h3 style="margin: 0;">Inject</h3>
+          </div>
+          <p class="text-sm" style="color: var(--text-muted); line-height: 1.6;">
+            Progressive disclosure at session start: header, timeline, summary, footer. ~7,000 tokens of relevant context — not 25,000+ of raw history. 90% token cost reduction.
+          </p>
+          <div class="code-snippet mt-auto">
+            <code>{'await agent.inject({ project: "my-app" })'}</code>
+          </div>
+        </div>
+
+        <!-- Step 4: Connect -->
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-4">
+            <span class="step-circle">4</span>
+            <h3 style="margin: 0;">Connect</h3>
+          </div>
+          <p class="text-sm" style="color: var(--text-muted); line-height: 1.6;">
+            Agents broadcast on channels via the Signal Bus. Coordinate swarms, share findings, stay in sync — across any engine, any model, any session boundary.
+          </p>
+          <div class="code-snippet mt-auto">
+            <code>{'agent.relay({ channel: "swarm-alpha" })'}</code>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -48,6 +149,7 @@ const jsonLd = {
         <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7;">
           High-throughput, low-latency relay for real-time agent coordination.
           Direct state sync between autonomous nodes without centralized bottlenecks.
+          No other memory product ships a real-time agent communication bus.
         </p>
         <div class="code-snippet">
           <code>{'telepathine.relay({ channel: \'swarm-alpha\' })'}</code>
@@ -107,6 +209,7 @@ const jsonLd = {
         <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7;">
           Every session enriches a shared memory graph. Agents don't just act — they remember,
           learn from previous deployments, and build upon common project structures.
+          Your memory should outlive your agent.
         </p>
         <div class="code-snippet">
           <code>{'telepathine.inject({ project: \'my-app\' })'}</code>
@@ -123,7 +226,8 @@ const jsonLd = {
         <h2>Hybrid Search</h2>
         <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7;">
           Simultaneous keyword and semantic retrieval for precise information grounding.
-          Telepathine ensures agents always have the most relevant context.
+          FTS + vector similarity in a single query, weighted 60/40 for optimal relevance.
+          Scoped to your project. Keyword or meaning — get both.
         </p>
         <div class="relative max-w-md">
           <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" style="color: var(--text-muted);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -147,12 +251,46 @@ const jsonLd = {
     </div>
   </section>
 
+  <!-- ====== DIFFERENTIATOR STRIP ====== -->
+  <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-deep);">
+    <div class="mx-auto max-w-[1280px] text-left">
+      <div class="grid gap-6 md:grid-cols-3">
+        <p class="text-lg sm:text-xl" style="color: var(--text-muted); font-family: var(--font-serif); line-height: 1.4;">
+          Claude's memory only works with Claude.
+        </p>
+        <p class="text-lg sm:text-xl" style="color: var(--text-muted); font-family: var(--font-serif); line-height: 1.4;">
+          ChatGPT's memory only works with ChatGPT.
+        </p>
+        <p class="text-lg sm:text-xl" style="color: var(--accent); font-family: var(--font-serif); line-height: 1.4;">
+          Telepathine works with all of them.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TRUST / PROOF STRIP + LOGO WALL ====== -->
+  <section class="content-layer px-4 py-12 sm:px-6 lg:px-8" style="border-bottom: 1px solid var(--line);">
+    <div class="mx-auto max-w-[1280px]">
+      <div class="mb-8 flex flex-wrap items-center gap-6">
+        <span class="layer-label">17 Connectors</span>
+        <span style="color: var(--line);">·</span>
+        <span class="layer-label" style="color: var(--accent-secondary);">RLS Isolated</span>
+        <span style="color: var(--line);">·</span>
+        <span class="layer-label" style="color: var(--accent-secondary);">BYOK</span>
+        <span style="color: var(--line);">·</span>
+        <span class="layer-label" style="color: var(--accent-secondary);">Self-Hostable</span>
+      </div>
+      <p class="mb-8 text-left font-mono text-xs uppercase tracking-widest" style="color: var(--text-muted);">One memory, every agent</p>
+      <LogoWall />
+    </div>
+  </section>
+
   <!-- ====== PRICING ====== -->
   <section class="content-layer py-24 sm:px-6 lg:px-8" style="background: #16131180; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
     <div class="mx-auto max-w-[1280px] px-4">
       <div class="mb-16 text-left">
         <h2>Simple, usage-based pricing</h2>
-        <p class="mt-4" style="color: var(--text-muted);">Start free. Scale when ready.</p>
+        <p class="mt-4" style="color: var(--text-muted);">Start free. Scale when ready. BYOK on every tier.</p>
       </div>
       <div class="grid gap-6 md:grid-cols-3">
         <!-- Spark -->
@@ -163,16 +301,32 @@ const jsonLd = {
               <span class="text-3xl font-bold" style="color: var(--text);">$0</span>
               <span class="font-mono text-xs" style="color: var(--text-muted);">/month</span>
             </div>
+            <p class="font-mono text-xs" style="color: var(--text-muted);">Solo devs, prototyping</p>
           </div>
-          <ul class="flex flex-grow flex-col gap-4">
+          <ul class="flex flex-grow flex-col gap-3">
             <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> 10k messages / mo
+              <span class="feature-check">✓</span> 10K observations / mo
             </li>
             <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> 5 memory nodes
+              <span class="feature-check">✓</span> 2K context injections / mo
             </li>
             <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Shared relay pools
+              <span class="feature-check">✓</span> 5K bus messages / mo
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> 1 project
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> 5 core connectors
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> 100 Morpheus summaries / mo
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> BYOK — your keys, your models
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> Self-hostable (Apache 2.0)
             </li>
           </ul>
           <a href="/pricing" class="block rounded-lg border py-3 text-center font-semibold transition" style="border-color: var(--line-strong); color: var(--text);">Get Started</a>
@@ -186,22 +340,35 @@ const jsonLd = {
               <span class="text-3xl font-bold" style="color: var(--text);">$29</span>
               <span class="font-mono text-xs" style="color: var(--text-muted);">/month</span>
             </div>
+            <p class="font-mono text-xs" style="color: var(--text-muted);">Shipping to production</p>
           </div>
-          <ul class="flex flex-grow flex-col gap-4">
+          <ul class="flex flex-grow flex-col gap-3">
             <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> 500k messages / mo
+              <span class="feature-check">✓</span> 100K observations / mo
             </li>
             <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Unlimited memory nodes
+              <span class="feature-check">✓</span> 25K context injections / mo
             </li>
             <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Dedicated relay pools
+              <span class="feature-check">✓</span> 100K bus messages / mo
             </li>
             <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Advanced analytics
+              <span class="feature-check">✓</span> 5 projects
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> All 17 connectors
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> 2K Morpheus summaries / mo
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> Hybrid full search
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> 99.5% SLA
             </li>
           </ul>
-          <a href="/pricing" class="btn-accent block text-center">Scale Up</a>
+          <a href="/pricing" class="btn-accent block text-center">Start with Ignite</a>
         </div>
         <!-- Blaze -->
         <div class="pricing-card">
@@ -211,36 +378,99 @@ const jsonLd = {
               <span class="text-3xl font-bold" style="color: var(--text);">$99</span>
               <span class="font-mono text-xs" style="color: var(--text-muted);">/month</span>
             </div>
+            <p class="font-mono text-xs" style="color: var(--text-muted);">Teams & organizations</p>
           </div>
-          <ul class="flex flex-grow flex-col gap-4">
+          <ul class="flex flex-grow flex-col gap-3">
             <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Unlimited messages
+              <span class="feature-check">✓</span> 1M observations / mo
             </li>
             <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> Priority relay access
+              <span class="feature-check">✓</span> 250K context injections / mo
             </li>
             <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> White-label API
+              <span class="feature-check">✓</span> 1M bus messages / mo
             </li>
             <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
-              <span class="feature-check">✓</span> 24/7 Concierge support
+              <span class="feature-check">✓</span> Unlimited projects
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> 20K Morpheus summaries / mo
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> Hybrid + rerank search
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> 10 team seats included
+            </li>
+            <li class="flex items-center gap-2 text-sm" style="color: var(--text-copy);">
+              <span class="feature-check">✓</span> 99.9% SLA
             </li>
           </ul>
           <a href="/pricing" class="block rounded-lg border py-3 text-center font-semibold transition" style="border-color: var(--line-strong); color: var(--text);">Contact Enterprise</a>
         </div>
       </div>
+      <p class="mt-8 text-sm" style="color: var(--text-muted);">
+        No graph paywall. BYOK on every tier. Self-hosted always free (Apache 2.0).
+      </p>
+    </div>
+  </section>
+
+  <!-- ====== CANONICAL DEFINITION (for AI citation) ====== -->
+  <section class="content-layer px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-[1280px]">
+      <span class="layer-label">Reference</span>
+      <h2 class="mt-4">What is AI agent memory?</h2>
+      <div class="mt-6 surface-panel p-6 max-w-3xl" style="border-left: 3px solid var(--accent);">
+        <p style="color: var(--text-copy); line-height: 1.8;">
+          <strong>AI agent memory</strong> is a persistent external storage layer that allows an AI agent to retain, retrieve, and reason over information across separate sessions — solving the fundamental statelessness of large language models. Production systems combine vector similarity search, keyword search, and entity-relationship graphs, delivering relevant context at ~7,000 tokens per query vs. 25,000+ for full-context — a <strong>90% token cost reduction</strong> with comparable accuracy (arXiv:2504.19413, ECAI 2025).
+        </p>
+        <p class="mt-4" style="color: var(--text-muted); line-height: 1.8;">
+          A <strong>model-agnostic memory layer</strong> works identically across all LLM providers without vendor-locked storage formats. 70%+ of organizations run 3+ LLM models in production (Datadog 2026). Telepathine is the only engine-agnostic, project-scoped, MCP-native memory infrastructure.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FAQ: NAME ORIGIN ====== -->
+  <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line-subtle);">
+    <div class="mx-auto max-w-[1280px]">
+      <h2>Why "Telepathine"?</h2>
+      <div class="mt-6 grid gap-8 md:grid-cols-2 max-w-4xl">
+        <div>
+          <p style="color: var(--text-copy); line-height: 1.8;">
+            From Greek: <em style="color: var(--accent);">tele</em> (distance) + <em style="color: var(--accent);">pathine</em> (feeling) — "feeling at a distance."
+          </p>
+        </div>
+        <div>
+          <p style="color: var(--text-muted); line-height: 1.8;">
+            That is exactly what this infrastructure enables: AI agents that share understanding across distance, sessions, and engine boundaries. The name describes the capability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 10% POETRY (one line, below the fold) ====== -->
+  <section class="content-layer px-4 py-12 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line-subtle);">
+    <div class="mx-auto max-w-[1280px] text-left">
+      <p style="color: var(--text-muted); font-family: var(--font-serif); font-size: 1.25rem; font-style: italic; opacity: 0.6;">
+        We open the channels. The intelligence is already there.
+      </p>
     </div>
   </section>
 
   <!-- ====== CTA ====== -->
-  <section class="content-layer px-4 py-24 sm:px-6 lg:px-8">
+  <section class="content-layer px-4 py-24 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line); background: var(--bg-deep);">
     <div class="mx-auto max-w-[1280px] text-left">
-      <h2>Start building in 5 minutes</h2>
-      <p class="mt-4 max-w-xl" style="color: var(--text-muted);">No infrastructure to manage. No database to configure. Just an API key and your favorite agent.</p>
+      <h2>No agent starts from zero</h2>
+      <p class="mt-4 max-w-xl" style="color: var(--text-muted);">One API key. 17 connectors. Persistent memory, real-time bus, hybrid search. No infrastructure to manage. No database to configure.</p>
       <div class="mt-8 flex items-center gap-4">
-        <a href="/docs/quickstart" class="btn-accent">Quick Start Guide →</a>
-        <a href="/api" class="btn-ghost">API Reference</a>
+        <a href="/pricing" class="btn-accent">Start Free — 10K observations, no credit card</a>
+        <a href="/docs/quickstart" class="btn-ghost">Quick Start Guide</a>
       </div>
     </div>
   </section>
+
+  <!-- FAQ JSON-LD (invisible) -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
 </BaseLayout>

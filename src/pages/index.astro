@@ -10,7 +10,7 @@ const jsonLd = {
   name: 'Telepathine.ai',
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'Any',
-  description: 'The portable memory layer for AI agents. Works with every coding agent.',
+  description: 'The channel layer for AI agents. Mind-to-mind memory sharing, engine-agnostic, MCP-native.',
   url: 'https://telepathine.ai',
   offers: [
     { '@type': 'Offer', price: '0', priceCurrency: 'USD', name: 'Spark' },
@@ -22,13 +22,13 @@ const jsonLd = {
 ---
 
 <BaseLayout
-  title="Telepathine.ai — The Portable Memory Layer for AI Agents"
-  description="The portable memory layer for AI agents. One memory, every engine. Any agent. Project-scoped, engine-agnostic, MCP-native."
+  title="Telepathine.ai — The Channel Layer for AI Agents"
+  description="The channel layer for AI agents. Mind-to-mind memory sharing, engine-agnostic, MCP-native."
   jsonLd={jsonLd}
 >
   <Hero
-    title="Your memory should outlive your agent"
-    subtitle="The portable memory layer for AI agents. One memory, every engine. Any agent."
+    title="When agents share memory, they share mind"
+    subtitle="The channel layer for AI agents. Mind-to-mind memory sharing across every engine."
   />
 
   <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
@@ -40,14 +40,14 @@ const jsonLd = {
 
   <section class="content-layer section-divider section-accent-top px-4 py-20 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
-      <h2 class="text-center">Capture. Search. Relay.</h2>
+      <h2 class="text-center">Relay. Remember. Reason.</h2>
       <p class="mx-auto mt-4 max-w-2xl text-center text-lg" style="color: var(--text-muted);">
-        Three capabilities that transform your AI agents from stateless tools into persistent, intelligent collaborators.
+        Three capabilities that transform isolated agents into a connected, collective intelligence.
       </p>
       <div class="mt-12 grid gap-6 sm:grid-cols-3">
-        <FeatureCard icon="🧠" title="Persistent Memory" description="Your agents remember decisions, changes, and learnings across sessions and projects. Never re-explain context again." />
+        <FeatureCard icon="📡" title="Signal Bus" description="Agents relay mind-to-mind across channels. Open wavelengths between agents — coordinate swarms, share findings, achieve synchrony." />
+        <FeatureCard icon="🧠" title="Persistent Memory" description="Extend your agent's mind across sessions and projects. Every observation becomes part of an extended mind that never forgets." />
         <FeatureCard icon="🔍" title="Hybrid Search" description="Combine full-text and semantic vector search. Find what you need by keyword or by meaning, scoped to your project." />
-        <FeatureCard icon="📡" title="Signal Bus" description="Agents broadcast on channels via the Signal Bus. Coordinate swarms, share findings, stay in sync." />
       </div>
     </div>
   </section>
@@ -106,6 +106,18 @@ const jsonLd = {
         <a href="/docs/quickstart" class="btn-accent" style="padding: 0.625rem 1.5rem;">Quick Start Guide →</a>
         <a href="/api" class="btn-ghost">API Reference</a>
       </div>
+    </div>
+  </section>
+
+  <!-- Nature metaphor: distributed memory solved long before AI -->
+  <section class="content-layer section-divider px-4 py-20 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      <h2>Feeling at a distance</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg" style="color: var(--text-muted); font-family: var(--font-serif); font-style: italic;">
+        Nature solved distributed memory billions of years ago. Mycelial networks connect forests — sharing nutrients, warnings, and knowledge through their environment. Ant colonies coordinate through traces left in the world. Telepathine does for AI agents what mycelium does for trees: opens channels so intelligence flows.
+      </p>
+      <div class="mx-auto mt-8 h-0.5 w-16 rounded-full" style="background: linear-gradient(90deg, var(--accent), transparent);"></div>
+      <a href="/telepathine" class="mt-6 inline-block text-sm transition" style="color: var(--accent);" onmouseover="this.style.color='var(--accent-light)'" onmouseout="this.style.color='var(--accent)'">The full story →</a>
     </div>
   </section>
 </BaseLayout>

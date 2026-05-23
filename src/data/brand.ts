@@ -22,15 +22,15 @@ export const BRAND = {
 	API_KEY_PLACEHOLDER: "your_api_key_here",
 
 	/** Primary tagline */
-	TAGLINE: "Your memory should outlive your agent.",
+	TAGLINE: "When agents share memory, they share mind.",
 
 	/** Default meta description */
 	DEFAULT_DESCRIPTION:
-		"The portable memory layer for AI agents. Works with every coding agent.",
+		"The channel layer for AI agents. Mind-to-mind memory sharing, engine-agnostic, MCP-native.",
 
 	/** Secondary description (used in some meta contexts) */
 	SECONDARY_DESCRIPTION:
-		"One memory, every engine. Any agent. Project-scoped, engine-agnostic, MCP-native.",
+		"One memory, every engine. Any agent. Project-scoped, engine-agnostic, MCP-native. Collective intelligence for AI.",
 
 	/** Organization */
 	ORG_NAME: "ArtemisAI",
@@ -54,13 +54,16 @@ export const BRAND = {
  * ✅ Use sparingly (10% ambient vibe, max 2x on entire site):
  *   mind-to-mind, channel opener, feeling at a distance,
  *   wavelength, synchrony, mycelium (visual only), extended mind,
- *   traces, bioluminescent
+ *   traces, bioluminescent, collective intelligence, shared mind
  *
  * ❌ NEVER USE:
  *   explicit ritual/entheogen terminology, spiritual/mystical claims,
  *   consciousness expansion claims, reverence/transcendence references,
- *   telepathic AI, infinite memory, collective consciousness,
- *   Akashic Records, noosphere, shared visions
+ *   telepathic AI, infinite memory,
+ *   Akashic Records, noosphere, shared visions,
+ *   ayahuasca, DMT, harmine, psychedelic, molecule (as noun referring to the drug),
+ *   ceremony, third eye, chakra, sacred AI, sacred, awakening,
+ *   expanded consciousness, vine of souls
  */
 export const VOCABULARY = {
 	/** Feature name for agent-to-agent communication (acceptable — our own product name) */
@@ -69,9 +72,9 @@ export const VOCABULARY = {
 	/** Public verb for agent communication — use in marketing copy */
 	BUS_VERB: "relay",
 
-	/** Description of the bus feature (neutral language) */
+	/** Description of the bus feature (evokes telepathy / channel opening) */
 	BUS_DESCRIPTION:
-		"Agents broadcast on channels via the Signal Bus. Coordinate swarms, share findings, stay in sync.",
+		"Agents relay mind-to-mind across channels. The Telepathine Bus opens wavelengths between agents — coordinate swarms, share findings, achieve synchrony.",
 } as const;
 
 /**

@@ -1,11 +1,16 @@
 ---
 import type { Connector } from '../data/connectors';
+import { getLocaleFromUrl, localizePath } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
 
 export interface Props {
   connector: Connector;
 }
 
 const { connector } = Astro.props;
+const locale: Locale = getLocaleFromUrl(Astro.url);
+const fp = (path: string) => localizePath(path, locale);
+
 
 const statusClasses: Record<string, string> = {
   stable: 'badge-stable',
@@ -15,7 +20,7 @@ const statusClasses: Record<string, string> = {
 };
 ---
 
-<a href={`/connectors/${connector.slug}`} class="group block surface-card p-5">
+<a href={fp(`/connectors/${connector.slug}`)} class="group block surface-card p-5">
   <div class="flex items-start justify-between">
     <div class="flex items-center gap-3">
       <div class="flex h-10 w-10 items-center justify-center rounded-lg text-lg font-bold" style={`background-color: ${connector.logoColor}15; color: ${connector.logoColor};`}>

@@ -1,10 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { getLocaleFromUrl, localizePath } from '../i18n/utils';
-import type { Locale } from '../i18n/utils';
-
-const locale: Locale = getLocaleFromUrl(Astro.url);
-const fp = (path: string) => localizePath(path, locale);
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -85,8 +80,8 @@ const jsonLd = {
         <h3>Stop re-explaining yourself to every AI</h3>
         <p class="mt-2 text-sm" style="color: var(--text-muted);">One memory. Every engine. Any agent.</p>
         <div class="mt-4 flex items-center justify-center gap-4">
-          <a href={fp('/docs/quickstart')} class="btn-accent">Get Started Free →</a>
-          <a href={fp('/connectors')} class="btn-ghost">See Connectors</a>
+          <a href="/docs/quickstart" class="btn-accent">Get Started Free →</a>
+          <a href="/connectors" class="btn-ghost">See Connectors</a>
         </div>
       </div>
     </div>

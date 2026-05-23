@@ -1,9 +1,7 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { connectors } from '../../data/connectors';
-import CodeBlock from '../../components/CodeBlock.astro';
-import { getLocaleFromUrl, localizePath } from '../../i18n/utils';
-import type { Locale } from '../../i18n/utils';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { connectors } from '../../../data/connectors';
+import CodeBlock from '../../../components/CodeBlock.astro';
 
 export function getStaticPaths() {
   return connectors.map(conn => ({
@@ -13,8 +11,6 @@ export function getStaticPaths() {
 }
 
 const { connector } = Astro.props;
-const locale: Locale = getLocaleFromUrl(Astro.url);
-const fp = (path: string) => localizePath(path, locale);
 
 const statusClasses: Record<string, string> = {
   stable: 'badge-stable',
@@ -29,7 +25,7 @@ const statusClasses: Record<string, string> = {
 >
   <section class="content-layer px-4 pb-16 pt-24 sm:px-6 sm:pt-32 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <a href={fp('/connectors')} class="text-sm transition" style="color: var(--text-muted);">← All Connectors</a>
+      <a href="/connectors" class="text-sm transition" style="color: var(--text-muted);">← All Connectors</a>
       <div class="mt-4 flex items-center gap-4">
         <div class="flex h-14 w-14 items-center justify-center rounded-xl text-2xl font-bold" style={`background-color: ${connector.logoColor}15; color: ${connector.logoColor};`}>
           {connector.name.charAt(0)}

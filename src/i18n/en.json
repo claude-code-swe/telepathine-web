@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "features": "Features",
+    "connectors": "Connectors",
+    "api": "API",
+    "docs": "Docs",
+    "pricing": "Pricing",
+    "security": "Security"
+  },
+  "hero": {
+    "startFree": "Start Free",
+    "quickStart": "Quick Start →"
+  },
+  "footer": {
+    "product": "Product",
+    "developers": "Developers",
+    "company": "Company",
+    "guides": "Guides",
+    "quickStart": "Quick Start",
+    "apiReference": "API Reference",
+    "mcpServer": "MCP Server",
+    "sdks": "SDKs",
+    "architecture": "Architecture",
+    "security": "Security",
+    "changelog": "Changelog",
+    "github": "GitHub",
+    "features": "Features",
+    "connectors": "Connectors",
+    "pricing": "Pricing",
+    "whatIsAiAgentMemory": "What Is AI Agent Memory",
+    "mcpMemoryServer": "MCP Memory Server",
+    "modelAgnosticMemory": "Model-Agnostic Memory",
+    "agentCommunicationBus": "Agent Communication Bus",
+    "claudeMemoryAlternative": "Claude Memory Alternative",
+    "copyright": "© 2026 ArtemisAI. All rights reserved."
+  },
+  "common": {
+    "popular": "Popular",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "save": "(save ~17%)",
+    "feature": "Feature",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "responseExample": "Response example",
+    "parameters": "Parameters",
+    "required": "Required",
+    "optional": "Optional",
+    "install": "Installation",
+    "supportedEvents": "Supported Events",
+    "configuration": "Configuration",
+    "quickTest": "Quick Test",
+    "allConnectors": "All Connectors"
+  },
+  "docs": {
+    "guides": "Guides",
+    "api": "API",
+    "restApi": "REST API",
+    "mcpServer": "MCP Server",
+    "sdks": "SDKs"
+  },
+  "lang": {
+    "spanish": "ES",
+    "english": "EN"
+  }
+}

@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Changelog"
+  description="Release notes and updates for Telepathine.ai. Track features, fixes, and improvements across all versions from v0.1.0 to v0.8.0 Beta."
+>
+  <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="mx-auto max-w-3xl">
+      <h1>Changelog</h1>
+      <p class="mt-4 text-lg" style="color: var(--text-muted);">Release notes and updates for Telepathine.ai.</p>
+    </div>
+  </section>
+
+  <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl space-y-12">
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="badge-stable rounded-full px-2.5 py-0.5 text-xs font-medium">Latest</span>
+          <h2 class="text-xl font-bold" style="color: var(--text);">v0.8.0 — Beta</h2>
+          <span class="text-sm" style="color: var(--text-muted); opacity: 0.5;">2026-05-19</span>
+        </div>
+        <ul class="mt-4 space-y-2 text-sm" style="color: var(--text-muted);">
+          <li>✅ 17 platform connectors (6 stable, 2 beta, 9 alpha)</li>
+          <li>✅ 16 MCP tools over JSON-RPC 2.0</li>
+          <li>✅ Hybrid search (FTS + vector) with 3 modes</li>
+          <li>✅ Progressive disclosure context injection</li>
+          <li>✅ Morpheus summarization pipeline</li>
+          <li>✅ Session lifecycle with batch observations</li>
+          <li>✅ Telepathine Bus (agent-to-agent communication)</li>
+          <li>✅ Multi-tenant isolation with row-level security</li>
+          <li>✅ BYOK (bring your own AI keys)</li>
+          <li>✅ 1,652 tests passing, 22/22 suites green</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold" style="color: var(--text);">v0.7.0 — Stabilize</h2>
+        <span class="text-sm" style="color: var(--text-muted); opacity: 0.5;">2026-05-14</span>
+        <ul class="mt-4 space-y-2 text-sm" style="color: var(--text-muted);">
+          <li>✅ Vector search regression coverage</li>
+          <li>✅ Git-aware project discovery</li>
+          <li>✅ Environment file fallback for all config values</li>
+          <li>✅ Credential isolation — API keys removed from hook commands</li>
+          <li>✅ LEAK-01 guard tests preventing cross-project data leaks</li>
+          <li>✅ Installer hardening for all platforms</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold" style="color: var(--text);">v0.6.0 — Port Complete</h2>
+        <span class="text-sm" style="color: var(--text-muted); opacity: 0.5;">2026-05-07</span>
+        <ul class="mt-4 space-y-2 text-sm" style="color: var(--text-muted);">
+          <li>✅ Observation intelligence — structured processing pipeline</li>
+          <li>✅ Context injection — formatted, compressed agent context</li>
+          <li>✅ Hybrid search — FTS + semantic vector similarity</li>
+          <li>✅ Hook lifecycle pipeline — 9 event types</li>
+          <li>✅ Auto-discovery installer — 5-platform detection</li>
+          <li>✅ MCP tools — 13+ tools registered</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold" style="color: var(--text);">v0.5.0 — Plugins</h2>
+        <span class="text-sm" style="color: var(--text-muted); opacity: 0.5;">2026-04-28</span>
+        <ul class="mt-4 space-y-2 text-sm" style="color: var(--text-muted);">
+          <li>✅ 6 stable adapters (Claude, Cursor, Gemini, Windsurf, Pi, Hermes)</li>
+          <li>✅ MCP server with core tools</li>
+          <li>✅ Adapter kit — shared hook runner, registry</li>
+          <li>✅ TypeScript SDK + Python SDK</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold" style="color: var(--text);">v0.1.0 – v0.4.0 — Foundation</h2>
+        <span class="text-sm" style="color: var(--text-muted); opacity: 0.5;">2026-03 – 2026-04</span>
+        <ul class="mt-4 space-y-2 text-sm" style="color: var(--text-muted);">
+          <li>✅ Monorepo scaffold and schema</li>
+          <li>✅ Core intelligence — embeddings, search, Morpheus</li>
+          <li>✅ Control plane — accounts, auth, API keys, quotas</li>
+          <li>✅ SDKs — TypeScript, Python, OpenAPI schemas</li>
+          <li>✅ WebGUI — Next.js dashboard</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

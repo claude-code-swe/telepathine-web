@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Security — Telepathine.ai',
+  description: 'Isolation you can verify. Project-scoped data, row-level security, BYOK encryption, and full export — so your memory stays yours.',
+  url: 'https://telepathine.ai/security',
+  publisher: {
+    '@type': 'Organization',
+    name: 'ArtemisAI',
+  },
+};
+---
+
+<BaseLayout
+  title="Security"
+  description="Isolation you can verify. Project-scoped data, row-level security, BYOK encryption, and full export on Telepathine.ai."
+  jsonLd={jsonLd}
+>
+  <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="mx-auto max-w-4xl text-center">
+      <h1>Isolation you can verify</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg" style="color: var(--text-muted);">Your agent memory contains your decisions, your architecture, your trade-offs. It should never leak to another tenant — and you should be able to prove it.</p>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <div class="grid gap-8 lg:grid-cols-2">
+        <div class="surface-card p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-2xl">🔒</span>
+            <h3 style="color: var(--text);">Project-Scoped Isolation</h3>
+          </div>
+          <p class="text-sm" style="color: var(--text-muted);">Every observation, session, and context injection is scoped to a specific project. Queries never cross project boundaries — not by default, not by accident, not by fallback. When a project has no data, you get zero results, not a leak from another project's history.</p>
+          <p class="mt-3 text-sm" style="color: var(--text-muted);">We know this matters because we once found and permanently fixed a default-scope fallback that could surface observations from unrelated projects. The fix: remove the fallback, backfill the data to correct projects, and write regression tests that fail if it ever reappears.</p>
+        </div>
+
+        <div class="surface-card p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-2xl">🛡️</span>
+            <h3 style="color: var(--text);">Row-Level Security</h3>
+          </div>
+          <p class="text-sm" style="color: var(--text-muted);">Database-level row-level security (RLS) ensures that every query is scoped to your tenant — enforced at the database layer, not the application layer. Even a misconfigured API endpoint cannot retrieve data from another tenant.</p>
+          <p class="mt-3 text-sm" style="color: var(--text-muted);">API keys carry tenant context. Read, write, and admin scopes limit what each key can do. Project visibility settings (private, tenant, shared) give you fine-grained control over who sees what within your organization.</p>
+        </div>
+
+        <div class="surface-card p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-2xl">🔑</span>
+            <h3 style="color: var(--text);">Bring Your Own Keys</h3>
+          </div>
+          <p class="text-sm" style="color: var(--text-muted);">On every tier, you can configure your own LLM and embedding provider keys — OpenAI, Anthropic, or any compatible endpoint. Your AI provider keys are encrypted at rest and never shared between tenants or used for any purpose other than your own Morpheus pipeline and embedding operations.</p>
+          <p class="mt-3 text-sm" style="color: var(--text-muted);">We never train on your data. We never use your AI keys for anyone else's requests. Your keys, your models, your data.</p>
+        </div>
+
+        <div class="surface-card p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-2xl">📦</span>
+            <h3 style="color: var(--text);">Full Export, Any Time</h3>
+          </div>
+          <p class="text-sm" style="color: var(--text-muted);">Your data is yours. Export all observations, sessions, and summaries at any time via the REST API. No vendor lock-in, no data hostage situation. If you decide to leave, your memory travels with you.</p>
+          <pre class="mt-3 overflow-x-auto rounded-lg p-3 text-xs" style="background: var(--bg-code); border: 1px solid var(--line); color: var(--text-copy);"><code>{`# Export all observations for a project
+curl https://api.telepathine.ai/v1/observations \\
+  -H "Authorization: Bearer $TELEPATHINE_API_KEY" \\
+  -G -d "project=my-project&limit=10000" > export.json`}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2>Compliance Roadmap</h2>
+      <p class="mt-4" style="color: var(--text-muted);">We're building toward enterprise-grade compliance. Here's where we are and where we're going.</p>
+      <div class="mt-8 space-y-6">
+        <div class="surface-panel p-5">
+          <div class="flex items-center gap-3">
+            <span class="badge-stable rounded-full px-2.5 py-0.5 text-xs font-medium">Current</span>
+            <h3 class="font-semibold" style="color: var(--text);">Tenant Isolation & RLS</h3>
+          </div>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">Row-level security enforced at the database layer. Project-scoped queries. API key isolation with read/write/admin scopes. Regression tests that catch cross-tenant leaks.</p>
+        </div>
+        <div class="surface-panel p-5">
+          <div class="flex items-center gap-3">
+            <span class="badge-stable rounded-full px-2.5 py-0.5 text-xs font-medium">Current</span>
+            <h3 class="font-semibold" style="color: var(--text);">BYOK Encryption</h3>
+          </div>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">AI provider keys encrypted at rest. API keys hashed. No credential exposure in hook commands or logs. Environment file fallback for secure key management.</p>
+        </div>
+        <div class="surface-panel p-5">
+          <div class="flex items-center gap-3">
+            <span class="badge-stable rounded-full px-2.5 py-0.5 text-xs font-medium">Current</span>
+            <h3 class="font-semibold" style="color: var(--text);">Self-Hostable (Apache 2.0)</h3>
+          </div>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">The entire platform is open source under Apache 2.0. Run it on your own infrastructure, behind your own firewall, with your own database. Full control, no surprises.</p>
+        </div>
+        <div class="surface-panel p-5">
+          <div class="flex items-center gap-3">
+            <span class="badge-beta rounded-full px-2.5 py-0.5 text-xs font-medium">In Progress</span>
+            <h3 class="font-semibold" style="color: var(--text);">Audit Logs</h3>
+          </div>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">Comprehensive audit trail for all API operations — who accessed what, when, and from where. Available on Blaze and Enterprise tiers. Exportable for SIEM integration.</p>
+        </div>
+        <div class="surface-panel p-5">
+          <div class="flex items-center gap-3">
+            <span class="badge-coming-soon rounded-full px-2.5 py-0.5 text-xs font-medium">Planned</span>
+            <h3 class="font-semibold" style="color: var(--text);">SOC 2 Type II</h3>
+          </div>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">Working toward SOC 2 Type II certification. Expected H2 2027. Will cover security, availability, and confidentiality trust principles.</p>
+        </div>
+        <div class="surface-panel p-5">
+          <div class="flex items-center gap-3">
+            <span class="badge-coming-soon rounded-full px-2.5 py-0.5 text-xs font-medium">Planned</span>
+            <h3 class="font-semibold" style="color: var(--text);">GDPR Data Processing</h3>
+          </div>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">EU data residency option, data processing agreements, right-to-erasure API endpoint. Planned for H1 2027.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2>Security Principles</h2>
+      <div class="mt-8 space-y-4">
+        <div class="flex gap-4">
+          <div class="step-circle">1</div>
+          <div>
+            <h3 class="font-semibold" style="color: var(--text);">Isolation by default</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">Data is scoped to your tenant and project. There is no "see everything" mode. Zero results for a new project is correct behavior — not a bug to work around with fallback scopes.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="step-circle">2</div>
+          <div>
+            <h3 class="font-semibold" style="color: var(--text);">Verify, don't trust</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">Regression tests guard against known isolation failures. When we find a leak, we fix it, backfill any affected data, and write a test that would catch a recurrence. Our guard tests run in CI on every push.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="step-circle">3</div>
+          <div>
+            <h3 class="font-semibold" style="color: var(--text);">Transparency over silence</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">When we find a security issue, we document it. We published the details of our cross-project isolation fix because transparency builds trust — and because a test you can read is worth more than a claim you can't verify.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="step-circle">4</div>
+          <div>
+            <h3 class="font-semibold" style="color: var(--text);">Your keys, your models</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">BYOK on every tier. We never use your AI provider keys for anything other than your own requests. We never train on your data. Your LLM calls, your embeddings, your Morpheus summaries — all processed with keys you control.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      <h2>Report a vulnerability</h2>
+      <p class="mt-4" style="color: var(--text-muted);">Found a security issue? Email <a href="mailto:security@telepathine.ai" class="content-link">security@telepathine.ai</a>. We respond within 48 hours and credit responsible disclosures.</p>
+    </div>
+  </section>
+</BaseLayout>

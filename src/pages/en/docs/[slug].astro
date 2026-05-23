@@ -1,12 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
-import DocsLayout from '../../layouts/DocsLayout.astro';
-import { getLocaleFromUrl, localizePath } from '../../i18n/utils';
-import type { Locale } from '../../i18n/utils';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
 
 const SITE_URL = 'https://telepathine.ai';
-const locale: Locale = getLocaleFromUrl(Astro.url);
-const fp = (path: string) => localizePath(path, locale);
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -25,7 +21,7 @@ const jsonLd = {
   '@type': 'TechArticle',
   headline: doc.data.title,
   description,
-  url: `${SITE_URL}${fp('/docs/' + doc.slug)}`,
+  url: `${SITE_URL}/docs/${doc.slug}`,
   author: {
     '@type': 'Organization',
     name: 'ArtemisAI',

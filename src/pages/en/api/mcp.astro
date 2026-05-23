@@ -1,12 +1,6 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
-import { getLocaleFromUrl, localizePath } from '../../i18n/utils';
-import type { Locale } from '../../i18n/utils';
-
-const locale: Locale = getLocaleFromUrl(Astro.url);
-const fp = (path: string) => localizePath(path, locale);
-
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 
 const tools = [
   { name: 'search', description: 'Semantic search across observations. Supports hybrid, FTS, and vector modes.' },
@@ -34,7 +28,7 @@ const tools = [
 >
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <a href={fp('/api')} class="text-sm transition" style="color: var(--text-muted);">← API Overview</a>
+      <a href="/api" class="text-sm transition" style="color: var(--text-muted);">← API Overview</a>
       <h1 class="mt-4">MCP Server</h1>
       <p class="mt-4 text-lg" style="color: var(--text-muted);">Access Telepathine.ai through the Model Context Protocol. 16 tools available to any MCP-compatible client.</p>
     </div>

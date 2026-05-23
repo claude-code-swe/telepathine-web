@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PricingTable from '../../components/PricingTable.tsx';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AggregateOffer',
+  name: 'Telepathine.ai Plans',
+  description: 'Pricing plans for Telepathine.ai — the portable memory layer for AI agents.',
+  lowPrice: '0',
+  highPrice: '99',
+  priceCurrency: 'USD',
+  offerCount: 4,
+  offers: [
+    { '@type': 'Offer', name: 'Spark', price: '0', priceCurrency: 'USD', description: '10,000 observations/mo, 5 projects' },
+    { '@type': 'Offer', name: 'Ignite', price: '29', priceCurrency: 'USD', description: '100,000 observations/mo, 50 projects, Signal Bus, team sharing' },
+    { '@type': 'Offer', name: 'Blaze', price: '99', priceCurrency: 'USD', description: '1M observations/mo, 200 projects, priority support, audit logs' },
+    { '@type': 'Offer', name: 'Enterprise', price: 'Custom', priceCurrency: 'USD', description: 'Unlimited, custom SLA, SSO/SAML' },
+  ],
+};
+---
+
+<BaseLayout
+  title="Pricing"
+  description="Simple, transparent pricing for Telepathine.ai. Start free with 10,000 observations/mo. Ignite at $29/mo with 100,000 observations. Blaze at $99/mo for production swarms."
+  jsonLd={jsonLd}
+>
+  <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <h1>Simple, transparent pricing</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg" style="color: var(--text-muted);">Start free. Upgrade when you need more. All connectors, MCP tools, and BYOK included on every plan.</p>
+    </div>
+  </section>
+
+  <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-5xl">
+      <PricingTable client:load />
+    </div>
+  </section>
+
+  <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      <h2>FAQ</h2>
+      <div class="mt-8 space-y-6 text-left">
+        <div>
+          <h3 class="font-semibold" style="color: var(--text);">What counts as an observation?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">An observation is any recorded memory — a decision, change, learning, or tool interaction. Structured and raw observations both count.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold" style="color: var(--text);">Can I bring my own AI keys?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Yes! On all plans, you can configure your own OpenAI or compatible LLM/embedding provider. Your keys are encrypted at rest.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold" style="color: var(--text);">What happens when I hit my limit?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">You'll get a 429 response with rate-limit headers. Your data stays accessible — only new writes are paused until the next cycle.</p>
+        </div>
+        <div>
+          <h3 class="font-semibold" style="color: var(--text);">Is my data isolated from other tenants?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Absolutely. Row-level security ensures every query is scoped to your tenant. Project-level visibility controls for further isolation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

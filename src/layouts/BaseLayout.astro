@@ -1,6 +1,16 @@
 ---
 import '../styles/global.css';
 import { BRAND } from '../data/brand';
+import { getUI } from '../i18n/ui';
+import {
+  type Locale,
+  defaultLocale,
+  getLocaleFromUrl,
+  getLocalePrefix,
+  localizePath,
+  getAlternateLocale,
+} from '../i18n/utils';
+import LangSwitcher from '../components/LangSwitcher.tsx';
 
 export interface Props {
   title: string;
@@ -16,23 +26,34 @@ const DEFAULT_OG_IMAGE = '/og-image.svg';
 
 const { title, description = BRAND.DEFAULT_DESCRIPTION, ogImage = DEFAULT_OG_IMAGE, jsonLd, canonicalUrl } = Astro.props;
 
+// Detect current locale from URL
+const currentLocale: Locale = getLocaleFromUrl(Astro.url);
+const ui = getUI(currentLocale);
+
 const fullTitle = title.includes(' — ') ? title : `${title} — ${SITE_NAME}`;
 const resolvedCanonical = canonicalUrl || `${SITE_URL}${Astro.url.pathname.replace(/\/index\.html$/, '').replace(/\.html$/, '')}`;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
 
+// Compute alternate locale URL for hreflang
+const altLocale = getAlternateLocale(currentLocale);
+const altUrl = `${SITE_URL}${localizePath(Astro.url.pathname, altLocale).replace(/\/index\.html$/, '').replace(/\.html$/, '')}`;
+
+// Localize nav links for current locale
 const navLinks = [
-  { label: 'Features', href: '/features' },
-  { label: 'Connectors', href: '/connectors' },
-  { label: 'API', href: '/api' },
-  { label: 'Docs', href: '/docs' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Security', href: '/security' },
-  { label: 'The Vine', href: '/telepathine' },
+  { label: ui.nav.features, href: localizePath('/features', currentLocale) },
+  { label: ui.nav.connectors, href: localizePath('/connectors', currentLocale) },
+  { label: ui.nav.api, href: localizePath('/api', currentLocale) },
+  { label: ui.nav.docs, href: localizePath('/docs', currentLocale) },
+  { label: ui.nav.pricing, href: localizePath('/pricing', currentLocale) },
+  { label: ui.nav.security, href: localizePath('/security', currentLocale) },
 ];
+
+// Localize footer link paths
+const fp = (path: string) => localizePath(path, currentLocale);
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={currentLocale} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,6 +62,11 @@ const navLinks = [
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{fullTitle}</title>
     <link rel="canonical" href={resolvedCanonical} />
+
+    <!-- hreflang — alternate language versions -->
+    <link rel="alternate" hreflang="es" href={`${SITE_URL}${localizePath(Astro.url.pathname, 'es').replace(/\/index\.html$/, '').replace(/\.html$/, '')}`} />
+    <link rel="alternate" hreflang="en" href={`${SITE_URL}${localizePath(Astro.url.pathname, 'en').replace(/\/index\.html$/, '').replace(/\.html$/, '')}`} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE_URL}${localizePath(Astro.url.pathname, 'es').replace(/\/index\.html$/, '').replace(/\.html$/, '')}`} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -51,12 +77,17 @@ const navLinks = [
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={currentLocale === 'es' ? 'es_ES' : 'en_US'} />
+    <meta property="og:locale:alternate" content={currentLocale === 'es' ? 'en_US' : 'es_ES'} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Base path for lang switcher client-side resolution -->
+    <meta name="base-path" content={Astro.site ? new URL(Astro.site).pathname.replace(/\/$/, '') : ''} />
 
     <!-- JSON-LD Structured Data -->
     {jsonLd && (
@@ -66,7 +97,7 @@ const navLinks = [
   <body class="min-h-screen antialiased">
     <nav class="fixed top-0 left-0 right-0 z-50 border-b backdrop-blur-md" style={`background: var(--bg-deep); border-color: var(--line);`}>
       <div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="/" class="flex items-center gap-2 text-lg font-bold" style="color: var(--text);">
+        <a href={fp('/')} class="flex items-center gap-2 text-lg font-bold" style="color: var(--text);">
           <svg width="20" height="20" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M32 4L58 18V46L32 60L6 46V18L32 4Z" stroke="#D4913D" stroke-width="3" fill="none"/>
             <path d="M32 22L40 26.5V35.5L32 40L24 35.5V26.5L32 22Z" fill="#D4913D"/>
@@ -79,7 +110,8 @@ const navLinks = [
           ))}
         </div>
         <div class="flex items-center gap-3">
-          <a href="/pricing" class="btn-accent">Start Free</a>
+          <LangSwitcher client:load />
+          <a href={fp('/pricing')} class="btn-accent">{ui.hero.startFree}</a>
           <button id="mobile-menu-btn" class="md:hidden" style="color: var(--text-muted);" aria-label="Toggle menu">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -114,45 +146,45 @@ const navLinks = [
             <p class="mt-3 text-sm" style="color: var(--text-muted);">When agents share memory, they share mind.<br/>Works with every coding agent.</p>
           </div>
           <div>
-            <h4 class="text-sm font-semibold" style="color: var(--text-strong);">Product</h4>
+            <h4 class="text-sm font-semibold" style="color: var(--text-strong);">{ui.footer.product}</h4>
             <ul class="mt-3 space-y-2">
-              <li><a href="/features" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Features</a></li>
-              <li><a href="/connectors" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Connectors</a></li>
-              <li><a href="/pricing" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Pricing</a></li>
-              <li><a href="/changelog" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Changelog</a></li>
+              <li><a href={fp('/features')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.features}</a></li>
+              <li><a href={fp('/connectors')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.connectors}</a></li>
+              <li><a href={fp('/pricing')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.pricing}</a></li>
+              <li><a href={fp('/changelog')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.changelog}</a></li>
             </ul>
           </div>
           <div>
-            <h4 class="text-sm font-semibold" style="color: var(--text-strong);">Developers</h4>
+            <h4 class="text-sm font-semibold" style="color: var(--text-strong);">{ui.footer.developers}</h4>
             <ul class="mt-3 space-y-2">
-              <li><a href="/docs/quickstart" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Quick Start</a></li>
-              <li><a href="/api" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">API Reference</a></li>
-              <li><a href="/api/mcp" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">MCP Server</a></li>
-              <li><a href="/api/sdks" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">SDKs</a></li>
+              <li><a href={fp('/docs/quickstart')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.quickStart}</a></li>
+              <li><a href={fp('/api')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.apiReference}</a></li>
+              <li><a href={fp('/api/mcp')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.mcpServer}</a></li>
+              <li><a href={fp('/api/sdks')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.sdks}</a></li>
             </ul>
           </div>
           <div>
-            <h4 class="text-sm font-semibold" style="color: var(--text-strong);">Company</h4>
+            <h4 class="text-sm font-semibold" style="color: var(--text-strong);">{ui.footer.company}</h4>
             <ul class="mt-3 space-y-2">
-              <li><a href="/architecture" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Architecture</a></li>
-              <li><a href="/security" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Security</a></li>
-              <li><a href="/changelog" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Changelog</a></li>
-              <li><a href="https://github.com/ArtemisAI/agent-memory" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">GitHub</a></li>
+              <li><a href={fp('/architecture')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.architecture}</a></li>
+              <li><a href={fp('/security')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.security}</a></li>
+              <li><a href={fp('/changelog')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.changelog}</a></li>
+              <li><a href="https://github.com/ArtemisAI/agent-memory" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.github}</a></li>
             </ul>
           </div>
           <div>
-            <h4 class="text-sm font-semibold" style="color: var(--text-strong);">Guides</h4>
+            <h4 class="text-sm font-semibold" style="color: var(--text-strong);">{ui.footer.guides}</h4>
             <ul class="mt-3 space-y-2">
-              <li><a href="/what-is-ai-agent-memory" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">What Is AI Agent Memory</a></li>
-              <li><a href="/mcp-memory-server" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">MCP Memory Server</a></li>
-              <li><a href="/model-agnostic-memory" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Model-Agnostic Memory</a></li>
-              <li><a href="/agent-communication-bus" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Agent Communication Bus</a></li>
-              <li><a href="/claude-memory-alternative" class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Claude Memory Alternative</a></li>
+              <li><a href={fp('/what-is-ai-agent-memory')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.whatIsAiAgentMemory}</a></li>
+              <li><a href={fp('/mcp-memory-server')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.mcpMemoryServer}</a></li>
+              <li><a href={fp('/model-agnostic-memory')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.modelAgnosticMemory}</a></li>
+              <li><a href={fp('/agent-communication-bus')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.agentCommunicationBus}</a></li>
+              <li><a href={fp('/claude-memory-alternative')} class="text-sm transition" style="color: var(--text-muted);" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{ui.footer.claudeMemoryAlternative}</a></li>
             </ul>
           </div>
         </div>
         <div class="mt-10 pt-6 text-center text-xs" style="border-top: 1px solid var(--line); color: var(--text-muted); opacity: 0.7;">
-          © 2026 ArtemisAI. All rights reserved.
+          {ui.footer.copyright}
         </div>
       </div>
     </footer>

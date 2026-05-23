@@ -1,13 +1,8 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ApiEndpoint from '../../components/ApiEndpoint.astro';
-import { getEndpointsByCategory } from '../../data/api-endpoints';
-import CodeBlock from '../../components/CodeBlock.astro';
-import { getLocaleFromUrl, localizePath } from '../../i18n/utils';
-import type { Locale } from '../../i18n/utils';
-
-const locale: Locale = getLocaleFromUrl(Astro.url);
-const fp = (path: string) => localizePath(path, locale);
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ApiEndpoint from '../../../components/ApiEndpoint.astro';
+import { getEndpointsByCategory } from '../../../data/api-endpoints';
+import CodeBlock from '../../../components/CodeBlock.astro';
 
 const categories = [
   { key: 'sessions' as const, label: 'Sessions' },
@@ -26,7 +21,7 @@ const categories = [
 >
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
     <div class="mx-auto max-w-5xl">
-      <a href={fp('/api')} class="text-sm transition" style="color: var(--text-muted);">← API Overview</a>
+      <a href="/api" class="text-sm transition" style="color: var(--text-muted);">← API Overview</a>
       <h1 class="mt-4">REST API Reference</h1>
       <p class="mt-4 text-lg" style="color: var(--text-muted);">
         Complete reference for all public endpoints. Base URL: <code class="rounded px-1.5 py-0.5 text-sm" style="background: var(--bg-code); color: var(--accent);">https://api.telepathine.ai</code>

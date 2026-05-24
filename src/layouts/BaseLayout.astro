@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
 import { BRAND } from '../data/brand';
+import { getLocaleFromUrl, localizePath } from '../i18n/utils';
+import { t } from '../i18n/ui';
+import LangSwitcher from '../components/LangSwitcher';
 
 export interface Props {
   title: string;
@@ -16,21 +19,22 @@ const DEFAULT_OG_IMAGE = '/og-image.svg';
 
 const { title, description = BRAND.DEFAULT_DESCRIPTION, ogImage = DEFAULT_OG_IMAGE, jsonLd, canonicalUrl } = Astro.props;
 
+const locale = getLocaleFromUrl(Astro.url);
 const fullTitle = title.includes(' — ') ? title : `${title} — ${SITE_NAME}`;
 const resolvedCanonical = canonicalUrl || `${SITE_URL}${Astro.url.pathname.replace(/\/index\.html$/, '').replace(/\.html$/, '')}`;
 const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
 
 const navLinks = [
-  { label: 'Features', href: '/features' },
-  { label: 'API', href: '/api' },
-  { label: 'Docs', href: '/docs' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Security', href: '/security' },
+  { label: t(locale, 'nav.features'), href: localizePath('/features', locale) },
+  { label: t(locale, 'nav.api'), href: localizePath('/api', locale) },
+  { label: t(locale, 'nav.docs'), href: localizePath('/docs', locale) },
+  { label: t(locale, 'nav.pricing'), href: localizePath('/pricing', locale) },
+  { label: t(locale, 'nav.security'), href: localizePath('/security', locale) },
 ];
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={locale} class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -62,19 +66,48 @@ const navLinks = [
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
+
+    <!-- IP-based locale detection (first visit only) -->
+    <script is:inline>
+(function() {
+  var KEY = 'telepathine-locale';
+  if (localStorage.getItem(KEY)) return;
+  var path = window.location.pathname;
+  if (path.includes('/en/')) {
+    localStorage.setItem(KEY, 'en');
+    return;
+  }
+  fetch('https://ipapi.co/json/')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var latamCountries = ['AR','BO','CL','CO','CR','CU','DO','EC','GT','HN','MX','NI','PA','PY','PE','SV','UY','VE','ES','GQ'];
+      var isSpanish = latamCountries.indexOf(data.country_code) !== -1;
+      var locale = isSpanish ? 'es' : 'en';
+      localStorage.setItem(KEY, locale);
+      if (locale === 'en') {
+        var base = document.querySelector('meta[name="base-path"]');
+        var prefix = base ? base.getAttribute('content') : '';
+        window.location.href = prefix + '/en' + path.replace(new RegExp('^' + prefix), '');
+      }
+    })
+    .catch(function() {
+      localStorage.setItem(KEY, 'es');
+    });
+})();
+    </script>
   </head>
   <body class="min-h-screen antialiased">
     <!-- ====== STICKY HEADER ====== -->
     <nav class="fixed top-0 left-0 right-0 z-50 border-b" style="background: #1E1A16cc; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-color: var(--line);">
       <div class="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="/" class="flex items-center gap-2 font-semibold" style="color: var(--text); font-family: var(--font-sans);">
+        <a href={localizePath('/', locale)} class="flex items-center gap-2 font-semibold" style="color: var(--text); font-family: var(--font-sans);">
           <span class="flex h-8 w-8 items-center justify-center border" style="border-color: var(--accent); color: var(--accent);">
             <svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M32 4L58 18V46L32 60L6 46V18L32 4Z" stroke="currentColor" stroke-width="3" fill="none"/>
               <path d="M32 22L40 26.5V35.5L32 40L24 35.5V26.5L32 22Z" fill="currentColor"/>
             </svg>
           </span>
-          Telepathine.ai
+          {BRAND.SITE_NAME}
         </a>
         <div class="hidden items-center gap-8 md:flex">
           {navLinks.map(link => (
@@ -82,7 +115,8 @@ const navLinks = [
           ))}
         </div>
         <div class="flex items-center gap-3">
-          <a href="/pricing" class="btn-accent" style="padding: 0.5rem 1.25rem; font-size: 0.875rem;">Start Free</a>
+          <LangSwitcher />
+          <a href={localizePath('/pricing', locale)} class="btn-accent" style="padding: 0.5rem 1.25rem; font-size: 0.875rem;">{t(locale, 'hero.startFree')}</a>
           <button id="mobile-menu-btn" class="md:hidden" style="color: var(--text-muted);" aria-label="Toggle menu">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -107,15 +141,15 @@ const navLinks = [
     <footer class="content-layer mt-24 border-t py-12" style="background: var(--bg-canvas); border-color: var(--line);">
       <div class="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-8 px-4 md:flex-row md:items-start md:text-left sm:px-6 lg:px-8">
         <div class="flex flex-col gap-4 text-center md:text-left">
-          <div class="font-semibold" style="color: var(--text); font-family: var(--font-sans);">Telepathine.ai</div>
-          <p class="text-sm" style="color: var(--text-muted);">© 2026 ArtemisAI. All rights reserved.</p>
+          <div class="font-semibold" style="color: var(--text); font-family: var(--font-sans);">{BRAND.SITE_NAME}</div>
+          <p class="text-sm" style="color: var(--text-muted);">{t(locale, 'footer.copyright')}</p>
         </div>
         <div class="flex flex-wrap justify-center gap-8">
-          <a href="/features" class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Features</a>
-          <a href="/api" class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">API</a>
-          <a href="/docs" class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Docs</a>
-          <a href="/pricing" class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Pricing</a>
-          <a href="/security" class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">Security</a>
+          <a href={localizePath('/features', locale)} class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{t(locale, 'nav.features')}</a>
+          <a href={localizePath('/api', locale)} class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{t(locale, 'nav.api')}</a>
+          <a href={localizePath('/docs', locale)} class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{t(locale, 'nav.docs')}</a>
+          <a href={localizePath('/pricing', locale)} class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{t(locale, 'nav.pricing')}</a>
+          <a href={localizePath('/security', locale)} class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{t(locale, 'nav.security')}</a>
           <a href="https://github.com/ArtemisAI/agent-memory" class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">GitHub</a>
         </div>
       </div>

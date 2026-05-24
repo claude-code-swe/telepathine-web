@@ -39,7 +39,7 @@ const translations: Record<Locale, UIStrings> = {
 			modelAgnosticMemory: "Memoria agnóstica al modelo",
 			agentCommunicationBus: "Bus de comunicación entre agentes",
 			claudeMemoryAlternative: "Alternativa a Claude Memory",
-			copyright: "© 2026 ArtemisAI. Todos los derechos reservados.",
+			copyright: "© 2026 ELiA — Empresa Latinoamericana de Inteligencia Artificial. Todos los derechos reservados.",
 		},
 		common: {
 			popular: "Popular",
@@ -105,7 +105,7 @@ const translations: Record<Locale, UIStrings> = {
 			modelAgnosticMemory: "Model-Agnostic Memory",
 			agentCommunicationBus: "Agent Communication Bus",
 			claudeMemoryAlternative: "Claude Memory Alternative",
-			copyright: "© 2026 ArtemisAI. All rights reserved.",
+			copyright: "© 2026 ELiA — Empresa Latinoamericana de Inteligencia Artificial. All rights reserved.",
 		},
 		common: {
 			popular: "Popular",

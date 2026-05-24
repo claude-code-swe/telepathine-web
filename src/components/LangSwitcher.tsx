@@ -65,9 +65,9 @@ export default function LangSwitcher() {
         (e.currentTarget as HTMLElement).style.borderColor = 'var(--line-strong)';
         (e.currentTarget as HTMLElement).style.color = 'var(--text-muted)';
       }}
-      aria-label={`Switch to ${otherLocale === 'es' ? 'Spanish' : 'English'}`}
+      aria-label={`Switch to ${otherLocale === 'es' ? 'Español (LATAM+ES)' : 'English'}`}
     >
-      <span style={{ opacity: locale === 'es' ? 1 : 0.4 }}>🇪🇸</span>
+      <span style={{ opacity: locale === 'es' ? 1 : 0.4 }}>🌎</span>
       <span style={{ opacity: 0.3 }}>|</span>
       <span style={{ opacity: locale === 'en' ? 1 : 0.4 }}>🇬🇧</span>
     </button>

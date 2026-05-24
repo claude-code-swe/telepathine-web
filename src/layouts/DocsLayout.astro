@@ -1,5 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { getLocaleFromUrl, localizePath } from '../i18n/utils';
+import { t } from '../i18n/ui';
 
 export interface Props {
   title: string;
@@ -9,16 +11,15 @@ export interface Props {
 }
 
 const { title, description, ogImage, jsonLd } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
 
 const docsNav = [
-  { label: 'Quick Start', href: '/docs/quickstart' },
-  { label: 'Context Injection', href: '/docs/context-injection' },
-  { label: 'Hybrid Search', href: '/docs/search' },
-  { label: 'Sessions', href: '/docs/sessions' },
-  { label: 'Morpheus Pipeline', href: '/docs/morpheus' },
-  { label: 'Signal Bus', href: '/docs/telepathine' },
-  { label: 'Project Isolation', href: '/docs/project-isolation' },
-  { label: 'Bring Your Own Key', href: '/docs/byok' },
+  { label: t(locale, 'docs.guides'), heading: true },
+  { label: t(locale, 'footer.quickStart'), href: '/docs/quickstart' },
+  { label: t(locale, 'docs.api'), heading: true },
+  { label: t(locale, 'docs.restApi'), href: '/api/rest' },
+  { label: t(locale, 'docs.mcpServer'), href: '/api/mcp' },
+  { label: t(locale, 'docs.sdks'), href: '/api/sdks' },
 ];
 ---
 
@@ -27,15 +28,20 @@ const docsNav = [
     <div class="flex gap-8 py-8">
       <aside class="hidden w-56 shrink-0 lg:block">
         <nav class="sticky top-20 space-y-1">
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">Guides</p>
-          {docsNav.map(item => (
-            <a href={item.href} class="sidebar-link">{item.label}</a>
-          ))}
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">{t(locale, 'docs.guides')}</p>
+          <a href={localizePath('/docs/quickstart', locale)} class="sidebar-link">{t(locale, 'footer.quickStart')}</a>
+          <a href={localizePath('/docs/context-injection', locale)} class="sidebar-link">Context Injection</a>
+          <a href={localizePath('/docs/search', locale)} class="sidebar-link">Hybrid Search</a>
+          <a href={localizePath('/docs/sessions', locale)} class="sidebar-link">Sessions</a>
+          <a href={localizePath('/docs/morpheus', locale)} class="sidebar-link">Morpheus Pipeline</a>
+          <a href={localizePath('/docs/telepathine', locale)} class="sidebar-link">Signal Bus</a>
+          <a href={localizePath('/docs/project-isolation', locale)} class="sidebar-link">Project Isolation</a>
+          <a href={localizePath('/docs/byok', locale)} class="sidebar-link">BYOK</a>
           <div class="my-4" style="border-top: 1px solid var(--line);"></div>
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">API</p>
-          <a href="/api/rest" class="sidebar-link">REST API</a>
-          <a href="/api/mcp" class="sidebar-link">MCP Server</a>
-          <a href="/api/sdks" class="sidebar-link">SDKs</a>
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">{t(locale, 'docs.api')}</p>
+          <a href={localizePath('/api/rest', locale)} class="sidebar-link">{t(locale, 'docs.restApi')}</a>
+          <a href={localizePath('/api/mcp', locale)} class="sidebar-link">{t(locale, 'docs.mcpServer')}</a>
+          <a href={localizePath('/api/sdks', locale)} class="sidebar-link">{t(locale, 'docs.sdks')}</a>
         </nav>
       </aside>
       <article class="min-w-0 flex-1 max-w-3xl">

@@ -138,7 +138,7 @@ export function getLocaleLabel(locale: Locale): string {
  */
 export function getLocaleFlag(locale: Locale): string {
 	const flags: Record<Locale, string> = {
-		es: "🇪🇸",
+		es: "🌎",
 		en: "🇬🇧",
 	};
 	return flags[locale];

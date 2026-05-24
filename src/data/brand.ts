@@ -33,7 +33,8 @@ export const BRAND = {
 		"Any engine, any agent. Project-scoped, engine-agnostic, MCP-native. Your memory should outlive your agent.",
 
 	/** Organization */
-	ORG_NAME: "ArtemisAI",
+	ORG_NAME: "ELiA",
+	ORG_FULL_NAME: "Empresa Latinoamericana de Inteligencia Artificial",
 
 	/** Copyright year */
 	COPYRIGHT_YEAR: 2026,

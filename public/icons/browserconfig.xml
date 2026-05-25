@@ -2,7 +2,7 @@
 <browserconfig>
   <msapplication>
     <tile>
-      <square150x150logo src="/icons/telepathine-logo-192.png"/>
+      <square150x150logo src="telepathine-logo-192.png"/>
       <TileColor>#18120d</TileColor>
     </tile>
   </msapplication>

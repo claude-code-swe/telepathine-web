@@ -6,6 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
 	site: "https://telepathine.ai",
+	base: "/telepathine-web/",
 	integrations: [react(), mdx(), sitemap()],
 	vite: {
 		plugins: [tailwindcss()],

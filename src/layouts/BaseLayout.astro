@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import { BRAND } from '../data/brand';
-import { getLocaleFromUrl, localizePath } from '../i18n/utils';
+import { getLocaleFromUrl, localizePath, getAlternateLocale } from '../i18n/utils';
 import { t } from '../i18n/ui';
 import LangSwitcher from '../components/LangSwitcher';
 
@@ -23,7 +23,11 @@ const { title, description = BRAND.DEFAULT_DESCRIPTION, ogImage = DEFAULT_OG_IMA
 const locale = getLocaleFromUrl(Astro.url);
 const fullTitle = title.includes(' — ') ? title : `${title} — ${SITE_NAME}`;
 const resolvedCanonical = canonicalUrl || `${SITE_URL}${Astro.url.pathname.replace(/\/index\.html$/, '').replace(/\.html$/, '')}`;
-const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${base}${ogImage.replace(/^\//, '')}`;
+
+const alternateLocale = getAlternateLocale(locale);
+const currentOgLocale = locale === 'es' ? 'es_ES' : 'en_US';
+const alternateOgLocale = alternateLocale === 'es' ? 'es_ES' : 'en_US';
 
 const navLinks = [
   { label: t(locale, 'nav.features'), href: localizePath('/features', locale) },
@@ -55,6 +59,13 @@ const navLinks = [
     <meta name="msapplication-config" content={`${base}icons/browserconfig.xml`} />
     <title>{fullTitle}</title>
     <link rel="canonical" href={resolvedCanonical} />
+    <!-- Hreflang alternate links for multilingual SEO -->
+    <link rel="alternate" hreflang="es" href={`${SITE_URL}${localizePath(Astro.url.pathname.replace(/\/index\.html$/, '').replace(/\.html$/, ''), 'es')}`} />
+    <link rel="alternate" hreflang="en" href={`${SITE_URL}${localizePath(Astro.url.pathname.replace(/\/index\.html$/, '').replace(/\.html$/, ''), 'en')}`} />
+    <link rel="alternate" hreflang="x-default" href={resolvedCanonical} />
+    <!-- OG locale -->
+    <meta property="og:locale" content={currentOgLocale} />
+    <meta property="og:locale:alternate" content={alternateOgLocale} />
     <!-- Geist Sans from Vercel CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css" />
 
@@ -84,8 +95,8 @@ const navLinks = [
 (function() {
   var KEY = 'telepathine-locale';
   if (localStorage.getItem(KEY)) return;
-  var base = document.querySelector('meta[name="base-path"]');
-  var basePrefix = base ? base.getAttribute('content') : '/';
+  var baseMeta = document.querySelector('meta[name="base-path"]');
+  var basePrefix = (baseMeta ? baseMeta.getAttribute('content') : '/').replace(/\/+$/, '');
   var path = window.location.pathname;
   if (path.includes('/en/')) {
     localStorage.setItem(KEY, 'en');
@@ -96,11 +107,12 @@ const navLinks = [
     .then(function(data) {
       var latamCountries = ['AR','BO','CL','CO','CR','CU','DO','EC','GT','HN','MX','NI','PA','PY','PE','SV','UY','VE','ES','GQ'];
       var isSpanish = latamCountries.indexOf(data.country_code) !== -1;
-      var locale = isSpanish ? 'es' : 'en';
-      localStorage.setItem(KEY, locale);
-      if (locale === 'en') {
+      var loc = isSpanish ? 'es' : 'en';
+      localStorage.setItem(KEY, loc);
+      if (loc === 'en') {
         var barePath = path.replace(new RegExp('^' + basePrefix), '') || '/';
-        window.location.href = basePrefix + '/en' + barePath;
+        var target = basePrefix + '/en' + barePath;
+        window.location.href = target.replace(/\\/+/, '/');
       }
     })
     .catch(function() {
@@ -161,7 +173,7 @@ const navLinks = [
           <a href={localizePath('/docs', locale)} class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{t(locale, 'nav.docs')}</a>
           <a href={localizePath('/pricing', locale)} class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{t(locale, 'nav.pricing')}</a>
           <a href={localizePath('/security', locale)} class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{t(locale, 'nav.security')}</a>
-          <a href="https://github.com/ArtemisAI/agent-memory" class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">GitHub</a>
+          <a href="https://github.com/ArtemisAI/agent-memory" class="transition" style="color: var(--text-muted); font-size: 0.875rem;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'">{t(locale, 'footer.github')}</a>
         </div>
       </div>
     </footer>

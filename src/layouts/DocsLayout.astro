@@ -30,12 +30,12 @@ const docsNav = [
         <nav class="sticky top-20 space-y-1">
           <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">{t(locale, 'docs.guides')}</p>
           <a href={localizePath('/docs/quickstart', locale)} class="sidebar-link">{t(locale, 'footer.quickStart')}</a>
-          <a href={localizePath('/docs/context-injection', locale)} class="sidebar-link">Context Injection</a>
-          <a href={localizePath('/docs/search', locale)} class="sidebar-link">Hybrid Search</a>
-          <a href={localizePath('/docs/sessions', locale)} class="sidebar-link">Sessions</a>
-          <a href={localizePath('/docs/morpheus', locale)} class="sidebar-link">Morpheus Pipeline</a>
-          <a href={localizePath('/docs/telepathine', locale)} class="sidebar-link">Signal Bus</a>
-          <a href={localizePath('/docs/project-isolation', locale)} class="sidebar-link">Project Isolation</a>
+          <a href={localizePath('/docs/context-injection', locale)} class="sidebar-link">{locale === 'es' ? 'Inyección de contexto' : 'Context Injection'}</a>
+          <a href={localizePath('/docs/search', locale)} class="sidebar-link">{locale === 'es' ? 'Búsqueda híbrida' : 'Hybrid Search'}</a>
+          <a href={localizePath('/docs/sessions', locale)} class="sidebar-link">{locale === 'es' ? 'Sesiones' : 'Sessions'}</a>
+          <a href={localizePath('/docs/morpheus', locale)} class="sidebar-link">{locale === 'es' ? 'Pipeline Morpheus' : 'Morpheus Pipeline'}</a>
+          <a href={localizePath('/docs/telepathine', locale)} class="sidebar-link">{locale === 'es' ? 'Bus de señales' : 'Signal Bus'}</a>
+          <a href={localizePath('/docs/project-isolation', locale)} class="sidebar-link">{locale === 'es' ? 'Aislamiento de proyecto' : 'Project Isolation'}</a>
           <a href={localizePath('/docs/byok', locale)} class="sidebar-link">BYOK</a>
           <div class="my-4" style="border-top: 1px solid var(--line);"></div>
           <p class="mb-3 text-xs font-semibold uppercase tracking-wider" style="color: var(--text-muted);">{t(locale, 'docs.api')}</p>

@@ -1,12 +1,17 @@
 ---
+import { getLocaleFromUrl, localizePath } from '../i18n/utils';
+import { t } from '../i18n/ui';
+
 export interface Props {
   title?: string;
   subtitle?: string;
 }
 
+const locale = getLocaleFromUrl(Astro.url);
+
 const {
-  title = 'The Portable Memory Layer for AI Agents',
-  subtitle = 'One API key. 17 connectors. Every engine.'
+  title = locale === 'es' ? 'La capa de memoria portátil para agentes IA' : 'The Portable Memory Layer for AI Agents',
+  subtitle = locale === 'es' ? 'Una clave API. 17 conectores. Todos los motores.' : 'One API key. 17 connectors. Every engine.'
 } = Astro.props;
 ---
 
@@ -32,8 +37,8 @@ const {
 
         <!-- CTAs -->
         <div class="flex items-center gap-4">
-          <a href="/pricing" class="btn-accent">Start Free</a>
-          <a href="/docs/quickstart" class="btn-ghost">Read Docs →</a>
+          <a href={localizePath('/pricing', locale)} class="btn-accent">{t(locale, 'hero.startFree')}</a>
+          <a href={localizePath('/docs/quickstart', locale)} class="btn-ghost">{t(locale, 'hero.quickStart')}</a>
         </div>
       </div>
 

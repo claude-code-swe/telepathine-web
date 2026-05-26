@@ -58,6 +58,10 @@ const translations: Record<Locale, UIStrings> = {
 			configuration: "Configuración",
 			quickTest: "Prueba rápida",
 			allConnectors: "Todos los conectores",
+			busConnected: "Conectado al bus",
+			busSendOnly: "Bus solo envío",
+			busNotWired: "Bus no conectado",
+			platformPriority: "Prioridad de plataforma",
 		},
 		docs: {
 			guides: "Guías",
@@ -124,6 +128,10 @@ const translations: Record<Locale, UIStrings> = {
 			configuration: "Configuration",
 			quickTest: "Quick Test",
 			allConnectors: "All Connectors",
+			busConnected: "Bus Connected",
+			busSendOnly: "Bus Send-Only",
+			busNotWired: "Bus Not Wired",
+			platformPriority: "Platform Priority",
 		},
 		docs: {
 			guides: "Guides",

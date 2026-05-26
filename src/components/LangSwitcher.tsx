@@ -9,7 +9,8 @@ function getCurrentLocale(): string {
 
   // 2. Determine from current URL
   const path = window.location.pathname;
-  const basePrefix = document.querySelector('meta[name="base-path"]')?.getAttribute('content') || '';
+  // Normalize: ensure basePrefix doesn't end with /
+  const basePrefix = (document.querySelector('meta[name="base-path"]')?.getAttribute('content') || '').replace(/\/+$/, '');
   const barePath = path.replace(basePrefix, '') || '/';
   const segment = barePath.split('/').filter(Boolean)[0];
   if (segment === 'en') return 'en';
@@ -23,7 +24,8 @@ function switchLocale(target: 'es' | 'en') {
 
   // Calculate target URL
   const path = window.location.pathname;
-  const basePrefix = document.querySelector('meta[name="base-path"]')?.getAttribute('content') || '';
+  // Normalize: ensure basePrefix doesn't end with /
+  const basePrefix = (document.querySelector('meta[name="base-path"]')?.getAttribute('content') || '').replace(/\/+$/, '');
   let barePath = path.replace(basePrefix, '') || '/';
 
   // Strip existing locale prefix
@@ -33,7 +35,7 @@ function switchLocale(target: 'es' | 'en') {
 
   // Add prefix for non-default locale
   const targetPath = target === 'en' ? `/en${barePath}` : barePath;
-  const fullPath = basePrefix + targetPath;
+  const fullPath = (basePrefix + targetPath).replace(/\/+/g, '/');
 
   // Navigate
   window.location.href = fullPath;

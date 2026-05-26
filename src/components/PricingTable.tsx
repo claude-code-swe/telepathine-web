@@ -1,8 +1,33 @@
 import { useState } from "react";
-import { plans, features, type PlanFeature } from "../data/pricing";
+import { plans, features, type PlanFeature, type Locale } from "../data/pricing";
 
-export default function PricingTable() {
+/** Client-side translations for the React island. */
+const ui: Record<Locale, Record<string, string>> = {
+	es: {
+		monthly: "Mensual",
+		annual: "Anual",
+		save: "(ahorra ~17%)",
+		popular: "Popular",
+		feature: "Función",
+		perMonth: "/mes",
+	},
+	en: {
+		monthly: "Monthly",
+		annual: "Annual",
+		save: "(save ~17%)",
+		popular: "Popular",
+		feature: "Feature",
+		perMonth: "/mo",
+	},
+};
+
+interface PricingTableProps {
+	locale?: Locale;
+}
+
+export default function PricingTable({ locale = "es" }: PricingTableProps) {
 	const [annual, setAnnual] = useState(false);
+	const strings = ui[locale];
 
 	return (
 		<div>
@@ -11,7 +36,7 @@ export default function PricingTable() {
 					className={`text-sm ${!annual ? "" : ""}`}
 					style={{ color: !annual ? "var(--text)" : "var(--text-muted)" }}
 				>
-					Monthly
+					{strings.monthly}
 				</span>
 				<button
 					onClick={() => setAnnual(!annual)}
@@ -29,9 +54,9 @@ export default function PricingTable() {
 					className={`text-sm ${annual ? "" : ""}`}
 					style={{ color: annual ? "var(--text)" : "var(--text-muted)" }}
 				>
-					Annual{" "}
+					{strings.annual}{" "}
 					<span style={{ color: "var(--accent)", fontSize: "0.75rem" }}>
-						(save ~17%)
+						{strings.save}
 					</span>
 				</span>
 			</div>
@@ -58,7 +83,7 @@ export default function PricingTable() {
 								className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-0.5 text-xs font-semibold"
 								style={{ background: "var(--accent)", color: "white" }}
 							>
-								Popular
+								{strings.popular}
 							</span>
 						)}
 						<h3
@@ -82,25 +107,25 @@ export default function PricingTable() {
 									className="text-sm"
 									style={{ color: "var(--text-muted)" }}
 								>
-									/mo
+									{strings.perMonth}
 								</span>
 							)}
 						</div>
 						<p className="mt-2 text-sm" style={{ color: "var(--text-muted)" }}>
-							{plan.description}
+							{plan.description[locale] || plan.description.es}
 						</p>
 						<p
 							className="mt-1 text-xs italic"
 							style={{ color: "var(--accent)", opacity: 0.8 }}
 						>
-							{plan.tagline}
+							{plan.tagline[locale] || plan.tagline.es}
 						</p>
 						{"target" in plan && plan.target && (
 							<p
 								className="mt-1 text-xs"
 								style={{ color: "var(--text-muted)", opacity: 0.6 }}
 							>
-								{plan.target}
+								{plan.target[locale] || plan.target.es}
 							</p>
 						)}
 						<a
@@ -114,7 +139,7 @@ export default function PricingTable() {
 									: "1px solid var(--line-strong)",
 							}}
 						>
-							{plan.cta}
+							{plan.cta[locale] || plan.cta.es}
 						</a>
 					</div>
 				))}
@@ -128,7 +153,7 @@ export default function PricingTable() {
 								className="pb-3 pr-4 text-left text-xs"
 								style={{ color: "var(--text-muted)" }}
 							>
-								Feature
+								{strings.feature}
 							</th>
 							<th
 								className="pb-3 px-3 text-center text-xs"
@@ -159,11 +184,11 @@ export default function PricingTable() {
 					<tbody>
 						{features.map((f: PlanFeature) => (
 							<tr
-								key={f.name}
+								key={f.name[locale] || f.name.es}
 								style={{ borderBottom: "1px solid var(--line)" }}
 							>
 								<td className="py-3 pr-4" style={{ color: "var(--text-copy)" }}>
-									{f.name}
+									{f.name[locale] || f.name.es}
 								</td>
 								<td className="py-3 px-3 text-center">
 									{typeof f.spark === "boolean" ? (

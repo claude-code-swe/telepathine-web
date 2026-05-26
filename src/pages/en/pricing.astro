@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PricingTable from '../../components/PricingTable.tsx';
+import type { Locale } from '../../data/pricing';
+
+const locale: Locale = 'en';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -34,7 +37,7 @@ const jsonLd = {
 
   <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-5xl">
-      <PricingTable client:load />
+      <PricingTable client:load locale={locale} />
     </div>
   </section>
 

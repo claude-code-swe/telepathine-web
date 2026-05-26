@@ -1,7 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PricingTable from '../components/PricingTable.tsx';
-import { overagePricing } from '../data/pricing';
+import { overagePricing, resolveLocalized } from '../data/pricing';
+import { getLocaleFromUrl } from '../i18n/utils';
+import type { Locale } from '../data/pricing';
+
+const locale: Locale = 'es';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -37,7 +41,7 @@ const jsonLd = {
   <!-- ====== PRICING TABLE ====== -->
   <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-5xl">
-      <PricingTable client:load />
+      <PricingTable client:load locale={locale} />
     </div>
   </section>
 
@@ -105,7 +109,7 @@ const jsonLd = {
           <tbody>
             {overagePricing.map((row) => (
               <tr style="border-bottom: 1px solid var(--line-subtle);">
-                <td class="py-3 pr-4" style="color: var(--text-copy);">{row.metric}</td>
+                <td class="py-3 pr-4" style="color: var(--text-copy);">{resolveLocalized(row.metric, locale)}</td>
                 <td class="py-3 px-4 text-center font-mono" style="color: var(--text-muted);">{row.ignite}</td>
                 <td class="py-3 pl-4 text-center font-mono" style="color: var(--text-muted);">{row.blaze}</td>
               </tr>

@@ -1,0 +1,90 @@
+/* Telepathine Design System — Color Palette */
+/* Generated from TELEPATHINE-DESIGN-SYSTEM.md */
+
+:root {
+  /* Surface */
+  --tp-surface:             #18120d;
+  --tp-surface-dim:         #18120d;
+  --tp-surface-bright:      #3f3831;
+  --tp-surface-container-lowest: #120d08;
+  --tp-surface-container-low:    #211a14;
+  --tp-surface-container:        #251e18;
+  --tp-surface-container-high:   #2f2922;
+  --tp-surface-container-highest: #3b332d;
+
+  /* On-surface */
+  --tp-on-surface:          #ede0d6;
+  --tp-on-surface-variant:  #d6c3b2;
+
+  /* Inverse */
+  --tp-inverse-surface:     #ede0d6;
+  --tp-inverse-on-surface:  #362f28;
+
+  /* Outline */
+  --tp-outline:             #9f8e7e;
+  --tp-outline-variant:     #514437;
+
+  /* Surface tint */
+  --tp-surface-tint:        #ffb865;
+
+  /* Primary */
+  --tp-primary:             #ffb865;
+  --tp-on-primary:          #482a00;
+  --tp-primary-container:   #d4913d;
+  --tp-on-primary-container: #4f2f00;
+  --tp-inverse-primary:     #875200;
+  --tp-primary-fixed:       #ffddba;
+  --tp-primary-fixed-dim:   #ffb865;
+  --tp-on-primary-fixed:    #2b1700;
+  --tp-on-primary-fixed-variant: #663d00;
+
+  /* Secondary */
+  --tp-secondary:           #a0d3a1;
+  --tp-on-secondary:        #073915;
+  --tp-secondary-container: #5A8A5E;
+  --tp-on-secondary-container: #92c594;
+  --tp-secondary-fixed:     #bbf0bc;
+  --tp-secondary-fixed-dim: #a0d3a1;
+  --tp-on-secondary-fixed:  #002108;
+  --tp-on-secondary-fixed-variant: #22502a;
+
+  /* Tertiary */
+  --tp-tertiary:            #7ed0ff;
+  --tp-on-tertiary:         #00344a;
+  --tp-tertiary-container:  #54a8d5;
+  --tp-on-tertiary-container: #003b52;
+  --tp-tertiary-fixed:      #c5e7ff;
+  --tp-tertiary-fixed-dim:  #7ed0ff;
+  --tp-on-tertiary-fixed:   #001e2d;
+  --tp-on-tertiary-fixed-variant: #004c6a;
+
+  /* Error */
+  --tp-error:               #ffb4ab;
+  --tp-on-error:            #690005;
+  --tp-error-container:     #93000a;
+  --tp-on-error-container:  #ffdad6;
+
+  /* Background (semantic) */
+  --tp-background:          #18120d;
+  --tp-background-deep:     #110F0D;
+  --tp-background-page:     #161311;
+  --tp-on-background:       #ede0d6;
+
+  /* Surface (semantic) */
+  --tp-surface-panel:       #1E1A16;
+  --tp-surface-card:        #1A1613;
+  --tp-surface-variant:     #3b332d;
+
+  /* Text */
+  --tp-text-primary:        #E8DCC8;
+  --tp-text-body:           #E0D4BE;
+  --tp-text-muted:          #A8A090;
+
+  /* Border */
+  --tp-border-strong:       #514437;
+  --tp-border-subtle:       #373432;
+
+  /* Interaction */
+  --tp-hover-overlay:       #221E18;
+  --tp-success-light:       #7AAB7E;
+}

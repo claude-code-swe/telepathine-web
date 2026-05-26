@@ -3,19 +3,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ApiEndpoint from '../../components/ApiEndpoint.astro';
 import { getEndpointsByCategory } from '../../data/api-endpoints';
 import CodeBlock from '../../components/CodeBlock.astro';
-import { t } from '../../i18n/ui';
-import type { Locale } from '../../i18n/utils';
-
-const locale: Locale = 'es';
 
 const categories = [
-  { key: 'sessions' as const, label: t(locale, 'api.sessions') },
-  { key: 'observations' as const, label: t(locale, 'api.observations') },
-  { key: 'search' as const, label: t(locale, 'api.search') },
-  { key: 'context' as const, label: t(locale, 'api.context') },
-  { key: 'projects' as const, label: t(locale, 'api.projects') },
-  { key: 'events' as const, label: t(locale, 'api.events') },
-  { key: 'system' as const, label: t(locale, 'api.system') },
+  { key: 'sessions' as const, label: 'Sessions' },
+  { key: 'observations' as const, label: 'Observations' },
+  { key: 'search' as const, label: 'Search' },
+  { key: 'context' as const, label: 'Context' },
+  { key: 'projects' as const, label: 'Projects' },
+  { key: 'events' as const, label: 'Events' },
+  { key: 'system' as const, label: 'System' },
 ];
 ---
 

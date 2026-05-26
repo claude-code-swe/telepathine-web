@@ -1,47 +1,43 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PricingTable from '../components/PricingTable.tsx';
-import { overagePricing, resolveLocalized } from '../data/pricing';
-import { getLocaleFromUrl } from '../i18n/utils';
-import type { Locale } from '../data/pricing';
-
-const locale: Locale = 'es';
+import { overagePricing } from '../data/pricing';
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'AggregateOffer',
-  name: 'Telepathine.ai Plans',
-  description: 'Pricing plans for Telepathine.ai — the portable memory layer for AI agents.',
+  name: 'Planes de Telepathine.ai',
+  description: 'Planes de precios para Telepathine.ai — la capa de memoria portátil para agentes IA.',
   lowPrice: '0',
   highPrice: '99',
   priceCurrency: 'USD',
   offerCount: 4,
   offers: [
-    { '@type': 'Offer', name: 'Spark', price: '0', priceCurrency: 'USD', description: '10,000 observations/mo, 1 project, self-hostable' },
-    { '@type': 'Offer', name: 'Ignite', price: '29', priceCurrency: 'USD', description: '100,000 observations/mo, 5 projects, Signal Bus, BYOK' },
-    { '@type': 'Offer', name: 'Blaze', price: '99', priceCurrency: 'USD', description: '1M observations/mo, unlimited projects, 10 seats, SLA 99.9%' },
-    { '@type': 'Offer', name: 'Enterprise', price: 'Custom', priceCurrency: 'USD', description: 'Unlimited, custom SLA, on-prem, SSO/SAML' },
+    { '@type': 'Offer', name: 'Spark', price: '0', priceCurrency: 'USD', description: '10,000 observaciones/mes, 1 proyecto, autohospedable' },
+    { '@type': 'Offer', name: 'Ignite', price: '29', priceCurrency: 'USD', description: '100,000 observaciones/mes, 5 proyectos, Signal Bus, BYOK' },
+    { '@type': 'Offer', name: 'Blaze', price: '99', priceCurrency: 'USD', description: '1M observaciones/mes, proyectos ilimitados, 10 asientos, SLA 99.9%' },
+    { '@type': 'Offer', name: 'Enterprise', price: 'Custom', priceCurrency: 'USD', description: 'Ilimitado, SLA personalizado, on-prem, SSO/SAML' },
   ],
 };
 ---
 
 <BaseLayout
-  title="Pricing — Telepathine.ai"
-  description="Simple, transparent pricing for AI agent memory. Start free with 10K observations. Ignite at $29/mo with full features. Blaze at $99/mo for production swarms."
+  title="Precios — Telepathine.ai"
+  description="Precios simples y transparentes para memoria de agentes IA. Empieza gratis con 10K observaciones. Ignite a $29/mes con todas las funciones. Blaze a $99/mes para enjambres en producción."
   jsonLd={jsonLd}
 >
   <!-- ====== HEADER ====== -->
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
     <div class="mx-auto max-w-5xl">
-      <h1>Simple, usage-based pricing</h1>
-      <p class="mt-4 max-w-xl text-lg" style="color: var(--text-muted);">Start free. Scale when ready. No feature paywalls, no graph surcharges, no surprises.</p>
+      <h1>Precios simples, basados en uso</h1>
+      <p class="mt-4 max-w-xl text-lg" style="color: var(--text-muted);">Empieza gratis. Escala cuando estés listo. Sin muros de pago, sin recargos por grafos, sin sorpresas.</p>
     </div>
   </section>
 
   <!-- ====== PRICING TABLE ====== -->
   <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-5xl">
-      <PricingTable client:load locale={locale} />
+      <PricingTable client:load />
     </div>
   </section>
 
@@ -50,16 +46,16 @@ const jsonLd = {
     <div class="mx-auto max-w-5xl">
       <div class="grid gap-8 md:grid-cols-3">
         <div class="rounded-lg border p-6" style="background: var(--bg-card); border-color: var(--accent-outline-soft);">
-          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--accent);">No graph paywall</h3>
-          <p class="mt-2 text-sm" style="color: var(--text-muted);">Competitors charge $249/mo for knowledge graph features. Ignite includes everything at $29 — memory, search, bus, Morpheus pipeline. No feature tiers within tiers.</p>
+          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--accent);">Sin muro de pago del grafo</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">La competencia cobra $249/mes por funciones de grafo de conocimiento. Ignite incluye todo a $29 — memoria, búsqueda, bus, pipeline Morpheus. Sin funciones dentro de funciones.</p>
         </div>
         <div class="rounded-lg border p-6" style="background: var(--bg-card); border-color: var(--accent-secondary-surface-soft, #5A8A5E12);">
-          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--accent-secondary);">BYOK free on all tiers</h3>
-          <p class="mt-2 text-sm" style="color: var(--text-muted);">Bring your own OpenAI, Anthropic, or compatible keys on every plan — including the free tier. Reduces our infrastructure cost and builds trust. Your keys, your models.</p>
+          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--accent-secondary);">BYOK gratis en todos los planes</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">Trae tus propias keys de OpenAI, Anthropic o compatibles en cada plan — incluyendo el plan gratuito. Reduce nuestros costos de infra y genera confianza. Tus keys, tus modelos.</p>
         </div>
         <div class="rounded-lg border p-6" style="background: var(--bg-card); border-color: var(--line-strong);">
-          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--text);">Self-hosted always free</h3>
-          <p class="mt-2 text-sm" style="color: var(--text-muted);">The entire platform is Apache 2.0. Run it on your own infrastructure, behind your own firewall, with your own database. Spark is the self-hosted tier — free forever.</p>
+          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--text);">Autohospedado siempre gratis</h3>
+          <p class="mt-2 text-sm" style="color: var(--text-muted);">Toda la plataforma es Apache 2.0. Ejecútala en tu propia infraestructura, detrás de tu propio firewall, con tu propia base de datos. Spark es el plan autohospedado — gratis para siempre.</p>
         </div>
       </div>
     </div>
@@ -70,22 +66,22 @@ const jsonLd = {
     <div class="mx-auto max-w-5xl">
       <div class="rounded-lg border p-8" style="background: var(--accent-surface-subtle); border-color: var(--accent-outline-soft);">
         <div class="flex items-start gap-4">
-          <span class="font-mono text-xs font-semibold uppercase tracking-widest" style="color: var(--accent);">Early Adopter</span>
+          <span class="font-mono text-xs font-semibold uppercase tracking-widest" style="color: var(--accent);">Adoptador Temprano</span>
         </div>
-        <h2 class="mt-4" style="font-size: 1.5rem; line-height: 1.3;">50% off Ignite and Blaze for the first 6 months</h2>
-        <p class="mt-3 text-sm" style="color: var(--text-muted);">Ignite drops to $14.50/mo. Blaze drops to $49.50/mo. Full features, half the price. Available for the first 6 months after launch.</p>
+        <h2 class="mt-4" style="font-size: 1.5rem; line-height: 1.3;">50% de descuento en Ignite y Blaze durante los primeros 6 meses</h2>
+        <p class="mt-3 text-sm" style="color: var(--text-muted);">Ignite baja a $14.50/mes. Blaze baja a $49.50/mes. Todas las funciones, la mitad del precio. Disponible durante los primeros 6 meses después del lanzamiento.</p>
         <div class="mt-6 grid gap-4 text-sm sm:grid-cols-3" style="color: var(--text-muted);">
           <div>
-            <span class="font-semibold" style="color: var(--text);">Startup program</span><br />
-            Free Blaze for 3 months. Companies under $5M funding.
+            <span class="font-semibold" style="color: var(--text);">Programa startup</span><br />
+            Blaze gratis por 3 meses. Empresas con menos de $5M de funding.
           </div>
           <div>
-            <span class="font-semibold" style="color: var(--text);">Academic program</span><br />
-            Free Ignite for verified researchers.
+            <span class="font-semibold" style="color: var(--text);">Programa académico</span><br />
+            Ignite gratis para investigadores verificados.
           </div>
           <div>
-            <span class="font-semibold" style="color: var(--text);">OSS contributors</span><br />
-            Free Blaze for top 50 GitHub contributors.
+            <span class="font-semibold" style="color: var(--text);">Contribuidores OSS</span><br />
+            Blaze gratis para los top 50 contribuidores de GitHub.
           </div>
         </div>
       </div>
@@ -95,13 +91,13 @@ const jsonLd = {
   <!-- ====== OVERAGE PRICING ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line);">
     <div class="mx-auto max-w-5xl">
-      <h2>Overage pricing</h2>
-      <p class="mt-4 max-w-xl" style="color: var(--text-muted);">Scale, not penalty. If you exceed your plan limits, you pay a per-unit rate — no throttling, no service interruption, no shock bills.</p>
+      <h2>Precios por exceso</h2>
+      <p class="mt-4 max-w-xl" style="color: var(--text-muted);">Escala, no penalización. Si excedes los límites de tu plan, pagas una tarifa por unidad — sin limitación, sin interrupción de servicio, sin facturas sorpresa.</p>
       <div class="mt-8 overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
             <tr style="border-bottom: 1px solid var(--line);">
-              <th class="pb-3 pr-4 text-left text-xs" style="color: var(--text-muted);">Metric</th>
+              <th class="pb-3 pr-4 text-left text-xs" style="color: var(--text-muted);">Métrica</th>
               <th class="pb-3 px-4 text-center text-xs" style="color: var(--text-muted);">Ignite</th>
               <th class="pb-3 pl-4 text-center text-xs" style="color: var(--text-muted);">Blaze</th>
             </tr>
@@ -109,7 +105,7 @@ const jsonLd = {
           <tbody>
             {overagePricing.map((row) => (
               <tr style="border-bottom: 1px solid var(--line-subtle);">
-                <td class="py-3 pr-4" style="color: var(--text-copy);">{resolveLocalized(row.metric, locale)}</td>
+                <td class="py-3 pr-4" style="color: var(--text-copy);">{row.metric}</td>
                 <td class="py-3 px-4 text-center font-mono" style="color: var(--text-muted);">{row.ignite}</td>
                 <td class="py-3 pl-4 text-center font-mono" style="color: var(--text-muted);">{row.blaze}</td>
               </tr>
@@ -123,38 +119,38 @@ const jsonLd = {
   <!-- ====== UPGRADE TRIGGERS ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line-subtle);">
     <div class="mx-auto max-w-5xl">
-      <h2>When to upgrade</h2>
-      <p class="mt-4 max-w-xl" style="color: var(--text-muted);">Natural signals, not forced upsells. Here's what to watch for.</p>
+      <h2>Cuándo mejorar</h2>
+      <p class="mt-4 max-w-xl" style="color: var(--text-muted);">Señales naturales, no upsells forzados. Esto es lo que debes observar.</p>
       <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <div class="surface-card p-5">
-          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Storage</span>
-          <p class="mt-2 text-sm" style="color: var(--text-copy);">You've used 8K of 10K observations.</p>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Upgrade to Ignite for 100K.</p>
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Almacenamiento</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">Usaste 8K de 10K observaciones.</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Mejora a Ignite para 100K.</p>
         </div>
         <div class="surface-card p-5">
-          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Projects</span>
-          <p class="mt-2 text-sm" style="color: var(--text-copy);">Need a second project?</p>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Ignite gives you 5. Blaze gives you unlimited.</p>
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Proyectos</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">¿Necesitas un segundo proyecto?</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Ignite te da 5. Blaze te da ilimitados.</p>
         </div>
         <div class="surface-card p-5">
-          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Team</span>
-          <p class="mt-2 text-sm" style="color: var(--text-copy);">Adding a teammate?</p>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Blaze includes 10 seats.</p>
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Equipo</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">¿Agregando un compañero de equipo?</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Blaze incluye 10 asientos.</p>
         </div>
         <div class="surface-card p-5">
-          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Compliance</span>
-          <p class="mt-2 text-sm" style="color: var(--text-copy);">Your customer needs SOC 2?</p>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Blaze includes audit logs. Enterprise adds the SOC 2 report.</p>
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Cumplimiento</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">¿Tu cliente necesita SOC 2?</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Blaze incluye registros de auditoría. Enterprise agrega el reporte SOC 2.</p>
         </div>
         <div class="surface-card p-5">
-          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Bus volume</span>
-          <p class="mt-2 text-sm" style="color: var(--text-copy);">Running agent swarms?</p>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">You'll need more bus messages. Blaze gives you 1M/mo.</p>
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Volumen del bus</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">¿Ejecutando enjambres de agentes?</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Necesitarás más mensajes de bus. Blaze te da 1M/mes.</p>
         </div>
         <div class="surface-card p-5">
-          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Retention</span>
-          <p class="mt-2 text-sm" style="color: var(--text-copy);">Need memory beyond 30 days?</p>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Ignite retains 1 year. Blaze retains 2 years.</p>
+          <span class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent);">Retención</span>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">¿Necesitas memoria más allá de 30 días?</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Ignite retiene 1 año. Blaze retiene 2 años.</p>
         </div>
       </div>
     </div>
@@ -166,28 +162,28 @@ const jsonLd = {
       <h2>FAQ</h2>
       <div class="mt-8 space-y-6">
         <div>
-          <h3 class="font-semibold" style="color: var(--text);">What counts as an observation?</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">An observation is any recorded memory — a decision, change, learning, or tool interaction captured by your agent. Both structured and raw observations count toward your monthly total.</p>
+          <h3 class="font-semibold" style="color: var(--text);">¿Qué cuenta como una observación?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Una observación es cualquier memoria registrada — una decisión, cambio, aprendizaje o interacción con herramienta capturada por tu agente. Tanto observaciones estructuradas como brutas cuentan hacia tu total mensual.</p>
         </div>
         <div>
-          <h3 class="font-semibold" style="color: var(--text);">Can I bring my own AI keys?</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Yes. On every tier — including the free tier — you can configure your own OpenAI, Anthropic, or compatible LLM/embedding provider. Your keys are encrypted at rest and never shared between tenants.</p>
+          <h3 class="font-semibold" style="color: var(--text);">¿Puedo traer mis propias keys de IA?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Sí. En cada plan — incluyendo el plan gratuito — puedes configurar tu propio proveedor de LLM/embeddings: OpenAI, Anthropic o cualquier endpoint compatible. Tus keys están encriptadas en reposo y nunca se comparten entre tenants.</p>
         </div>
         <div>
-          <h3 class="font-semibold" style="color: var(--text);">What happens when I hit my limit?</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">On Ignite and Blaze, overage is billed at the rates above — no throttling, no service interruption. On Spark, you'll get a 429 response with rate-limit headers. Your data stays accessible; only new writes are paused until the next cycle.</p>
+          <h3 class="font-semibold" style="color: var(--text);">¿Qué pasa cuando llego a mi límite?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">En Ignite y Blaze, el exceso se factura a las tarifas indicadas — sin limitación, sin interrupción de servicio. En Spark, recibirás una respuesta 429 con headers de rate-limit. Tus datos siguen accesibles; solo las escrituras nuevas se pausan hasta el siguiente ciclo.</p>
         </div>
         <div>
-          <h3 class="font-semibold" style="color: var(--text);">Is my data isolated from other tenants?</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Row-Level Security with FORCE policies ensures every query is scoped to your tenant. Project-level visibility controls add further isolation. We learned this the hard way — and published the postmortem on our <a href="/security" class="content-link">security page</a>.</p>
+          <h3 class="font-semibold" style="color: var(--text);">¿Mis datos están aislados de otros tenants?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">La Seguridad a Nivel de Fila con políticas FORCE asegura que cada consulta esté scoped a tu tenant. Los controles de visibilidad a nivel de proyecto añaden aislamiento adicional. Lo aprendimos por las malas — y publicamos el postmortem en nuestra <a href="/security" class="content-link">página de seguridad</a>.</p>
         </div>
         <div>
-          <h3 class="font-semibold" style="color: var(--text);">Why is self-hosted only on Spark?</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">The entire platform is Apache 2.0 — you can always self-host. Spark is the self-hosted tier (free forever, run it yourself). Ignite and Blaze are managed cloud tiers. Enterprise adds BYOC and on-prem options.</p>
+          <h3 class="font-semibold" style="color: var(--text);">¿Por qué autohospedado solo en Spark?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Toda la plataforma es Apache 2.0 — siempre puedes autohospedar. Spark es el plan autohospedado (gratis para siempre, ejecútalo tú mismo). Ignite y Blaze son planes cloud gestionados. Enterprise agrega BYOC y opciones on-prem.</p>
         </div>
         <div>
-          <h3 class="font-semibold" style="color: var(--text);">Do I lose data if I downgrade?</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">No. Your data is never deleted due to plan changes. If you exceed the lower plan's retention window, older observations become archived (still exportable, not queryable) until you upgrade again or export them.</p>
+          <h3 class="font-semibold" style="color: var(--text);">¿Pierdo datos si degrad mi plan?</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">No. Tus datos nunca se eliminan por cambios de plan. Si excedes la ventana de retención del plan inferior, las observaciones más antiguas se archivan (siguen exportables, no consultables) hasta que mejoras de nuevo o las exportas.</p>
         </div>
       </div>
     </div>

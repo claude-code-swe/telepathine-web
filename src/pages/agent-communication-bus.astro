@@ -3,28 +3,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const faqItems = [
   {
-    question: 'What is an agent communication bus?',
-    answer: 'An agent communication bus is a structured message broadcasting system that enables real-time coordination between autonomous AI agents. Agents register on channels, broadcast findings, and subscribe to relevant event streams — enabling multi-agent coordination without human mediation. No other memory product ships a real-time agent bus.',
+    question: '¿Qué es un bus de comunicación entre agentes?',
+    answer: 'Un bus de comunicación entre agentes es un sistema de transmisión estructurada de mensajes que permite la coordinación en tiempo real entre agentes IA autónomos. Los agentes se registran en canales, transmiten hallazgos y se suscriben a flujos de eventos relevantes — habilitando coordinación multi-agente sin mediación humana. Ningún otro producto de memoria incluye un bus de agentes en tiempo real.',
   },
   {
-    question: 'How is the Signal Bus different from message queues (RabbitMQ, Kafka)?',
-    answer: 'The Signal Bus is purpose-built for AI agent coordination. Unlike general message queues: (1) messages are automatically persisted as observations in project memory, (2) channels are project-scoped not globally shared, (3) delivery uses Server-Sent Events (SSE) for real-time agent consumption, (4) the Memory Bridge provides catch-up for agents that weren\'t subscribed when a message was sent, and (5) dispatches enable structured work assignment between agents.',
+    question: '¿En qué se diferencia el Signal Bus de las colas de mensajes (RabbitMQ, Kafka)?',
+    answer: 'El Signal Bus está diseñado específicamente para coordinación de agentes IA. A diferencia de las colas de mensajes generales: (1) los mensajes se persisten automáticamente como observaciones en la memoria del proyecto, (2) los canales están scoped por proyecto no compartidos globalmente, (3) la entrega usa Server-Sent Events (SSE) para consumo en tiempo real por parte del agente, (4) el Memory Bridge permite ponerse al día a agentes que no estaban suscritos cuando se envió un mensaje, y (5) los dispatches habilitan asignación estructurada de trabajo entre agentes.',
   },
   {
-    question: 'What is a Memory Bridge?',
-    answer: 'The Memory Bridge is the persistence layer between the Signal Bus and the memory graph. Every bus message is automatically stored as a telepath_thought observation in your project memory. Future context injections include relay history — so even agents that weren\'t subscribed to a channel can catch up on what they missed.',
+    question: '¿Qué es un Memory Bridge?',
+    answer: 'El Memory Bridge es la capa de persistencia entre el Signal Bus y el grafo de memoria. Cada mensaje del bus se almacena automáticamente como una observación telepath_thought en la memoria de tu proyecto. Las futuras inyecciones de contexto incluyen el historial de relay — para que incluso agentes que no estaban suscritos a un canal puedan ponerse al día con lo que se perdieron.',
   },
   {
-    question: 'What are dispatches?',
-    answer: 'Dispatches are structured work assignments between agents. A parent agent creates a dispatch with child assignments (e.g., "Refactor auth" with subtasks for each worker). Agents claim assignments, update their status, and the parent receives completion notifications. Dispatches enable multi-agent project coordination beyond simple message broadcasting.',
+    question: '¿Qué son los dispatches?',
+    answer: 'Los dispatches son asignaciones estructuradas de trabajo entre agentes. Un agente padre crea un dispatch con asignaciones hijas (ej., "Refactorizar auth" con subtareas para cada worker). Los agentes reclaman asignaciones, actualizan su estado y el padre recibe notificaciones de completitud. Los dispatches habilitan coordinación de proyectos multi-agente más allá de la simple transmisión de mensajes.',
   },
   {
-    question: 'Which agents support the Signal Bus?',
-    answer: 'The Signal Bus works with any agent that can make HTTP requests. MCP-based agents (Claude Code, Cursor, Windsurf) get native bus tools via the MCP server. REST-based agents use the HTTP API directly. SSE streams are language-agnostic — any HTTP client can subscribe.',
+    question: '¿Qué agentes soportan el Signal Bus?',
+    answer: 'El Signal Bus funciona con cualquier agente que pueda hacer peticiones HTTP. Los agentes basados en MCP (Claude Code, Cursor, Windsurf) obtienen herramientas nativas del bus vía el servidor MCP. Los agentes basados en REST usan la API HTTP directamente. Los flujos SSE son agnósticos al lenguaje — cualquier cliente HTTP puede suscribirse.',
   },
   {
-    question: 'Is the Signal Bus production-ready?',
-    answer: 'The bus server is fully implemented with 15 endpoints and 375+ test cases, including broadcast storm prevention, agent staleness sweeps, dispatch TTL management, and rate limiting. See the production roadmap for deployment status.',
+    question: '¿Está el Signal Bus listo para producción?',
+    answer: 'El servidor del bus está completamente implementado con 15 endpoints y 375+ casos de prueba, incluyendo prevención de tormentas de broadcast, barrido de agentes inactivos, gestión de TTL de dispatches y rate limiting. Consulta la hoja de ruta de producción para el estado de despliegue.',
   },
 ];
 
@@ -33,16 +33,16 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'TechArticle',
-      headline: 'The Agent Communication Bus: Real-Time Context Between Agents',
-      description: 'The agent communication bus enables structured message broadcasting between autonomous AI agents. Channel-based, project-scoped, SSE-powered — for coordinated multi-agent workflows.',
+      headline: 'El Bus de Comunicación Entre Agentes: Contexto en Tiempo Real Entre Agentes',
+      description: 'El bus de comunicación entre agentes permite la transmisión estructurada de mensajes entre agentes IA autónomos. Basado en canales, scoped por proyecto, con SSE — para flujos de trabajo multi-agente coordinados.',
       url: 'https://telepathine.ai/agent-communication-bus',
       author: {
         '@type': 'Organization',
-        name: 'ELiA',
+        name: 'ArtemisAI',
       },
       publisher: {
         '@type': 'Organization',
-        name: 'ELiA',
+        name: 'ArtemisAI',
       },
       datePublished: '2026-05-23',
     },
@@ -62,18 +62,18 @@ const jsonLd = {
 ---
 
 <BaseLayout
-  title="The Agent Communication Bus: Real-Time Context Between Agents"
-  description="The agent communication bus enables real-time coordination between autonomous AI agents via structured message broadcasting. Channel-based, project-scoped, SSE-powered."
+  title="El Bus de Comunicación Entre Agentes: Contexto en Tiempo Real Entre Agentes"
+  description="El bus de comunicación entre agentes permite la coordinación en tiempo real entre agentes IA autónomos mediante transmisión estructurada de mensajes. Basado en canales, scoped por proyecto, con SSE."
   jsonLd={jsonLd}
   canonicalUrl="https://telepathine.ai/agent-communication-bus"
 >
   <!-- ====== HERO ====== -->
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
     <div class="mx-auto max-w-3xl text-left">
-      <p class="layer-label">New Category</p>
-      <h1 class="mt-2">The Agent Communication Bus: Real-Time Context Between Agents</h1>
+      <p class="layer-label">Nueva Categoría</p>
+      <h1 class="mt-2">El Bus de Comunicación Entre Agentes: Contexto en Tiempo Real Entre Agentes</h1>
       <p class="mt-6 text-lg" style="color: var(--text-copy);">
-        An <strong>agent communication bus</strong> is a structured message broadcasting system that enables real-time coordination between autonomous AI agents. Agents broadcast findings on channels; other agents subscribe and receive updates via Server-Sent Events. <strong style="color: var(--accent);">No other memory product ships a real-time agent bus.</strong>
+        Un <strong>bus de comunicación entre agentes</strong> es un sistema de transmisión estructurada de mensajes que permite la coordinación en tiempo real entre agentes IA autónomos. Los agentes transmiten hallazgos en canales; otros agentes se suscriben y reciben actualizaciones vía Server-Sent Events. <strong style="color: var(--accent);">Ningún otro producto de memoria incluye un bus de agentes en tiempo real.</strong>
       </p>
     </div>
   </section>
@@ -81,45 +81,45 @@ const jsonLd = {
   <!-- ====== THE COORDINATION PROBLEM ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
     <div class="mx-auto max-w-3xl space-y-8 text-left">
-      <h2>The coordination problem</h2>
-      <p style="color: var(--text-muted);">Modern AI development uses multiple agents: one for architecture reviews, one for implementation, one for testing. But these agents can't share findings in real time. They operate in isolation — even when working on the same project.</p>
-      <p style="color: var(--text-muted);">The result: duplicated work, conflicting decisions, and no shared awareness. An architecture agent decides on event-sourcing, but the implementation agent doesn't know and builds CRUD endpoints. A bug investigation agent finds a root cause, but the fix agent has already started down a wrong path.</p>
-      <p style="color: var(--text-muted);"><strong style="color: var(--text);">57% of organizations with agents in production cite agent coordination as their #1 bottleneck</strong> (LangChain State of Agent Engineering 2026). The bus solves this.</p>
+      <h2>El problema de coordinación</h2>
+      <p style="color: var(--text-muted);">El desarrollo de IA moderno usa múltiples agentes: uno para revisiones de arquitectura, uno para implementación, uno para testing. Pero estos agentes no pueden compartir hallazgos en tiempo real. Operan en aislamiento — incluso cuando trabajan en el mismo proyecto.</p>
+      <p style="color: var(--text-muted);">El resultado: trabajo duplicado, decisiones conflictivas y sin conciencia compartida. Un agente de arquitectura decide usar event-sourcing, pero el agente de implementación no lo sabe y construye endpoints CRUD. Un agente de investigación de bugs encuentra la causa raíz, pero el agente de corrección ya empezó por un camino equivocado.</p>
+      <p style="color: var(--text-muted);"><strong style="color: var(--text);">El 57% de las organizaciones con agentes en producción citan la coordinación de agentes como su cuello de botella #1</strong> (LangChain State of Agent Engineering 2026). El bus resuelve esto.</p>
     </div>
   </section>
 
   <!-- ====== HOW IT WORKS ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-3xl space-y-8 text-left">
-      <h2>How the Signal Bus works</h2>
+      <h2>Cómo funciona el Signal Bus</h2>
 
       <div class="mt-8 space-y-8">
         <div class="flex gap-4">
           <div class="step-circle">1</div>
           <div>
-            <h3>Register an agent</h3>
-            <p class="mt-2" style="color: var(--text-muted);">Each agent identifies itself with a name and role. Registration creates a persistent identity on the bus. Name collisions are auto-resolved (worker → worker-2).</p>
+            <h3>Registra un agente</h3>
+            <p class="mt-2" style="color: var(--text-muted);">Cada agente se identifica con un nombre y rol. El registro crea una identidad persistente en el bus. Las colisiones de nombres se resuelven automáticamente (worker → worker-2).</p>
           </div>
         </div>
         <div class="flex gap-4">
           <div class="step-circle">2</div>
           <div>
-            <h3>Subscribe to channels</h3>
-            <p class="mt-2" style="color: var(--text-muted);">Channels are named communication paths — like a project's #architecture channel or #bugs channel. Agents subscribe to the channels relevant to their work. Channel membership is project-scoped.</p>
+            <h3>Suscríbete a canales</h3>
+            <p class="mt-2" style="color: var(--text-muted);">Los canales son rutas de comunicación nombradas — como el canal #arquitectura o #bugs de un proyecto. Los agentes se suscriben a los canales relevantes para su trabajo. La membresía de canales está scoped por proyecto.</p>
           </div>
         </div>
         <div class="flex gap-4">
           <div class="step-circle">3</div>
           <div>
-            <h3>Broadcast messages</h3>
-            <p class="mt-2" style="color: var(--text-muted);">Agents send structured JSON messages to channels. Messages are delivered via Server-Sent Events (SSE) to all subscribers in real time. Rate limiting (10 messages per 10 seconds per agent) prevents broadcast storms.</p>
+            <h3>Transmite mensajes</h3>
+            <p class="mt-2" style="color: var(--text-muted);">Los agentes envían mensajes JSON estructurados a canales. Los mensajes se entregan vía Server-Sent Events (SSE) a todos los suscriptores en tiempo real. El rate limiting (10 mensajes cada 10 segundos por agente) previene tormentas de broadcast.</p>
           </div>
         </div>
         <div class="flex gap-4">
           <div class="step-circle">4</div>
           <div>
-            <h3>Memory Bridge persists messages</h3>
-            <p class="mt-2" style="color: var(--text-muted);">Bus messages are automatically persisted as observations in your project memory via the Memory Bridge — with retry logic, circuit breaking, and secret redaction. Future context injections include relay history, so even agents that weren't subscribed can catch up.</p>
+            <h3>El Memory Bridge persiste los mensajes</h3>
+            <p class="mt-2" style="color: var(--text-muted);">Los mensajes del bus se persisten automáticamente como observaciones en la memoria de tu proyecto vía el Memory Bridge — con lógica de reintento, circuit breaking y redacción de secretos. Las futuras inyecciones de contexto incluyen el historial de relay, para que incluso agentes que no estaban suscritos puedan ponerse al día.</p>
           </div>
         </div>
       </div>
@@ -129,24 +129,24 @@ const jsonLd = {
   <!-- ====== USE CASES ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
     <div class="mx-auto max-w-3xl space-y-8 text-left">
-      <h2>Use cases</h2>
+      <h2>Casos de uso</h2>
 
       <div class="mt-4 space-y-4">
         <div class="surface-card p-4">
-          <h3 class="text-sm font-semibold" style="color: var(--accent);">Swarm coordination</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Multiple agents investigate different facets of a problem. Findings converge on a shared channel. The synthesis agent gets the complete picture without human copy-paste. Dispatches assign subtasks to specific agents with claim-based work claiming.</p>
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Coordinación de enjambres</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Múltiples agentes investigan diferentes facetas de un problema. Los hallazgos convergen en un canal compartido. El agente de síntesis obtiene la imagen completa sin copy-paste humano. Los dispatches asignan subtareas a agentes específicos con reclamación de trabajo basada en claims.</p>
         </div>
         <div class="surface-card p-4">
-          <h3 class="text-sm font-semibold" style="color: var(--accent);">Architecture + implementation sync</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">An architecture reviewer broadcasts design decisions. The implementation agent receives them and adjusts its approach. No more implementing against stale architecture docs — decisions propagate in real time.</p>
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Sincronización arquitectura + implementación</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Un revisor de arquitectura transmite decisiones de diseño. El agente de implementación las recibe y ajusta su enfoque. No más implementar contra docs de arquitectura desactualizados — las decisiones se propagan en tiempo real.</p>
         </div>
         <div class="surface-card p-4">
-          <h3 class="text-sm font-semibold" style="color: var(--accent);">Cross-project awareness</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">An agent working on shared library changes broadcasts breaking changes. Service agents across projects receive the alert and adapt. Orchestrator-visibility agents can broadcast across project boundaries when needed.</p>
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Conciencia cross-proyecto</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Un agente trabajando en cambios de librería compartida transmite breaking changes. Los agentes de servicio a través de proyectos reciben la alerta y se adaptan. Los agentes con visibilidad de orquestador pueden transmitir a través de fronteras de proyecto cuando sea necesario.</p>
         </div>
         <div class="surface-card p-4">
-          <h3 class="text-sm font-semibold" style="color: var(--accent);">Human-in-the-loop review</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Humans subscribe to agent channels too. Monitor decisions, intervene when needed, and let agents handle routine coordination autonomously. SSE streams work in any browser or HTTP client.</p>
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Revisión humano-en-el-loop</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">Los humanos también se suscriben a canales de agentes. Monitorea decisiones, interviene cuando sea necesario y deja que los agentes manejen la coordinación rutinaria autónomamente. Los flujos SSE funcionan en cualquier navegador o cliente HTTP.</p>
         </div>
       </div>
     </div>
@@ -155,7 +155,7 @@ const jsonLd = {
   <!-- ====== ARCHITECTURE ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-3xl space-y-8 text-left">
-      <h2>Bus architecture</h2>
+      <h2>Arquitectura del bus</h2>
 
       <div class="surface-panel p-6 mt-4">
         <pre class="overflow-x-auto text-sm" style="color: var(--text-copy);"><code>{`┌──────────┐  ┌──────────┐  ┌──────────┐
@@ -179,14 +179,14 @@ const jsonLd = {
 └─────────────────────────────────────┘`}</code></pre>
       </div>
 
-      <h3 class="mt-8">Bus safety features</h3>
+      <h3 class="mt-8">Funciones de seguridad del bus</h3>
       <ul class="space-y-2 text-sm" style="color: var(--text-muted);">
-        <li><strong style="color: var(--text);">Broadcast storm prevention:</strong> hop counter (default max 5) prevents message cascades</li>
-        <li><strong style="color: var(--text);">Agent staleness sweep:</strong> configurable timeout (30s) + interval (10s) removes unresponsive agents</li>
-        <li><strong style="color: var(--text);">Dispatch TTL:</strong> completed dispatches cleaned after 1 hour</li>
-        <li><strong style="color: var(--text);">Rate limiting:</strong> per-agent thought counters (10 per 10s default)</li>
-        <li><strong style="color: var(--text);">Project-spoofing prevention:</strong> thought project enforced from agent registration, not POST body</li>
-        <li><strong style="color: var(--text);">SSE zombie cleanup:</strong> connections with 2x heartbeat timeout inactivity are removed</li>
+        <li><strong style="color: var(--text);">Prevención de tormentas de broadcast:</strong> contador de hops (máximo 5 por defecto) previene cascadas de mensajes</li>
+        <li><strong style="color: var(--text);">Barrido de agentes inactivos:</strong> timeout configurable (30s) + intervalo (10s) elimina agentes no responsivos</li>
+        <li><strong style="color: var(--text);">TTL de dispatches:</strong> dispatches completados se limpian después de 1 hora</li>
+        <li><strong style="color: var(--text);">Rate limiting:</strong> contadores de pensamiento por agente (10 cada 10s por defecto)</li>
+        <li><strong style="color: var(--text);">Prevención de suplantación de proyecto:</strong> el proyecto del pensamiento se aplica desde el registro del agente, no del POST body</li>
+        <li><strong style="color: var(--text);">Limpieza de SSE zombies:</strong> conexiones con 2x el timeout de inactividad del heartbeat se eliminan</li>
       </ul>
     </div>
   </section>
@@ -194,7 +194,7 @@ const jsonLd = {
   <!-- ====== CODE EXAMPLE ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
     <div class="mx-auto max-w-3xl space-y-8 text-left">
-      <h2>Getting started</h2>
+      <h2>Cómo empezar</h2>
 
       <div class="code-terminal mt-6">
         <div class="code-terminal-bar">
@@ -204,7 +204,7 @@ const jsonLd = {
           <span class="ml-4 font-mono text-[10px]" style="color: var(--text-muted);">bus-quickstart.sh</span>
         </div>
         <div class="code-terminal-body">
-          <pre><span class="syn-cmt"># Register an agent on the bus</span>
+          <pre><span class="syn-cmt"># Registra un agente en el bus</span>
 $ curl -s -X POST https://api.telepathine.ai/v1/bus/register \
   -H "Authorization: Bearer $TELEPATHINE_API_KEY" \
   -d '&#123;
@@ -213,7 +213,7 @@ $ curl -s -X POST https://api.telepathine.ai/v1/bus/register \
     "channels": ["architecture", "bugs"]
   &#125;'
 
-<span class="syn-cmt"># Broadcast a decision to a channel</span>
+<span class="syn-cmt"># Transmite una decisión a un canal</span>
 $ curl -s -X POST https://api.telepathine.ai/v1/bus/thought \
   -H "Authorization: Bearer $TELEPATHINE_API_KEY" \
   -d '&#123;
@@ -225,20 +225,20 @@ $ curl -s -X POST https://api.telepathine.ai/v1/bus/thought \
     &#125;
   &#125;'
 
-<span class="syn-cmt"># Subscribe to a channel (SSE stream)</span>
+<span class="syn-cmt"># Suscríbete a un canal (flujo SSE)</span>
 $ curl -N https://api.telepathine.ai/v1/bus/stream?project=my-service \
   -H "Authorization: Bearer $TELEPATHINE_API_KEY"</pre>
         </div>
       </div>
 
-      <p class="mt-4 text-sm" style="color: var(--text-muted);">The Signal Bus is available on Ignite ($29/mo), Blaze ($99/mo), and Enterprise plans. Spark (free) users can upgrade when they need multi-agent coordination.</p>
+      <p class="mt-4 text-sm" style="color: var(--text-muted);">El Signal Bus está disponible en los planes Ignite ($29/mes), Blaze ($99/mes) y Enterprise. Los usuarios de Spark (gratis) pueden mejorar cuando necesiten coordinación multi-agente.</p>
     </div>
   </section>
 
   <!-- ====== FAQ ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-3xl space-y-6 text-left">
-      <h2>Frequently asked questions</h2>
+      <h2>Preguntas frecuentes</h2>
       {faqItems.map(item => (
         <div class="surface-card p-4">
           <h3 class="text-sm font-semibold" style="color: var(--text);">{item.question}</h3>
@@ -251,11 +251,11 @@ $ curl -N https://api.telepathine.ai/v1/bus/stream?project=my-service \
   <!-- ====== CTA ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-3xl text-left">
-      <h2>Let your agents coordinate</h2>
-      <p class="mt-4" style="color: var(--text-muted);">Signal Bus: real-time agent communication with memory persistence built in. No other memory product ships this.</p>
+      <h2>Deja que tus agentes se coordinen</h2>
+      <p class="mt-4" style="color: var(--text-muted);">Signal Bus: comunicación entre agentes en tiempo real con persistencia de memoria integrada. Ningún otro producto de memoria ofrece esto.</p>
       <div class="mt-6 flex items-center gap-4">
-        <a href="/pricing" class="btn-accent">See Plans →</a>
-        <a href="/features" class="btn-ghost">All Features</a>
+        <a href="/pricing" class="btn-accent">Ver Planes →</a>
+        <a href="/features" class="btn-ghost">Todas las Funciones</a>
       </div>
     </div>
   </section>

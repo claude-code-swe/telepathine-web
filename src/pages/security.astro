@@ -4,79 +4,79 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'Security — Telepathine.ai',
-  description: 'Isolation you can verify. Row-Level Security with FORCE policies, project-scoped data, BYOK encryption, and a published postmortem of our cross-project isolation fix.',
+  name: 'Seguridad — Telepathine.ai',
+  description: 'Aislamiento que puedes verificar. Seguridad a Nivel de Fila con políticas FORCE, datos scoped por proyecto, encriptación BYOK y un postmortem publicado de nuestra corrección de aislamiento entre proyectos.',
   url: 'https://telepathine.ai/security',
   publisher: {
     '@type': 'Organization',
-    name: 'ELiA',
+    name: 'ArtemisAI',
   },
 };
 ---
 
 <BaseLayout
-  title="Security — Telepathine.ai"
-  description="Isolation you can verify. Row-Level Security, project-scoped data, BYOK encryption, and a published postmortem of our cross-project isolation fix."
+  title="Seguridad — Telepathine.ai"
+  description="Aislamiento que puedes verificar. Seguridad a Nivel de Fila, datos scoped por proyecto, encriptación BYOK y un postmortem publicado de nuestra corrección de aislamiento entre proyectos."
   jsonLd={jsonLd}
 >
   <!-- ====== HEADER ====== -->
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <h1>Isolation you can verify</h1>
-      <p class="mt-4 max-w-2xl text-lg" style="color: var(--text-muted);">Your agent memory contains your decisions, your architecture, your trade-offs. It should never leak to another tenant — and you should be able to prove it.</p>
+      <h1>Aislamiento que puedes verificar</h1>
+      <p class="mt-4 max-w-2xl text-lg" style="color: var(--text-muted);">La memoria de tu agente contiene tus decisiones, tu arquitectura, tus trade-offs. Nunca debería filtrarse a otro tenant — y deberías poder demostrarlo.</p>
     </div>
   </section>
 
   <!-- ====== LEAK-01 POSTMORTEM ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line);">
     <div class="mx-auto max-w-4xl">
-      <span class="layer-label">Incident Postmortem</span>
-      <h2 class="mt-4">We learned data isolation the hard way</h2>
+      <span class="layer-label">Postmortem del Incidente</span>
+      <h2 class="mt-4">Aprendimos aislamiento de datos por las malas</h2>
       <p class="mt-6 text-sm leading-relaxed" style="color: var(--text-copy);">
-        In May 2026, we discovered that a default project fallback in our context injection path caused
-        <strong style="color: var(--text);">6,500+ observations from 5 different projects</strong>
-        to share a single namespace called <code class="tag-mono">"default"</code>. When a plugin could not derive
-        a project name from the current working directory, it silently fell back to this generic scope — mixing
-        observations from unrelated codebases into one shared pool.
+        En mayo de 2026, descubrimos que un fallback de proyecto por defecto en nuestra ruta de inyección de contexto causó que
+        <strong style="color: var(--text);">6,500+ observaciones de 5 proyectos diferentes</strong>
+        compartieran un único namespace llamado <code class="tag-mono">"default"</code>. Cuando un plugin no podía derivar
+        un nombre de proyecto del directorio de trabajo actual, recurría silenciosamente a este scope genérico — mezclando
+        observaciones de codebases no relacionados en un pool compartido.
       </p>
       <p class="mt-4 text-sm leading-relaxed" style="color: var(--text-copy);">
-        This was not a theoretical risk. It was real data from real projects — architectural decisions, debugging
-        trails, session summaries — all queryable by any tenant whose plugin hit the same fallback path.
+        Este no era un riesgo teórico. Era data real de proyectos reales — decisiones arquitectónicas, rastros de debugging,
+        resúmenes de sesión — todo consultable por cualquier tenant cuyo plugin alcanzara la misma ruta de fallback.
       </p>
 
       <div class="mt-8 rounded-lg border p-6" style="background: var(--bg-card); border-color: var(--line-strong);">
-        <h3 style="font-family: var(--font-sans); font-size: 0.875rem; font-weight: 600; color: var(--accent);">What we did</h3>
+        <h3 style="font-family: var(--font-sans); font-size: 0.875rem; font-weight: 600; color: var(--accent);">Lo que hicimos</h3>
         <ol class="mt-4 space-y-3 text-sm" style="color: var(--text-copy);">
           <li class="flex gap-3">
             <span class="step-circle flex-shrink-0">1</span>
             <div>
-              <strong style="color: var(--text);">Permanently removed the fallback.</strong>
-              The <code class="tag-mono">"default"</code> project name is now forbidden in context injection paths.
-              When a plugin cannot derive a project name, it returns zero results — not a leak from another project.
+              <strong style="color: var(--text);">Eliminamos permanentemente el fallback.</strong>
+              El nombre de proyecto <code class="tag-mono">"default"</code> ahora está prohibido en las rutas de inyección de contexto.
+              Cuando un plugin no puede derivar un nombre de proyecto, devuelve cero resultados — no una fuga de otro proyecto.
             </div>
           </li>
           <li class="flex gap-3">
             <span class="step-circle flex-shrink-0">2</span>
             <div>
-              <strong style="color: var(--text);">Backfilled all affected data.</strong>
-              Every observation previously stored under <code class="tag-mono">"default"</code> was migrated to its
-              correct project namespace — on both the primary database and the secondary cloud replica.
+              <strong style="color: var(--text);">Retrofillamos toda la data afectada.</strong>
+              Cada observación previamente almacenada bajo <code class="tag-mono">"default"</code> fue migrada a su
+              namespace de proyecto correcto — tanto en la base de datos primaria como en la réplica cloud secundaria.
             </div>
           </li>
           <li class="flex gap-3">
             <span class="step-circle flex-shrink-0">3</span>
             <div>
-              <strong style="color: var(--text);">Wrote regression tests.</strong>
-              Guard tests in <code class="tag-mono">leak01-guard.test.ts</code> run in CI on every push.
-              The standing instruction: <em style="color: var(--accent);">"If this test fails, DO NOT change the test. Fix the installer code."</em>
+              <strong style="color: var(--text);">Escribimos pruebas de regresión.</strong>
+              Las pruebas guardia en <code class="tag-mono">leak01-guard.test.ts</code> se ejecutan en CI en cada push.
+              La instrucción permanente: <em style="color: var(--accent);">"Si esta prueba falla, NO cambies la prueba. Corrige el código del instalador."</em>
             </div>
           </li>
           <li class="flex gap-3">
             <span class="step-circle flex-shrink-0">4</span>
             <div>
-              <strong style="color: var(--text);">Documented the fix publicly.</strong>
-              Most companies hide incidents. We published ours — because a test you can read is worth
-              more than a claim you cannot verify.
+              <strong style="color: var(--text);">Documentamos la corrección públicamente.</strong>
+              La mayoría de las empresas ocultan incidentes. Nosotros publicamos el nuestro — porque una prueba que puedes leer vale
+              más que una afirmación que no puedes verificar.
             </div>
           </li>
         </ol>
@@ -87,10 +87,10 @@ const jsonLd = {
   <!-- ====== ISOLATION VERIFICATION ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line-subtle);">
     <div class="mx-auto max-w-4xl">
-      <span class="layer-label">Verify It Yourself</span>
-      <h2 class="mt-4">Isolation verification demo</h2>
+      <span class="layer-label">Verifícalo Tú Mismo</span>
+      <h2 class="mt-4">Demo de verificación de aislamiento</h2>
       <p class="mt-4 max-w-xl text-sm" style="color: var(--text-muted);">
-        No competitor offers an API endpoint you can hit to verify project isolation. We do. Run this curl command against your own project:
+        Ningún competidor ofrece un endpoint de API que puedas consultar para verificar el aislamiento de proyectos. Nosotros sí. Ejecuta este comando curl contra tu propio proyecto:
       </p>
       <div class="mt-6 code-terminal" style="max-width: 640px;">
         <div class="code-terminal-bar">
@@ -100,28 +100,28 @@ const jsonLd = {
           <span class="ml-4 font-mono text-[10px]" style="color: var(--text-muted);">terminal</span>
         </div>
         <div class="code-terminal-body">
-          <pre style="white-space: pre-wrap; word-break: break-all;"><span class="syn-cmt"># Verify your project returns only its own observations</span>
+          <pre style="white-space: pre-wrap; word-break: break-all;"><span class="syn-cmt"># Verifica que tu proyecto devuelve solo sus propias observaciones</span>
 <span class="syn-kw">$</span> curl -s https://api.telepathine.ai/v1/context/inject \
   -G -d <span class="syn-str">"projects=your-project"</span> -d <span class="syn-str">"limit=5"</span> \
   -H <span class="syn-str">"Authorization: Bearer $TELEPATHINE_API_KEY"</span>
 
-<span class="syn-cmt"># Returns ONLY your-project's observations</span>
-<span class="syn-cmt"># Never includes "default" scope</span>
-<span class="syn-cmt"># Zero observations for unknown projects</span></pre>
+<span class="syn-cmt"># Devuelve SOLO las observaciones de tu proyecto</span>
+<span class="syn-cmt"># Nunca incluye el scope "default"</span>
+<span class="syn-cmt"># Cero observaciones para proyectos desconocidos</span></pre>
         </div>
       </div>
       <div class="mt-6 grid gap-4 sm:grid-cols-3">
         <div class="rounded-lg border p-4" style="background: var(--bg-card); border-color: var(--line-strong);">
-          <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent-secondary);">Test 1</p>
-          <p class="mt-2 text-sm" style="color: var(--text-copy);">Query your own project — get only your data back.</p>
+          <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent-secondary);">Prueba 1</p>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">Consulta tu propio proyecto — recibe solo tu data.</p>
         </div>
         <div class="rounded-lg border p-4" style="background: var(--bg-card); border-color: var(--line-strong);">
-          <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent-secondary);">Test 2</p>
-          <p class="mt-2 text-sm" style="color: var(--text-copy);">Query an unknown project name — get zero observations.</p>
+          <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent-secondary);">Prueba 2</p>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">Consulta un nombre de proyecto desconocido — recibe cero observaciones.</p>
         </div>
         <div class="rounded-lg border p-4" style="background: var(--bg-card); border-color: var(--line-strong);">
-          <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent-secondary);">Test 3</p>
-          <p class="mt-2 text-sm" style="color: var(--text-copy);">Never see a "default" fallback scope in any response.</p>
+          <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--accent-secondary);">Prueba 3</p>
+          <p class="mt-2 text-sm" style="color: var(--text-copy);">Nunca ves un scope fallback "default" en ninguna respuesta.</p>
         </div>
       </div>
     </div>
@@ -130,18 +130,18 @@ const jsonLd = {
   <!-- ====== ISOLATION ARCHITECTURE ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line);">
     <div class="mx-auto max-w-4xl">
-      <span class="layer-label">Architecture</span>
-      <h2 class="mt-4">How isolation works</h2>
+      <span class="layer-label">Arquitectura</span>
+      <h2 class="mt-4">Cómo funciona el aislamiento</h2>
       <div class="mt-8 grid gap-8 lg:grid-cols-2">
         <div class="surface-card p-6">
-          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--text);">Row-Level Security with FORCE policies</h3>
-          <p class="mt-3 text-sm" style="color: var(--text-muted);">Every database table uses PostgreSQL Row-Level Security with <code class="tag-mono">FORCE</code> policies. Tenant isolation is enforced at the database layer — not the application layer. Even a misconfigured API endpoint cannot retrieve data from another tenant because the database rejects the query before it returns rows.</p>
-          <p class="mt-3 text-sm" style="color: var(--text-muted);">API keys carry tenant context. Read, write, and admin scopes limit what each key can do. Project visibility settings (private, tenant, shared) give fine-grained control within your organization.</p>
+          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--text);">Seguridad a Nivel de Fila con políticas FORCE</h3>
+          <p class="mt-3 text-sm" style="color: var(--text-muted);">Cada tabla de la base de datos usa Seguridad a Nivel de Fila de PostgreSQL con políticas <code class="tag-mono">FORCE</code>. El aislamiento de tenant se aplica en la capa de base de datos — no en la capa de aplicación. Incluso un endpoint de API mal configurado no puede recuperar datos de otro tenant porque la base de datos rechaza la consulta antes de devolver filas.</p>
+          <p class="mt-3 text-sm" style="color: var(--text-muted);">Las API keys llevan contexto de tenant. Los scopes read, write y admin limitan lo que cada key puede hacer. Las configuraciones de visibilidad de proyecto (privado, tenant, compartido) ofrecen control granular dentro de tu organización.</p>
         </div>
         <div class="surface-card p-6">
-          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--text);">Project-scoped queries</h3>
-          <p class="mt-3 text-sm" style="color: var(--text-muted);">Every observation, session, and context injection is scoped to a specific project. Queries never cross project boundaries — not by default, not by accident, not by fallback. When a project has no data, you get zero results — not a leak from another project's history.</p>
-          <p class="mt-3 text-sm" style="color: var(--text-muted);">Project names are derived from Git remote, config file, or CWD basename. There is no generic fallback scope. The LEAK-01 postmortem above explains why.</p>
+          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--text);">Consultas scoped por proyecto</h3>
+          <p class="mt-3 text-sm" style="color: var(--text-muted);">Cada observación, sesión e inyección de contexto está scoped a un proyecto específico. Las consultas nunca cruzan fronteras de proyecto — no por defecto, no por accidente, no por fallback. Cuando un proyecto no tiene datos, recibes cero resultados — no una fuga del historial de otro proyecto.</p>
+          <p class="mt-3 text-sm" style="color: var(--text-muted);">Los nombres de proyecto se derivan del remote de Git, archivo de configuración o basename del CWD. No existe un scope fallback genérico. El postmortem LEAK-01 arriba explica por qué.</p>
         </div>
       </div>
     </div>
@@ -150,18 +150,18 @@ const jsonLd = {
   <!-- ====== BYOK + ENCRYPTION ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line-subtle);">
     <div class="mx-auto max-w-4xl">
-      <span class="layer-label">Encryption</span>
-      <h2 class="mt-4">Your keys, your models</h2>
+      <span class="layer-label">Encriptación</span>
+      <h2 class="mt-4">Tus keys, tus modelos</h2>
       <div class="mt-8 grid gap-8 lg:grid-cols-2">
         <div class="surface-card p-6">
-          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--text);">BYOK on every tier</h3>
-          <p class="mt-3 text-sm" style="color: var(--text-muted);">On every plan — including the free tier — you can configure your own LLM and embedding provider keys. OpenAI, Anthropic, or any compatible endpoint. Your AI provider keys are encrypted at rest and never shared between tenants or used for any purpose other than your own Morpheus pipeline and embedding operations.</p>
-          <p class="mt-3 text-sm" style="color: var(--text-muted);">We never train on your data. We never use your AI keys for anyone else's requests.</p>
+          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--text);">BYOK en cada plan</h3>
+          <p class="mt-3 text-sm" style="color: var(--text-muted);">En cada plan — incluyendo el plan gratuito — puedes configurar tus propias keys de proveedores de LLM y embeddings. OpenAI, Anthropic o cualquier endpoint compatible. Tus keys de proveedor de IA están encriptadas en reposo y nunca se comparten entre tenants ni se usan para ningún propósito que no sea tu propio pipeline Morpheus y operaciones de embeddings.</p>
+          <p class="mt-3 text-sm" style="color: var(--text-muted);">Nunca entrenamos con tu data. Nunca usamos tus keys de IA para las peticiones de nadie más.</p>
         </div>
         <div class="surface-card p-6">
-          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--text);">API key security</h3>
-          <p class="mt-3 text-sm" style="color: var(--text-muted);">API keys are hashed at rest using SHA-256. Keys are never stored in plaintext and never appear in hook commands, logs, or error messages. The <code class="tag-mono">~/.agent-memory/env</code> file provides secure key management with file-system permissions.</p>
-          <p class="mt-3 text-sm" style="color: var(--text-muted);">Full REST API export is available at any time. No vendor lock-in, no data hostage situation. Your memory travels with you.</p>
+          <h3 style="font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--text);">Seguridad de API keys</h3>
+          <p class="mt-3 text-sm" style="color: var(--text-muted);">Las API keys están hasheadas en reposo usando SHA-256. Las keys nunca se almacenan en texto plano y nunca aparecen en comandos de hook, logs o mensajes de error. El archivo <code class="tag-mono">~/.agent-memory/env</code> proporciona gestión segura de keys con permisos de sistema de archivos.</p>
+          <p class="mt-3 text-sm" style="color: var(--text-muted);">La exportación completa por REST API está disponible en cualquier momento. Sin vendor lock-in, sin data como rehén. Tu memoria viaja contigo.</p>
           <div class="mt-4 code-terminal">
             <div class="code-terminal-bar">
               <span class="code-terminal-dot code-terminal-dot-red"></span>
@@ -170,7 +170,7 @@ const jsonLd = {
               <span class="ml-4 font-mono text-[10px]" style="color: var(--text-muted);">terminal</span>
             </div>
             <div class="code-terminal-body">
-              <pre style="white-space: pre-wrap; word-break: break-all;"><span class="syn-cmt"># Export all observations for a project</span>
+              <pre style="white-space: pre-wrap; word-break: break-all;"><span class="syn-cmt"># Exportar todas las observaciones de un proyecto</span>
 <span class="syn-kw">$</span> curl https://api.telepathine.ai/v1/observations \
   -H <span class="syn-str">"Authorization: Bearer $TELEPATHINE_API_KEY"</span> \
   -G -d <span class="syn-str">"project=my-project&limit=10000"</span> \
@@ -185,53 +185,53 @@ const jsonLd = {
   <!-- ====== COMPLIANCE ROADMAP ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line);">
     <div class="mx-auto max-w-4xl">
-      <span class="layer-label">Compliance</span>
-      <h2 class="mt-4">Compliance roadmap</h2>
-      <p class="mt-4 max-w-xl text-sm" style="color: var(--text-muted);">Honest status, not marketing claims. In progress does not mean compliant. Partial does not mean certified.</p>
+      <span class="layer-label">Cumplimiento</span>
+      <h2 class="mt-4">Hoja de ruta de cumplimiento</h2>
+      <p class="mt-4 max-w-xl text-sm" style="color: var(--text-muted);">Estado honesto, no afirmaciones de marketing. En progreso no significa conforme. Parcial no significa certificado.</p>
       <div class="mt-8 overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
             <tr style="border-bottom: 1px solid var(--line);">
-              <th class="pb-3 pr-4 text-left text-xs" style="color: var(--text-muted);">Standard</th>
-              <th class="pb-3 px-4 text-center text-xs" style="color: var(--text-muted);">Status</th>
-              <th class="pb-3 pl-4 text-left text-xs" style="color: var(--text-muted);">What to expect</th>
+              <th class="pb-3 pr-4 text-left text-xs" style="color: var(--text-muted);">Estándar</th>
+              <th class="pb-3 px-4 text-center text-xs" style="color: var(--text-muted);">Estado</th>
+              <th class="pb-3 pl-4 text-left text-xs" style="color: var(--text-muted);">Qué esperar</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
-              <td class="py-3 pr-4 font-semibold" style="color: var(--text);">RLS (FORCE policies)</td>
-              <td class="py-3 px-4 text-center"><span class="badge-stable rounded-full px-2 py-0.5 text-xs font-medium">Live</span></td>
-              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">Every table, FORCE policies. Database-layer enforcement.</td>
+              <td class="py-3 pr-4 font-semibold" style="color: var(--text);">RLS (políticas FORCE)</td>
+              <td class="py-3 px-4 text-center"><span class="badge-stable rounded-full px-2 py-0.5 text-xs font-medium">Activo</span></td>
+              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">Cada tabla, políticas FORCE. Aplicación en la capa de base de datos.</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
               <td class="py-3 pr-4 font-semibold" style="color: var(--text);">BYOK</td>
-              <td class="py-3 px-4 text-center"><span class="badge-stable rounded-full px-2 py-0.5 text-xs font-medium">Live</span></td>
-              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">Your keys, your models. Free on all tiers.</td>
+              <td class="py-3 px-4 text-center"><span class="badge-stable rounded-full px-2 py-0.5 text-xs font-medium">Activo</span></td>
+              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">Tus keys, tus modelos. Gratis en todos los planes.</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
-              <td class="py-3 pr-4 font-semibold" style="color: var(--text);">Export (full REST API)</td>
-              <td class="py-3 px-4 text-center"><span class="badge-stable rounded-full px-2 py-0.5 text-xs font-medium">Live</span></td>
-              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">Full REST API, no lock-in. Export any time.</td>
+              <td class="py-3 pr-4 font-semibold" style="color: var(--text);">Exportación (REST API completa)</td>
+              <td class="py-3 px-4 text-center"><span class="badge-stable rounded-full px-2 py-0.5 text-xs font-medium">Activo</span></td>
+              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">REST API completa, sin lock-in. Exporta en cualquier momento.</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
               <td class="py-3 pr-4 font-semibold" style="color: var(--text);">SOC 2 Type I</td>
-              <td class="py-3 px-4 text-center"><span class="badge-beta rounded-full px-2 py-0.5 text-xs font-medium">In progress</span></td>
-              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">Targeting Q3 2026. Not yet certified.</td>
+              <td class="py-3 px-4 text-center"><span class="badge-beta rounded-full px-2 py-0.5 text-xs font-medium">En progreso</span></td>
+              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">Objetivo Q3 2026. Aún no certificado.</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
               <td class="py-3 pr-4 font-semibold" style="color: var(--text);">SOC 2 Type II</td>
-              <td class="py-3 px-4 text-center"><span class="badge-alpha rounded-full px-2 py-0.5 text-xs font-medium">Planned</span></td>
-              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">Targeting Q3 2027. Dependent on Type I completion.</td>
+              <td class="py-3 px-4 text-center"><span class="badge-alpha rounded-full px-2 py-0.5 text-xs font-medium">Planificado</span></td>
+              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">Objetivo Q3 2027. Depende de completar Type I.</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
               <td class="py-3 pr-4 font-semibold" style="color: var(--text);">GDPR</td>
-              <td class="py-3 px-4 text-center"><span class="badge-alpha rounded-full px-2 py-0.5 text-xs font-medium">Partial</span></td>
-              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">Export API supports right-to-access. Right-to-erasure endpoint and DPA in progress. Not yet compliant.</td>
+              <td class="py-3 px-4 text-center"><span class="badge-alpha rounded-full px-2 py-0.5 text-xs font-medium">Parcial</span></td>
+              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">La API de exportación soporta derecho de acceso. El endpoint de derecho de supresión y DPA están en progreso. Aún no conforme.</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
               <td class="py-3 pr-4 font-semibold" style="color: var(--text);">HIPAA</td>
               <td class="py-3 px-4 text-center"><span class="rounded-full border px-2 py-0.5 text-xs font-medium" style="border-color: var(--line); color: var(--text-muted);">N/A</span></td>
-              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">We do not process Protected Health Information. HIPAA does not apply.</td>
+              <td class="py-3 pl-4 text-sm" style="color: var(--text-muted);">No procesamos Información de Salud Protegida. HIPAA no aplica.</td>
             </tr>
           </tbody>
         </table>
@@ -242,45 +242,45 @@ const jsonLd = {
   <!-- ====== TRUST LANGUAGE ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line-subtle);">
     <div class="mx-auto max-w-4xl">
-      <span class="layer-label">Language</span>
-      <h2 class="mt-4">What we say and why</h2>
-      <p class="mt-4 max-w-xl text-sm" style="color: var(--text-muted);">Specific, verifiable language over marketing abstraction. If we cannot prove it, we do not claim it.</p>
+      <span class="layer-label">Lenguaje</span>
+      <h2 class="mt-4">Lo que decimos y por qué</h2>
+      <p class="mt-4 max-w-xl text-sm" style="color: var(--text-muted);">Lenguaje específico y verificable por sobre abstracción de marketing. Si no podemos demostrarlo, no lo afirmamos.</p>
       <div class="mt-8 overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
             <tr style="border-bottom: 1px solid var(--line);">
-              <th class="pb-3 pr-4 text-left text-xs" style="color: var(--accent-secondary);">We say</th>
-              <th class="pb-3 pl-4 text-left text-xs" style="color: #ef4444;">We never say</th>
+              <th class="pb-3 pr-4 text-left text-xs" style="color: var(--accent-secondary);">Decimos</th>
+              <th class="pb-3 pl-4 text-left text-xs" style="color: #ef4444;">Nunca decimos</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Row-Level Security with FORCE policies</td>
-              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">Enterprise-grade security</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Seguridad a Nivel de Fila con políticas FORCE</td>
+              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">Seguridad de nivel empresarial</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Per-tenant, per-project isolation</td>
-              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">Data is kept safe</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Aislamiento por tenant y por proyecto</td>
+              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">Los datos se mantienen seguros</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">API keys hashed at rest (SHA-256)</td>
-              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">Military-grade encryption</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">API keys hasheadas en reposo (SHA-256)</td>
+              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">Encriptación de grado militar</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">No default fallback — zero results for unknown projects</td>
-              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">We take isolation seriously</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Sin fallback por defecto — cero resultados para proyectos desconocidos</td>
+              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">Tomamos el aislamiento en serio</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Regression tests prevent reintroduction</td>
-              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">This will never happen again</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Las pruebas de regresión previenen reintroducción</td>
+              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">Esto nunca volverá a pasar</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line-subtle);">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">BYOK — your keys, your models</td>
-              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">We protect your data</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">BYOK — tus keys, tus modelos</td>
+              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">Protegemos tus datos</td>
             </tr>
             <tr>
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Full REST API, no lock-in</td>
-              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">Seamless integration</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">REST API completa, sin lock-in</td>
+              <td class="py-3 pl-4" style="color: var(--text-muted); opacity: 0.5; text-decoration: line-through;">Integración seamless</td>
             </tr>
           </tbody>
         </table>
@@ -291,35 +291,35 @@ const jsonLd = {
   <!-- ====== SECURITY PRINCIPLES ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line);">
     <div class="mx-auto max-w-4xl">
-      <span class="layer-label">Principles</span>
-      <h2 class="mt-4">Security principles</h2>
+      <span class="layer-label">Principios</span>
+      <h2 class="mt-4">Principios de seguridad</h2>
       <div class="mt-8 space-y-6">
         <div class="flex gap-4">
           <div class="step-circle">1</div>
           <div>
-            <h3 class="font-semibold" style="color: var(--text);">Isolation by default</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">Data is scoped to your tenant and project. There is no "see everything" mode. Zero results for a new project is correct behavior — not a bug to work around with fallback scopes.</p>
+            <h3 class="font-semibold" style="color: var(--text);">Aislamiento por defecto</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">Los datos están scoped a tu tenant y proyecto. No existe modo "ver todo". Cero resultados para un proyecto nuevo es comportamiento correcto — no un bug para solucionar con scopes de fallback.</p>
           </div>
         </div>
         <div class="flex gap-4">
           <div class="step-circle">2</div>
           <div>
-            <h3 class="font-semibold" style="color: var(--text);">Verify, don't trust</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">Regression tests guard against known isolation failures. When we find a leak, we fix it, backfill affected data, and write a test that catches a recurrence. Guard tests run in CI on every push.</p>
+            <h3 class="font-semibold" style="color: var(--text);">Verifica, no confíes</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">Las pruebas de regresión protegen contra fallas de aislamiento conocidas. Cuando encontramos una fuga, la corregimos, retrofillamos la data afectada y escribimos una prueba que detecta recurrencias. Las pruebas guardia se ejecutan en CI en cada push.</p>
           </div>
         </div>
         <div class="flex gap-4">
           <div class="step-circle">3</div>
           <div>
-            <h3 class="font-semibold" style="color: var(--text);">Transparency over silence</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">When we find a security issue, we document it. We published the details of our cross-project isolation fix because transparency builds trust — and because a test you can read is worth more than a claim you cannot verify.</p>
+            <h3 class="font-semibold" style="color: var(--text);">Transparencia por sobre silencio</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">Cuando encontramos un problema de seguridad, lo documentamos. Publicamos los detalles de nuestra corrección de aislamiento entre proyectos porque la transparencia genera confianza — y porque una prueba que puedes leer vale más que una afirmación que no puedes verificar.</p>
           </div>
         </div>
         <div class="flex gap-4">
           <div class="step-circle">4</div>
           <div>
-            <h3 class="font-semibold" style="color: var(--text);">Your keys, your models</h3>
-            <p class="mt-1 text-sm" style="color: var(--text-muted);">BYOK on every tier. We never use your AI provider keys for anything other than your own requests. We never train on your data. Your LLM calls, your embeddings, your Morpheus summaries — all processed with keys you control.</p>
+            <h3 class="font-semibold" style="color: var(--text);">Tus keys, tus modelos</h3>
+            <p class="mt-1 text-sm" style="color: var(--text-muted);">BYOK en cada plan. Nunca usamos tus keys de proveedor de IA para nada más que tus propias peticiones. Nunca entrenamos con tu data. Tus llamadas LLM, tus embeddings, tus resúmenes Morpheus — todo procesado con keys que tú controlas.</p>
           </div>
         </div>
       </div>
@@ -329,27 +329,27 @@ const jsonLd = {
   <!-- ====== RESPONSIBLE DISCLOSURE ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line-subtle);">
     <div class="mx-auto max-w-4xl">
-      <h2>Report a vulnerability</h2>
-      <p class="mt-4 max-w-xl text-sm" style="color: var(--text-muted);">Found a security issue? We want to hear about it — and we will credit responsible disclosures.</p>
+      <h2>Reporta una vulnerabilidad</h2>
+      <p class="mt-4 max-w-xl text-sm" style="color: var(--text-muted);">¿Encontraste un problema de seguridad? Queremos saber de él — y creditaremos las divulgaciones responsables.</p>
       <div class="mt-6 rounded-lg border p-6" style="background: var(--bg-card); border-color: var(--line-strong);">
         <div class="grid gap-6 sm:grid-cols-2">
           <div>
-            <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--text-muted);">Email</p>
+            <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--text-muted);">Correo</p>
             <p class="mt-2 text-sm" style="color: var(--text);">
               <a href="mailto:security@telepathine.ai" class="content-link">security@telepathine.ai</a>
             </p>
           </div>
           <div>
             <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--text-muted);">PGP</p>
-            <p class="mt-2 text-sm" style="color: var(--text-muted);">Available on request. Encrypt sensitive reports before sending.</p>
+            <p class="mt-2 text-sm" style="color: var(--text-muted);">Disponible bajo solicitud. Encripta reportes sensibles antes de enviarlos.</p>
           </div>
           <div>
-            <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--text-muted);">Response time</p>
-            <p class="mt-2 text-sm" style="color: var(--text-copy);">Within 48 hours.</p>
+            <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--text-muted);">Tiempo de respuesta</p>
+            <p class="mt-2 text-sm" style="color: var(--text-copy);">Dentro de 48 horas.</p>
           </div>
           <div>
-            <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--text-muted);">Policy</p>
-            <p class="mt-2 text-sm" style="color: var(--text-copy);">We credit responsible disclosures. We do not pursue legal action against good-faith researchers.</p>
+            <p class="font-mono text-xs uppercase tracking-widest" style="color: var(--text-muted);">Política</p>
+            <p class="mt-2 text-sm" style="color: var(--text-copy);">Creditamos divulgaciones responsables. No emprendemos acciones legales contra investigadores de buena fe.</p>
           </div>
         </div>
       </div>

@@ -3,28 +3,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const faqItems = [
   {
-    question: 'Why do I need a Claude memory alternative?',
-    answer: 'Claude\'s built-in memory only works within the Claude ecosystem. If you use Cursor for implementation, Gemini for research, or any other agent alongside Claude, your accumulated context stays locked in Claude. A portable alternative ensures your memory travels with your project — not your subscription.',
+    question: '¿Por qué necesito una alternativa a la memoria de Claude?',
+    answer: 'La memoria integrada de Claude solo funciona dentro del ecosistema de Claude. Si usas Cursor para implementación, Gemini para investigación o cualquier otro agente junto con Claude, tu contexto acumulado se queda bloqueado en Claude. Una alternativa portátil asegura que tu memoria viaja con tu proyecto — no con tu suscripción.',
   },
   {
-    question: 'Does Telepathine work with Claude Code?',
-    answer: 'Yes — Claude Code is one of our best-supported connectors. Telepathine adds project-scoped memory, hybrid search, the Morpheus pipeline, and the Signal Bus on top of Claude\'s native capabilities. Your Claude sessions write to project memory; other agents read from the same memory.',
+    question: '¿Telepathine funciona con Claude Code?',
+    answer: 'Sí — Claude Code es uno de nuestros conectores mejor soportados. Telepathine agrega memoria scoped por proyecto, búsqueda híbrida, el pipeline Morpheus y el Signal Bus encima de las capacidades nativas de Claude. Tus sesiones de Claude escriben a la memoria del proyecto; otros agentes leen de la misma memoria.',
   },
   {
-    question: 'Can I migrate from Claude memory to Telepathine?',
-    answer: 'Yes. Three steps: (1) Install the Telepathine MCP server in your .mcp.json, (2) set your API key, (3) start a session. Existing Claude memory remains in your Claude account — Telepathine adds a portable layer on top. No data loss, no migration friction.',
+    question: '¿Puedo migrar de la memoria de Claude a Telepathine?',
+    answer: 'Sí. Tres pasos: (1) Instala el servidor MCP de Telepathine en tu .mcp.json, (2) configura tu API key, (3) inicia una sesión. La memoria existente de Claude permanece en tu cuenta de Claude — Telepathine agrega una capa portátil encima. Sin pérdida de datos, sin fricción de migración.',
   },
   {
-    question: 'Is project-scoped memory better than user-scoped?',
-    answer: 'For teams, yes. User-scoped memory ties observations to one person — what Developer A learns, Developer B cannot access. Project-scoped memory means all agents and developers on a project share the same knowledge base. Institutional knowledge replaces individual silos.',
+    question: '¿Es mejor la memoria scoped por proyecto que la scoped por usuario?',
+    answer: 'Para equipos, sí. La memoria scoped por usuario vincula las observaciones a una persona — lo que el Desarrollador A aprende, el Desarrollador B no puede acceder. La memoria scoped por proyecto significa que todos los agentes y desarrolladores en un proyecto comparten la misma base de conocimiento. El conocimiento institucional reemplaza los silos individuales.',
   },
   {
-    question: 'What does the Signal Bus add over Claude memory?',
-    answer: 'Claude memory is single-agent — there\'s no way for a Claude session to relay findings to a Cursor session in real time. The Signal Bus enables structured message broadcasting between agents via channels. Findings, decisions, and alerts flow between agents without human mediation.',
+    question: '¿Qué agrega el Signal Bus sobre la memoria de Claude?',
+    answer: 'La memoria de Claude es de un solo agente — no hay forma de que una sesión de Claude transmita hallazgos a una sesión de Cursor en tiempo real. El Signal Bus habilita la transmisión estructurada de mensajes entre agentes a través de canales. Hallazgos, decisiones y alertas fluyen entre agentes sin mediación humana.',
   },
   {
-    question: 'Can I self-host instead of using Claude\'s cloud?',
-    answer: 'Yes. The entire Telepathine stack — REST API, MCP server, Morpheus pipeline, Signal Bus — is open source under Apache 2.0. Run it behind your firewall, on your own database, under your compliance regime.',
+    question: '¿Puedo autohospedar en lugar de usar el cloud de Claude?',
+    answer: 'Sí. Todo el stack de Telepathine — REST API, servidor MCP, pipeline Morpheus, Signal Bus — es open source bajo Apache 2.0. Ejecútalo detrás de tu firewall, en tu propia base de datos, bajo tu régimen de cumplimiento.',
   },
 ];
 
@@ -33,16 +33,16 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'TechArticle',
-      headline: 'Claude Memory Alternative — Portable, Project-Scoped Memory',
-      description: 'Looking for a Claude memory alternative? Telepathine.ai gives you persistent, project-scoped memory that works with Claude, Cursor, Gemini, and every other agent — not just one.',
+      headline: 'Alternativa a Claude Memory — Memoria Portátil y Scoped por Proyecto',
+      description: '¿Buscas una alternativa a la memoria de Claude? Telepathine.ai te da memoria persistente y scoped por proyecto que funciona con Claude, Cursor, Gemini y todos los demás agentes — no solo uno.',
       url: 'https://telepathine.ai/claude-memory-alternative',
       author: {
         '@type': 'Organization',
-        name: 'ELiA',
+        name: 'ArtemisAI',
       },
       publisher: {
         '@type': 'Organization',
-        name: 'ELiA',
+        name: 'ArtemisAI',
       },
       datePublished: '2026-05-23',
     },
@@ -62,18 +62,18 @@ const jsonLd = {
 ---
 
 <BaseLayout
-  title="Claude Memory Alternative — Portable, Project-Scoped"
-  description="Claude's memory only works with Claude. Telepathine.ai gives you persistent, project-scoped memory that works with Claude AND every other agent — not just one."
+  title="Alternativa a Claude Memory — Portátil, Scoped por Proyecto"
+  description="La memoria de Claude solo funciona con Claude. Telepathine.ai te da memoria persistente y scoped por proyecto que funciona con Claude Y con todos los demás agentes — no solo uno."
   jsonLd={jsonLd}
   canonicalUrl="https://telepathine.ai/claude-memory-alternative"
 >
   <!-- ====== HERO ====== -->
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
     <div class="mx-auto max-w-3xl text-left">
-      <p class="layer-label">Alternative</p>
-      <h1 class="mt-2">Claude Memory Alternative — Portable, Project-Scoped</h1>
+      <p class="layer-label">Alternativa</p>
+      <h1 class="mt-2">Alternativa a Claude Memory — Portátil, Scoped por Proyecto</h1>
       <p class="mt-6 text-lg" style="color: var(--text-copy);">
-        <strong>Claude's memory only works with Claude.</strong> If you use multiple agents or need project-scoped context across a team, you need a portable alternative. Telepathine.ai works with Claude — and every other agent.
+        La <strong>memoria de Claude solo funciona con Claude.</strong> Si usas múltiples agentes o necesitas contexto scoped por proyecto en un equipo, necesitas una alternativa portátil. Telepathine.ai funciona con Claude — y con todos los demás agentes.
       </p>
     </div>
   </section>
@@ -81,50 +81,50 @@ const jsonLd = {
   <!-- ====== THE PAIN ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
     <div class="mx-auto max-w-3xl space-y-8 text-left">
-      <h2>The vendor lock-in problem</h2>
-      <p style="color: var(--text-muted);">Claude's memory is a good start. But every major AI vendor wants to own your memory — because it creates lock-in. The more context you've built up, the harder it is to leave. Your accumulated institutional knowledge becomes a switching cost.</p>
+      <h2>El problema del vendor lock-in</h2>
+      <p style="color: var(--text-muted);">La memoria de Claude es un buen comienzo. Pero cada proveedor de IA importante quiere ser dueño de tu memoria — porque crea lock-in. Cuanto más contexto has acumulado, más difícil es irte. Tu conocimiento institucional acumulado se convierte en un costo de cambio.</p>
 
       <div class="mt-6 space-y-4">
         <div class="surface-card p-4" style="border-left: 3px solid var(--accent);">
-          <p style="color: var(--text); font-size: 1.125rem; font-weight: 500;">Claude's memory only works with Claude.</p>
+          <p style="color: var(--text); font-size: 1.125rem; font-weight: 500;">La memoria de Claude solo funciona con Claude.</p>
         </div>
         <div class="surface-card p-4" style="border-left: 3px solid var(--accent);">
-          <p style="color: var(--text); font-size: 1.125rem; font-weight: 500;">ChatGPT's memory only works with ChatGPT.</p>
+          <p style="color: var(--text); font-size: 1.125rem; font-weight: 500;">La memoria de ChatGPT solo funciona con ChatGPT.</p>
         </div>
         <div class="surface-card p-4" style="border-left: 3px solid var(--accent-secondary);">
-          <p style="color: var(--text); font-size: 1.125rem; font-weight: 500;">Telepathine works with all of them.</p>
+          <p style="color: var(--text); font-size: 1.125rem; font-weight: 500;">Telepathine funciona con todos.</p>
         </div>
       </div>
 
-      <p class="mt-4" style="color: var(--text-muted);"><strong style="color: var(--text);">70%+ of organizations run 3+ LLM models in production</strong> (Datadog 2026). When every developer on your team uses a different agent, vendor-locked memory creates silos. Developer A's Claude sessions can't inform Developer B's Cursor sessions.</p>
+      <p class="mt-4" style="color: var(--text-muted);"><strong style="color: var(--text);">El 70%+ de las organizaciones ejecutan 3+ modelos LLM en producción</strong> (Datadog 2026). Cuando cada desarrollador de tu equipo usa un agente diferente, la memoria bloqueada por proveedor crea silos. Las sesiones de Claude del Desarrollador A no pueden informar las sesiones de Cursor del Desarrollador B.</p>
     </div>
   </section>
 
   <!-- ====== WHERE CLAUDE FALLS SHORT ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-3xl space-y-8 text-left">
-      <h2>Where Claude memory falls short</h2>
+      <h2>Dónde la memoria de Claude se queda corta</h2>
 
       <div class="mt-4 space-y-4">
         <div class="surface-card p-4">
           <h3 class="text-sm font-semibold" style="color: var(--accent);">Vendor lock-in</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Claude memory only works within the Claude ecosystem. Your accumulated context can't travel to Cursor, Gemini, Windsurf, or any other agent. When you switch tools, your memory doesn't follow. Every switch is a reset to zero.</p>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">La memoria de Claude solo funciona dentro del ecosistema de Claude. Tu contexto acumulado no puede viajar a Cursor, Gemini, Windsurf o cualquier otro agente. Cuando cambias de herramienta, tu memoria no te sigue. Cada cambio es un reset a cero.</p>
         </div>
         <div class="surface-card p-4">
-          <h3 class="text-sm font-semibold" style="color: var(--accent);">User-scoped, not project-scoped</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Claude memory is tied to your user account, not your project. When multiple developers work on the same codebase, their memories don't merge into a shared project knowledge base. What one developer teaches Claude, another developer's Claude session never sees.</p>
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Scoped por usuario, no por proyecto</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">La memoria de Claude está vinculada a tu cuenta de usuario, no a tu proyecto. Cuando múltiples desarrolladores trabajan en el mismo codebase, sus memorias no se fusionan en una base de conocimiento compartida del proyecto. Lo que un desarrollador le enseña a Claude, la sesión de Claude de otro desarrollador nunca lo ve.</p>
         </div>
         <div class="surface-card p-4">
-          <h3 class="text-sm font-semibold" style="color: var(--accent);">No structured intelligence</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Claude memory stores preferences and notes. It doesn't have a Morpheus pipeline — automatic normalization, deduplication, supersession of stale entries, time-based decay, consolidation, and progressive context injection with token budget optimization.</p>
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Sin inteligencia estructurada</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">La memoria de Claude almacena preferencias y notas. No tiene un pipeline Morpheus — normalización automática, deduplicación, reemplazo de entradas obsoletas, decaimiento temporal, consolidación e inyección de contexto progresiva con optimización de presupuesto de tokens.</p>
         </div>
         <div class="surface-card p-4">
-          <h3 class="text-sm font-semibold" style="color: var(--accent);">No agent communication</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Claude memory is single-agent. There's no way for a Claude session to relay findings to a Cursor session in real time. No channel-based communication bus. Agents working on the same project operate in isolation.</p>
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Sin comunicación entre agentes</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">La memoria de Claude es de un solo agente. No hay forma de que una sesión de Claude transmita hallazgos a una sesión de Cursor en tiempo real. Sin bus de comunicación basado en canales. Los agentes que trabajan en el mismo proyecto operan en aislamiento.</p>
         </div>
         <div class="surface-card p-4">
-          <h3 class="text-sm font-semibold" style="color: var(--accent);">No self-hosting</h3>
-          <p class="mt-1 text-sm" style="color: var(--text-muted);">Claude memory runs on Anthropic's infrastructure. You can't run it behind your firewall, on your own database, or under your compliance regime. No BYOK. No data export API. No Apache 2.0 license.</p>
+          <h3 class="text-sm font-semibold" style="color: var(--accent);">Sin autohospedaje</h3>
+          <p class="mt-1 text-sm" style="color: var(--text-muted);">La memoria de Claude se ejecuta en la infraestructura de Anthropic. No puedes ejecutarla detrás de tu firewall, en tu propia base de datos o bajo tu régimen de cumplimiento. Sin BYOK. Sin API de exportación de datos. Sin licencia Apache 2.0.</p>
         </div>
       </div>
     </div>
@@ -133,55 +133,55 @@ const jsonLd = {
   <!-- ====== COMPARISON TABLE ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
     <div class="mx-auto max-w-3xl space-y-8 text-left">
-      <h2>Feature comparison</h2>
+      <h2>Comparación de funciones</h2>
 
       <div class="mt-4 overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
             <tr style="border-bottom: 1px solid var(--line);">
-              <th class="pb-3 pr-4 text-left text-xs" style="color: var(--text-muted);">Feature</th>
-              <th class="pb-3 px-3 text-left text-xs" style="color: var(--text-muted);">Claude Memory</th>
+              <th class="pb-3 pr-4 text-left text-xs" style="color: var(--text-muted);">Función</th>
+              <th class="pb-3 px-3 text-left text-xs" style="color: var(--text-muted);">Memoria de Claude</th>
               <th class="pb-3 pl-3 text-left text-xs" style="color: var(--accent);">Telepathine.ai</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Works with</td>
-              <td class="py-3 px-3" style="color: var(--text-muted);">Claude only</td>
-              <td class="py-3 pl-3" style="color: var(--text);">17 agents (incl. Claude)</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Funciona con</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Solo Claude</td>
+              <td class="py-3 pl-3" style="color: var(--text);">17 agentes (incl. Claude)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
               <td class="py-3 pr-4" style="color: var(--text-copy);">Scope</td>
-              <td class="py-3 px-3" style="color: var(--text-muted);">User-level</td>
-              <td class="py-3 pl-3" style="color: var(--text);">Project-scoped</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Nivel de usuario</td>
+              <td class="py-3 pl-3" style="color: var(--text);">Scoped por proyecto</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Protocol</td>
-              <td class="py-3 px-3" style="color: var(--text-muted);">Proprietary</td>
-              <td class="py-3 pl-3" style="color: var(--text);">MCP-native (13 tools)</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Protocolo</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Propietario</td>
+              <td class="py-3 pl-3" style="color: var(--text);">Nativo de MCP (13 herramientas)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Search</td>
-              <td class="py-3 px-3" style="color: var(--text-muted);">Basic recall</td>
-              <td class="py-3 pl-3" style="color: var(--text);">Hybrid (FTS + vector)</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Búsqueda</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Recuperación básica</td>
+              <td class="py-3 pl-3" style="color: var(--text);">Híbrida (FTS + vector)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Intelligence</td>
-              <td class="py-3 px-3" style="color: var(--text-muted);">Raw storage</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Inteligencia</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Almacenamiento bruto</td>
               <td class="py-3 pl-3" style="color: var(--text);">Morpheus pipeline</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Agent comms</td>
-              <td class="py-3 px-3" style="color: var(--text-muted);">None</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Comunicación entre agentes</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Ninguna</td>
               <td class="py-3 pl-3" style="color: var(--text);">Signal Bus (SSE)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Token cost</td>
-              <td class="py-3 px-3" style="color: var(--text-muted);">Full context (~25K)</td>
-              <td class="py-3 pl-3" style="color: var(--text);">Progressive (~7K)</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Costo de tokens</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Contexto completo (~25K)</td>
+              <td class="py-3 pl-3" style="color: var(--text);">Progresivo (~7K)</td>
             </tr>
             <tr style="border-bottom: 1px solid var(--line); opacity: 0.8;">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Self-host</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Autohospedaje</td>
               <td class="py-3 px-3" style="color: var(--text-muted);">No</td>
               <td class="py-3 pl-3" style="color: var(--text);">Apache 2.0</td>
             </tr>
@@ -191,9 +191,9 @@ const jsonLd = {
               <td class="py-3 pl-3" style="color: var(--text);">Every tier</td>
             </tr>
             <tr style="opacity: 0.8;">
-              <td class="py-3 pr-4" style="color: var(--text-copy);">Data export</td>
-              <td class="py-3 px-3" style="color: var(--text-muted);">Limited</td>
-              <td class="py-3 pl-3" style="color: var(--text);">Full REST API</td>
+              <td class="py-3 pr-4" style="color: var(--text-copy);">Exportación de datos</td>
+              <td class="py-3 px-3" style="color: var(--text-muted);">Limitada</td>
+              <td class="py-3 pl-3" style="color: var(--text);">REST API completa</td>
             </tr>
           </tbody>
         </table>
@@ -204,8 +204,8 @@ const jsonLd = {
   <!-- ====== MIGRATION ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-3xl space-y-8 text-left">
-      <h2>Migrate in 3 steps</h2>
-      <p style="color: var(--text-muted);">Telepathine isn't anti-Claude — it's pro-portability. Your Claude sessions continue to work. Telepathine adds a portable memory layer on top.</p>
+      <h2>Migra en 3 pasos</h2>
+      <p style="color: var(--text-muted);">Telepathine no es anti-Claude — es pro-portabilidad. Tus sesiones de Claude siguen funcionando. Telepathine agrega una capa de memoria portátil encima.</p>
 
       <div class="code-terminal mt-6">
         <div class="code-terminal-bar">
@@ -215,7 +215,7 @@ const jsonLd = {
           <span class="ml-4 font-mono text-[10px]" style="color: var(--text-muted);">migration.sh</span>
         </div>
         <div class="code-terminal-body">
-          <pre><span class="syn-cmt">// Step 1: Add Telepathine MCP server to .mcp.json</span>
+          <pre><span class="syn-cmt">// Paso 1: Agrega el servidor MCP de Telepathine a .mcp.json</span>
 &#123;
   "mcpServers": &#123;
     "telepathine": &#123;
@@ -228,14 +228,14 @@ const jsonLd = {
   &#125;
 &#125;
 
-<span class="syn-cmt">// Step 2: Your Claude Code sessions now write to</span>
-<span class="syn-cmt">// project-scoped memory — automatically</span>
+<span class="syn-cmt">// Paso 2: Tus sesiones de Claude Code ahora escriben a</span>
+<span class="syn-cmt">// memoria scoped por proyecto — automáticamente</span>
 
-<span class="syn-cmt">// Step 3: Other agents read from the same memory</span>
-<span class="syn-cmt">// Cursor, Gemini, Windsurf — same project, same context</span>
+<span class="syn-cmt">// Paso 3: Otros agentes leen de la misma memoria</span>
+<span class="syn-cmt">// Cursor, Gemini, Windsurf — mismo proyecto, mismo contexto</span>
 
-<span class="syn-cmt">// Existing Claude memory stays in your Claude account.</span>
-<span class="syn-cmt">// No data loss. No migration friction.</span></pre>
+<span class="syn-cmt">// La memoria existente de Claude permanece en tu cuenta de Claude.</span>
+<span class="syn-cmt">// Sin pérdida de datos. Sin fricción de migración.</span></pre>
         </div>
       </div>
     </div>
@@ -244,7 +244,7 @@ const jsonLd = {
   <!-- ====== FAQ ====== -->
   <section class="content-layer section-divider px-4 py-16 sm:px-6 lg:px-8" style="background: #16131180;">
     <div class="mx-auto max-w-3xl space-y-6 text-left">
-      <h2>Frequently asked questions</h2>
+      <h2>Preguntas frecuentes</h2>
       {faqItems.map(item => (
         <div class="surface-card p-4">
           <h3 class="text-sm font-semibold" style="color: var(--text);">{item.question}</h3>
@@ -257,11 +257,11 @@ const jsonLd = {
   <!-- ====== CTA ====== -->
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-3xl text-left">
-      <h2>Your memory. Your agents. Your choice.</h2>
-      <p class="mt-4" style="color: var(--text-muted);">Start free — 10K observations/month, no credit card. Works with Claude and every other agent.</p>
+      <h2>Tu memoria. Tus agentes. Tu elección.</h2>
+      <p class="mt-4" style="color: var(--text-muted);">Empieza gratis — 10K observaciones/mes, sin tarjeta de crédito. Funciona con Claude y todos los demás agentes.</p>
       <div class="mt-6 flex items-center gap-4">
-        <a href="/docs/quickstart" class="btn-accent">Get Started Free →</a>
-        <a href="/features" class="btn-ghost">See All Features</a>
+        <a href="/docs/quickstart" class="btn-accent">Comenzar Gratis →</a>
+        <a href="/features" class="btn-ghost">Ver Todas las Funciones</a>
       </div>
     </div>
   </section>

@@ -3,73 +3,73 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const features = [
   {
-    label: 'Primary',
+    label: 'Principal',
     title: 'Signal Bus',
-    description: 'Agent-to-agent communication via structured message broadcasting. Register agents on channels, broadcast thoughts, relay across channel mesh. Memory Bridge auto-persists messages as observations. No other memory product ships a real-time agent communication bus.',
+    description: 'Comunicación entre agentes mediante transmisión estructurada de mensajes. Registra agentes en canales, transmite pensamientos, retransmite a través de una malla de canales. El Memory Bridge persiste automáticamente los mensajes como observaciones. Ningún otro producto de memoria incluye un bus de comunicación entre agentes en tiempo real.',
     code: `import { telepathine } from '@telepathine/sdk';\n\nconst bus = telepathine.bus('swarm-alpha');\nbus.on('thought', (msg) => {\n  console.log(msg.agent, msg.payload);\n});\nawait bus.broadcast({ type: 'finding', payload: data });`,
     codeFile: 'bus.ts',
     visual: 'bus',
   },
   {
-    label: 'Foundation',
-    title: 'Persistent Observations',
-    description: 'Record decisions, changes, learnings, and tool interactions as structured observations. Each observation gets a type, title, narrative, extracted facts, and key concepts — automatically enriched by the Morpheus pipeline. Every session enriches a shared memory graph.',
+    label: 'Fundamento',
+    title: 'Observaciones Persistentes',
+    description: 'Registra decisiones, cambios, aprendizajes e interacciones con herramientas como observaciones estructuradas. Cada observación recibe un tipo, título, narrativa, hechos extraídos y conceptos clave — enriquecidos automáticamente por el pipeline Morpheus. Cada sesión enriquece un grafo de memoria compartido.',
     code: `await telepathine.observe({\n  type: 'decision',\n  title: 'Migrated auth to JWT',\n  narrative: 'Replaced session cookies...',\n  facts: ['Uses RS256', '15min access tokens'],\n});`,
     codeFile: 'observe.ts',
     visual: 'observe',
   },
   {
-    label: 'Intelligence',
-    title: 'Hybrid Search',
-    description: 'Combine full-text search (FTS) and semantic vector similarity in a single query. The hybrid engine merges results from both indexes, weighted 60/40 for optimal relevance. Supports fts-only, vector-only, or hybrid modes. Scoped to your project.',
+    label: 'Inteligencia',
+    title: 'Búsqueda Híbrida',
+    description: 'Combina búsqueda de texto completo (FTS) y similitud vectorial semántica en una sola consulta. El motor híbrido fusiona resultados de ambos índices, ponderados 60/40 para relevancia óptima. Soporta modos fts-only, vector-only o híbrido. Scoped a tu proyecto.',
     code: `const results = await telepathine.search({\n  query: 'authentication migration',\n  mode: 'hybrid',\n  project: 'my-app',\n  limit: 10,\n});`,
     codeFile: 'search.ts',
     visual: 'search',
   },
   {
-    label: 'Delivery',
-    title: 'Context Injection',
-    description: 'Progressive disclosure: compressed, formatted context injected into your agent\'s prompt at session start. Header, timeline, summary, footer. Your agent sees what it needs, not a data dump. ~7,000 tokens of relevant context — not 25,000+ of raw history.',
+    label: 'Entrega',
+    title: 'Inyección de Contexto',
+    description: 'Revelado progresivo: contexto comprimido y formateado inyectado en el prompt de tu agente al inicio de sesión. Encabezado, línea de tiempo, resumen, pie. Tu agente ve lo que necesita, no un volcado de datos. ~7,000 tokens de contexto relevante — no 25,000+ de historial bruto.',
     code: `const ctx = await telepathine.inject({\n  project: 'my-app',\n  scope: 'global',\n  limit: 5,\n});\n// Injected into agent prompt automatically`,
     codeFile: 'inject.ts',
     visual: 'inject',
   },
   {
-    label: 'Processing',
-    title: 'Morpheus Pipeline',
-    description: 'LLM-powered observation processing: normalize, deduplicate, supersede, apply decay, consolidate, generate retrospectives. Raw tool output becomes structured, searchable knowledge. Session summaries persist for future context injection.',
+    label: 'Procesamiento',
+    title: 'Pipeline Morpheus',
+    description: 'Procesamiento de observaciones con LLM: normalizar, deduplicar, reemplazar entradas obsoletas, aplicar decaimiento temporal, consolidar y generar retrospectivas. La salida bruta de herramientas se convierte en conocimiento estructurado y buscable. Los resúmenes de sesión persisten para futuras inyecciones de contexto.',
     code: `// Automatic on session complete\n// Morpheus processes:\n// 1. Normalize dates, formats\n// 2. Deduplicate observations\n// 3. Supersede stale entries\n// 4. Apply temporal decay\n// 5. Consolidate related items\n// 6. Generate session summary`,
     codeFile: 'morpheus.ts',
     visual: 'morpheus',
   },
   {
-    label: 'Lifecycle',
-    title: 'Session Continuity',
-    description: 'Start a session, record observations, summarize, complete. Sessions track your agent\'s work across a single interaction. Summaries persist for future context injection. Compaction recovery preserves agent identity across context window limits.',
+    label: 'Ciclo de vida',
+    title: 'Continuidad de Sesión',
+    description: 'Inicia una sesión, registra observaciones, resume, completa. Las sesiones rastrean el trabajo de tu agente a lo largo de una interacción. Los resúmenes persisten para futuras inyecciones de contexto. La recuperación por compactación preserva la identidad del agente a través de los límites de la ventana de contexto.',
     code: `const session = await telepathine.session.start({\n  project: 'my-app',\n  agent: 'claude-code',\n});\n// ... agent works ...\nawait session.complete(); // Auto-summarize`,
     codeFile: 'session.ts',
     visual: 'session',
   },
   {
-    label: 'Isolation',
-    title: 'Multi-Tenant Isolation',
-    description: 'Each tenant\'s data is fully isolated with row-level security (FORCE policies). API keys are scoped to read/write/admin. Project visibility controls (private, tenant, shared) give fine-grained access. No default fallback. Regression tests prevent reintroduction.',
+    label: 'Aislamiento',
+    title: 'Aislamiento Multi-Tenant',
+    description: 'Los datos de cada tenant están completamente aislados con seguridad a nivel de fila (políticas FORCE). Las API keys están scoped a read/write/admin. Los controles de visibilidad de proyecto (privado, tenant, compartido) ofrecen acceso granular. Sin fallback por defecto. Las pruebas de regresión evitan su reintroducción.',
     code: `-- RLS policy enforced on every table\nCREATE POLICY tenant_isolation ON observations\n  USING (tenant_id = current_setting('app.tenant'))\n  WITH CHECK (tenant_id = current_setting('app.tenant'));`,
     codeFile: 'rls.sql',
     visual: 'isolation',
   },
   {
-    label: 'Flexibility',
-    title: 'Bring Your Own Key',
-    description: 'Configure your own LLM and embedding providers per tenant. Use OpenAI, Anthropic, or any compatible endpoint. Your AI keys are hashed at rest and never shared. BYOK is free on every tier — reduces infra cost and builds trust.',
+    label: 'Flexibilidad',
+    title: 'Trae Tu Propia Key',
+    description: 'Configura tus propios proveedores de LLM y embeddings por tenant. Usa OpenAI, Anthropic o cualquier endpoint compatible. Tus keys de IA están hasheadas en reposo y nunca se comparten. BYOK es gratis en cada plan — reduce costos de infra y genera confianza.',
     code: `# .brain/memory.yaml\nllm:\n  provider: anthropic\n  model: claude-sonnet-4-20250514\n  apiKey: \$\{TELEPATHINE_LLM_KEY\}\nembedding:\n  provider: openai\n  model: text-embedding-3-small`,
     codeFile: 'config.yaml',
     visual: 'byok',
   },
   {
-    label: 'Integration',
-    title: '17 Connectors',
-    description: 'Pre-built adapters for every major coding agent: Claude Code, Cursor, Gemini, Windsurf, Copilot, Pi, Hermes, and more. MCP server gives access to any MCP-compatible client. Install in 30 seconds.',
+    label: 'Integración',
+    title: '17 Conectores',
+    description: 'Adaptadores pre-construidos para cada agente de código importante: Claude Code, Cursor, Gemini, Windsurf, Copilot, Pi, Hermes y más. El servidor MCP da acceso a cualquier cliente compatible con MCP. Instala en 30 segundos.',
     code: `$ npx @telepathine/connector install cursor\n# or for Claude Code:\n$ npx @telepathine/connector install claude\n# or use the MCP server:\n$ npx @telepathine/mcp-server`,
     codeFile: 'terminal',
     visual: 'connectors',
@@ -78,16 +78,16 @@ const features = [
 ---
 
 <BaseLayout
-  title="Features — Telepathine.ai"
-  description="The complete intelligence layer for AI agents: Signal Bus, persistent observations, hybrid search, progressive context injection, Morpheus pipeline, session lifecycle, and multi-tenant isolation."
+  title="Funciones — Telepathine.ai"
+  description="La capa de inteligencia completa para agentes IA: Signal Bus, observaciones persistentes, búsqueda híbrida, inyección de contexto progresiva, pipeline Morpheus, ciclo de vida de sesión y aislamiento multi-tenant."
 >
   <!-- ====== HEADER ====== -->
   <section class="content-layer px-4 pb-4 pt-24 sm:px-6 sm:pt-32 lg:px-8">
     <div class="mx-auto max-w-[1280px] text-left">
-      <span class="layer-label">Features</span>
-      <h1 class="mt-4">The complete intelligence layer for AI agents</h1>
+      <span class="layer-label">Funciones</span>
+      <h1 class="mt-4">La capa de inteligencia completa para agentes IA</h1>
       <p class="mt-4 max-w-2xl" style="color: var(--text-muted); line-height: 1.7;">
-        From real-time agent coordination to structured memory persistence — everything your agents need to remember, communicate, and build institutional knowledge.
+        Desde coordinación de agentes en tiempo real hasta persistencia de memoria estructurada — todo lo que tus agentes necesitan para recordar, comunicarse y construir conocimiento institucional.
       </p>
     </div>
   </section>
@@ -96,43 +96,43 @@ const features = [
   <section class="content-layer px-4 py-16 sm:px-6 lg:px-8" style="border-bottom: 1px solid var(--line);">
     <div class="mx-auto max-w-[1280px]">
       <span class="layer-label">Pipeline</span>
-      <h2 class="mt-4">How it works</h2>
+      <h2 class="mt-4">Cómo funciona</h2>
 
       <div class="mt-10 grid gap-6 md:grid-cols-4">
         <div class="flex flex-col gap-3">
           <div class="flex items-center gap-4">
             <span class="step-circle">1</span>
-            <h3 style="margin: 0;">Observe</h3>
+            <h3 style="margin: 0;">Observar</h3>
           </div>
           <p class="text-sm" style="color: var(--text-muted); line-height: 1.6;">
-            Agents capture decisions, changes, learnings, and tool interactions as structured observations.
+            Los agentes capturan decisiones, cambios, aprendizajes e interacciones con herramientas como observaciones estructuradas.
           </p>
         </div>
         <div class="flex flex-col gap-3">
           <div class="flex items-center gap-4">
             <span class="step-circle">2</span>
-            <h3 style="margin: 0;">Enrich</h3>
+            <h3 style="margin: 0;">Enriquecer</h3>
           </div>
           <p class="text-sm" style="color: var(--text-muted); line-height: 1.6;">
-            Morpheus pipeline: normalize, deduplicate, supersede, consolidate, generate summaries.
+            Pipeline Morpheus: normalizar, deduplicar, reemplazar obsoletos, consolidar, generar resúmenes.
           </p>
         </div>
         <div class="flex flex-col gap-3">
           <div class="flex items-center gap-4">
             <span class="step-circle">3</span>
-            <h3 style="margin: 0;">Inject</h3>
+            <h3 style="margin: 0;">Inyectar</h3>
           </div>
           <p class="text-sm" style="color: var(--text-muted); line-height: 1.6;">
-            Progressive disclosure: ~7K tokens of relevant context at session start, not a data dump.
+            Revelado progresivo: ~7K tokens de contexto relevante al inicio de sesión, no un volcado de datos.
           </p>
         </div>
         <div class="flex flex-col gap-3">
           <div class="flex items-center gap-4">
             <span class="step-circle">4</span>
-            <h3 style="margin: 0;">Connect</h3>
+            <h3 style="margin: 0;">Conectar</h3>
           </div>
           <p class="text-sm" style="color: var(--text-muted); line-height: 1.6;">
-            Agents broadcast on channels. Coordinate swarms, share findings, stay in sync.
+            Los agentes transmiten en canales. Coordina enjambres, comparte hallazgos, mantente sincronizado.
           </p>
         </div>
       </div>
@@ -191,11 +191,11 @@ const features = [
   <!-- ====== CTA ====== -->
   <section class="content-layer px-4 py-20 sm:px-6 lg:px-8" style="border-top: 1px solid var(--line); background: var(--bg-deep);">
     <div class="mx-auto max-w-[1280px] text-left">
-      <h2>No agent starts from zero</h2>
-      <p class="mt-4 max-w-xl" style="color: var(--text-muted);">Start free with 10K observations. No credit card required.</p>
+      <h2>Ningún agente parte desde cero</h2>
+      <p class="mt-4 max-w-xl" style="color: var(--text-muted);">Empieza gratis con 10K observaciones. Sin tarjeta de crédito.</p>
       <div class="mt-8 flex items-center gap-4">
-        <a href="/pricing" class="btn-accent">Start Free</a>
-        <a href="/docs/quickstart" class="btn-ghost">Quick Start Guide</a>
+        <a href="/pricing" class="btn-accent">Empezar gratis</a>
+        <a href="/docs/quickstart" class="btn-ghost">Guía de inicio rápido</a>
       </div>
     </div>
   </section>

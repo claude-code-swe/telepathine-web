@@ -2,6 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { connectors } from '../../data/connectors';
 import CodeBlock from '../../components/CodeBlock.astro';
+import { getLocaleFromUrl } from '../../i18n/utils';
+import { t } from '../../i18n/ui';
+import type { Locale } from '../../i18n/utils';
 
 export function getStaticPaths() {
   return connectors.map(conn => ({
@@ -11,6 +14,7 @@ export function getStaticPaths() {
 }
 
 const { connector } = Astro.props;
+const locale: Locale = 'es';
 
 const statusClasses: Record<string, string> = {
   stable: 'badge-stable',
@@ -25,7 +29,7 @@ const statusClasses: Record<string, string> = {
 >
   <section class="content-layer px-4 pb-16 pt-24 sm:px-6 sm:pt-32 lg:px-8">
     <div class="mx-auto max-w-4xl">
-      <a href="/connectors" class="text-sm transition" style="color: var(--text-muted);">← All Connectors</a>
+      <a href="/connectors" class="text-sm transition" style="color: var(--text-muted);">← {t(locale, 'common.allConnectors')}</a>
       <div class="mt-4 flex items-center gap-4">
         <div class="flex h-14 w-14 items-center justify-center rounded-xl text-2xl font-bold" style={`background-color: ${connector.logoColor}15; color: ${connector.logoColor};`}>
           {connector.name.charAt(0)}
@@ -41,7 +45,7 @@ const statusClasses: Record<string, string> = {
       <p class="mt-6 text-lg" style="color: var(--text-muted);">{connector.description}</p>
 
       <div class="mt-10">
-        <h2 class="text-xl font-bold">Installation</h2>
+        <h2 class="text-xl font-bold">{t(locale, 'common.install')}</h2>
         <div class="mt-4">
           <CodeBlock code={connector.installCmd} lang="bash" title="Install" />
         </div>
@@ -49,7 +53,7 @@ const statusClasses: Record<string, string> = {
 
       {connector.events.length > 0 && (
         <div class="mt-10">
-          <h2 class="text-xl font-bold">Supported Events</h2>
+          <h2 class="text-xl font-bold">{t(locale, 'common.supportedEvents')}</h2>
           <div class="mt-4 flex flex-wrap gap-2">
             {connector.events.map(e => (<span class="tag-mono">{e}</span>))}
           </div>
@@ -58,26 +62,26 @@ const statusClasses: Record<string, string> = {
 
       {connector.busIntegration && (
         <div class="mt-10">
-          <h2 class="text-xl font-bold">Bus Integration</h2>
+          <h2 class="text-xl font-bold">{t(locale, 'common.busIntegration')}</h2>
           <div class="mt-4">
             {connector.busIntegration === 'connected' && (
-              <span class="rounded-full px-2.5 py-0.5 text-xs font-medium" style="background: #10B98120; color: #10B981;">✓ Connected (bidirectional)</span>
+              <span class="rounded-full px-2.5 py-0.5 text-xs font-medium" style="background: #10B98120; color: #10B981;">✓ {t(locale, 'common.busConnected')}</span>
             )}
             {connector.busIntegration === 'send-only' && (
-              <span class="rounded-full px-2.5 py-0.5 text-xs font-medium" style="background: #F59E0B20; color: #F59E0B;">⚠ Send-only</span>
+              <span class="rounded-full px-2.5 py-0.5 text-xs font-medium" style="background: #F59E0B20; color: #F59E0B;">⚠ {t(locale, 'common.busSendOnly')}</span>
             )}
             {connector.busIntegration === 'not-wired' && (
-              <span class="rounded-full px-2.5 py-0.5 text-xs font-medium" style="background: #6B728020; color: #6B7280;">Not wired</span>
+              <span class="rounded-full px-2.5 py-0.5 text-xs font-medium" style="background: #6B728020; color: #6B7280;">{t(locale, 'common.busNotWired')}</span>
             )}
           </div>
           {connector.platformPriority !== undefined && (
-            <p class="mt-2 text-sm" style="color: var(--text-muted);">Platform priority: P{connector.platformPriority}</p>
+            <p class="mt-2 text-sm" style="color: var(--text-muted);">{t(locale, 'common.platformPriority')}: P{connector.platformPriority}</p>
           )}
         </div>
       )}
 
       <div class="mt-10">
-        <h2 class="text-xl font-bold">Configuration</h2>
+        <h2 class="text-xl font-bold">{t(locale, 'common.configuration')}</h2>
         <div class="mt-4">
           <CodeBlock
             code={`# Set in ~/.telepathine/env\nTELEPATHINE_API_KEY=your_api_key_here\nTELEPATHINE_PROJECT=auto-detected`}
@@ -88,7 +92,7 @@ const statusClasses: Record<string, string> = {
       </div>
 
       <div class="mt-10">
-        <h2 class="text-xl font-bold">Quick Test</h2>
+        <h2 class="text-xl font-bold">{t(locale, 'common.quickTest')}</h2>
         <div class="mt-4">
           <CodeBlock
             code={`curl -s https://api.telepathine.ai/v1/health \\\n  -H "Authorization: Bearer $TELEPATHINE_API_KEY"`}

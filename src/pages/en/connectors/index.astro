@@ -2,6 +2,10 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ConnectorCard from '../../../components/ConnectorCard.astro';
 import { connectors } from '../../../data/connectors';
+import { t } from '../../../i18n/ui';
+import type { Locale } from '../../../i18n/utils';
+
+const locale: Locale = 'en';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -30,16 +34,16 @@ const jsonLd = {
   <section class="content-layer px-4 pb-8 pt-24 sm:px-6 sm:pt-32 lg:px-8">
     <div class="mx-auto max-w-4xl text-center">
       <h1>Connectors</h1>
-      <p class="mx-auto mt-4 max-w-2xl text-lg" style="color: var(--text-muted);">Pre-built adapters for every major coding agent. One install command, instant memory integration.</p>
+      <p class="mx-auto mt-4 max-w-2xl text-lg" style="color: var(--text-muted);">{t(locale, 'common.connectorSubtitle')}</p>
     </div>
   </section>
 
   <section class="content-layer px-4 pb-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-7xl">
       <div class="mb-8 flex flex-wrap gap-2 justify-center">
-        <span class="badge-stable rounded-full px-3 py-1 text-xs font-medium">Stable: {connectors.filter(c => c.status === 'stable').length}</span>
-        <span class="badge-beta rounded-full px-3 py-1 text-xs font-medium">Beta: {connectors.filter(c => c.status === 'beta').length}</span>
-        <span class="badge-alpha rounded-full px-3 py-1 text-xs font-medium">Alpha: {connectors.filter(c => c.status === 'alpha').length}</span>
+        <span class="badge-stable rounded-full px-3 py-1 text-xs font-medium">{t(locale, 'common.stable')}: {connectors.filter(c => c.status === 'stable').length}</span>
+        <span class="badge-beta rounded-full px-3 py-1 text-xs font-medium">{t(locale, 'common.beta')}: {connectors.filter(c => c.status === 'beta').length}</span>
+        <span class="badge-alpha rounded-full px-3 py-1 text-xs font-medium">{t(locale, 'common.alpha')}: {connectors.filter(c => c.status === 'alpha').length}</span>
       </div>
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {connectors.map(conn => (<ConnectorCard connector={conn} />))}

@@ -43,6 +43,7 @@ export interface UIStrings {
 		mcpMemoryServer: string;
 		modelAgnosticMemory: string;
 		agentCommunicationBus: string;
+		agentCommunicationBusStatus: string;
 		claudeMemoryAlternative: string;
 		copyright: string;
 	};
@@ -64,6 +65,15 @@ export interface UIStrings {
 		configuration: string;
 		quickTest: string;
 		allConnectors: string;
+		busConnected: string;
+		busSendOnly: string;
+		busNotWired: string;
+		platformPriority: string;
+		busIntegration: string;
+		stable: string;
+		beta: string;
+		alpha: string;
+		connectorSubtitle: string;
 	};
 	// Docs sidebar
 	docs: {
@@ -72,6 +82,16 @@ export interface UIStrings {
 		restApi: string;
 		mcpServer: string;
 		sdks: string;
+	};
+	// API category labels
+	api: {
+		sessions: string;
+		observations: string;
+		search: string;
+		context: string;
+		projects: string;
+		events: string;
+		system: string;
 	};
 	// Language switcher
 	lang: {

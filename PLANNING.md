@@ -262,3 +262,91 @@ telepathine-web/
 5. **Dark mode default** — we're building for developers
 6. **Fast** — Astro SSG = instant loads, zero JS by default
 7. **Updatable** — data-driven (connectors, API endpoints, pricing are typed data files, not hardcoded)
+
+---
+
+## Domain Acquisition Plan
+
+**Last updated:** 2026-05-26  
+**Pricing source:** Spaceship.com live scrape  
+**Purpose:** Secure the Telepathine brand across key TLDs for trademark protection, deployment, and marketing.
+
+### Acquisition Phases
+
+#### Phase 1: Immediate (Budget-Constrained) ✅
+
+| Domain | Status | 1st Year | Renewal/yr | Purpose |
+|--------|--------|----------|------------|---------|
+| **telepathine.org** | 🟢 Available | **$6.48** | $9.80 | Primary deployment domain |
+
+**Phase 1 total: $6.48**
+
+This gives us a live, deployable domain immediately. `.org` signals credibility and trust for an open-source-rooted project.
+
+#### Phase 2: Core Brand Protection (When Budget Allows)
+
+| Domain | Status | 1st Year | Renewal/yr | Purpose |
+|--------|--------|----------|------------|---------|
+| **telepathine.ai** | 🟢 Available | **$79.98** | $79.98 | Primary product domain — AI TLD signals category |
+| **telepathine.io** | 🟢 Available | **$31.98** | $51.75 | Tech-standard TLD, defensive registration |
+
+**Phase 2 total: $111.96 (yr 1) → $131.73/yr renewal**
+
+#### Phase 3: Full Brand Lockdown (Trademark Defensive)
+
+| Domain | Status | 1st Year | Renewal/yr | Purpose |
+|--------|--------|----------|------------|---------|
+| **telepathine.com** | 🟡 Aftermarket | **$3,495.00** | ~$9.80 | Crown jewel — prevent squatting, maximum credibility |
+| **telepathine.net** | 🟢 Available | **$11.20** | $11.20 | Defensive registration |
+| **telepathine.xyz** | 🟢 Available | **$1.86** | $12.52 | Defensive — cheap |
+| **telepathine.online** | 🟢 Available | **$0.98** | $19.98 | Defensive — cheapest |
+| **telepathine.space** | 🟢 Available | **$0.98** | $18.18 | Defensive — cheapest |
+| **telepathine.live** | 🟢 Available | **$2.07** | $25.88 | Defensive |
+| **telepathine.fyi** | 🟢 Available | **$5.18** | $5.18 | Defensive — stable renewals |
+| **telepathine.tech** | 🟢 Available | **$7.22** | $50.72 | Defensive — watch renewal cost |
+
+**Phase 3 total: $3,525.49 (yr 1) → $153.38/yr renewal** (excluding .com which renews at standard rate)
+
+### Cost Summary Over 3 Years
+
+| Phase | Year 1 | Year 2 | Year 3 | 3-Year Total |
+|-------|--------|--------|--------|-------------|
+| Phase 1 (deploy now) | $6.48 | $9.80 | $9.80 | **$26.08** |
+| Phase 2 (core brand) | $111.96 | $131.73 | $131.73 | **$375.42** |
+| Phase 3 (full lockdown) | $3,525.49 | $153.38 | $153.38 | **$3,832.25** |
+| **Cumulative** | **$3,643.93** | **$294.91** | **$294.91** | **$4,233.75** |
+
+> **Note:** The $3,495 .com aftermarket price dominates Phase 3. If we can negotiate it down or lease-to-own, the 3-year total drops significantly. All other domains are standard pricing.
+
+### Trademark Strategy
+
+Per the trademark research (see `research/deep-research/dr03-trademark.md`):
+
+1. **Common-law rights first** — using `telepathine.org` in commerce establishes common-law trademark rights in the US even without a USPTO filing
+2. **Defensive registrations** — owning 8+ TLDs prevents cybersquatters from registering variants and suing us
+3. **Budget $15–25K** for potential USPTO opposition or cease-and-desist response (Neuralink/Prophetic "TELEPATHY" marks exist)
+4. **File trademark proactively** once revenue supports it — likely Class 9 (software) and Class 42 (SaaS)
+5. **Never use chemical/biological metaphors** in public copy — this avoids USPTO "deceptively misdescriptive" refusal under Section 2(e)(1)
+
+### Domain → Deployment Mapping
+
+| Domain | Planned Use |
+|--------|-------------|
+| telepathine.org | **Primary site** — marketing, docs, API docs (until .ai is acquired) |
+| telepathine.ai | **Primary product domain** — API endpoint, dashboard, marketing |
+| telepathine.io | **Developer hub** — SDK docs, MCP reference, GitHub Pages mirror |
+| telepathine.com | **Corporate / redirect** → telepathine.ai |
+| All others | **301 redirects** → telepathine.ai |
+
+### Competitor Domain Landscape (Reference)
+
+**"telepath" domains** — heavily squatted, most good TLDs taken:
+- telepath.com → Taken (1994), telepath.ai → Taken (2017), telepath.io → Taken (2020)
+- Available TLDs are premium-priced (.online $64.69, .tech $129.38, .space $25.88)
+
+**"telepathy" domains** — even more saturated:
+- telepathy.com → Taken (1998), telepathy.ai → N/A, telepathy.io → Aftermarket $77,995
+
+**"telepathic" domains** — taken on .com, .io, .tech; available on .it.com, .online, .llc
+
+**Conclusion:** "Telepathine" is uniquely available across almost all TLDs at standard pricing — a significant brand advantage over the root words.

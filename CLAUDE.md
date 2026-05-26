@@ -7,12 +7,12 @@ The public-facing marketing website for Telepathine.ai — an Astro 5 + Tailwind
 
 | Project | Path | Stack | Purpose |
 |---|---|---|---|
-| **This website** | `telepathine-web/` | Astro 5 + Tailwind 4 | Marketing + docs |
-| **Dashboard** | `apps/webgui/` | Next.js 15 + shadcn/ui | Operational UI |
-| **API gateway** | `apps/api/` | Fastify | REST API (port 37778) |
-| **Worker** | `apps/worker/` | Fastify | Data engine (port 37777) |
-| **Brand tokens** | `brand/` | JSON + scripts | Single source of truth |
-| **Root repo** | `/` (agent-memory-DEV) | pnpm monorepo | Git origin: `ArtemisAI/agent-memory-DEV.git` |
+| **This website** | `/home/artemisai/projects/telepathine-web/` | Astro 5 + Tailwind 4 | Marketing + docs |
+| **Dashboard** | `/home/artemisai/projects/agent-memory-DEV/apps/webgui/` | Next.js 15 + shadcn/ui | Operational UI |
+| **API gateway** | `/home/artemisai/projects/agent-memory-DEV/apps/api/` | Fastify | REST API (port 37778) |
+| **Worker** | `/home/artemisai/projects/agent-memory-DEV/apps/worker/` | Fastify | Data engine (port 37777) |
+| **Brand tokens** | `/home/artemisai/projects/agent-memory-DEV/brand/` | JSON + scripts | Single source of truth |
+| **Dev repo** | `/home/artemisai/projects/agent-memory-DEV/` | pnpm monorepo | Git origin: `ArtemisAI/agent-memory-DEV.git` |
 
 ## Repos
 
@@ -124,13 +124,14 @@ pnpm build        # → ~86 pages, ~4s
 
 | Need | Location |
 |---|---|
-| Brand colors/fonts/rules | `brand/tokens.json`, `brand/BRAND.md` |
+| Brand colors/fonts/rules | `/home/artemisai/projects/agent-memory-DEV/brand/tokens.json`, `brand/BRAND.md` |
 | Website CSS tokens | `src/styles/global.css` |
-| Dashboard CSS tokens | `apps/webgui/src/app/globals.css` |
+| Dashboard CSS tokens | `/home/artemisai/projects/agent-memory-DEV/apps/webgui/src/app/globals.css` |
 | Pricing data | `src/data/pricing.ts` |
 | Connector data | `src/data/connectors.ts` |
-| Brand copy | `src/data/brand.ts`, `brand/BRAND.md` |
+| Brand copy | `src/data/brand.ts`, `/home/artemisai/projects/agent-memory-DEV/brand/BRAND.md` |
 | Stitch design assets | `.stitch/designs-v3/` |
 | Stitch context docs | `.stitch/CONTEXT.md`, `.stitch/SITE.md`, `.stitch/DESIGN-v2.md` |
-| Research/branding docs | `research/` (in agent-memory-DEV root) |
-| Drift verification | `bash brand/verify-drift.sh` (from repo root) |
+| Research/branding docs | `/home/artemisai/projects/agent-memory-DEV/research/` |
+| Domain acquisition plan | `PLANNING.md` → Domain Acquisition Plan section |
+| Drift verification | `bash /home/artemisai/projects/agent-memory-DEV/brand/verify-drift.sh` |
